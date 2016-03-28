@@ -4,7 +4,7 @@ let __root = (dir) => path.join(path.dirname(__dirname), dir);
 
 
 export default Object.assign(require('../package.json'), {
-    name: "demo",
+    name: "iacg",
     path: {
         client: __root('client'),
 
