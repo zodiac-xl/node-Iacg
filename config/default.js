@@ -41,7 +41,6 @@ export default Object.assign(require('../package.json'), {
 
         //static detail
         imgPath: "/images",
-        logo: "/images/logo.jpeg",
         favicon: __root('client/static/images/favicon.ico')
 
     }

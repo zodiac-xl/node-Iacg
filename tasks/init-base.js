@@ -19,7 +19,7 @@ let dist = createConfig.dist;
 
 
 gulp.task('init-base', function (cb) {
-    runSequence('clean-base', 'base-fonts', 'base-js', 'base-css', cb)
+    runSequence('clean-base', 'base-js', 'base-css', cb)
 });
 
 gulp.task('clean-base', function (cb) {
@@ -47,18 +47,4 @@ gulp.task('base-css', function () {
         }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(dist.css));
-});
-
-
-gulp.task('base-fonts', function (cb) {
-    copyDir(source.fonts, dist.fonts, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('----------------------');
-            console.log('copy fonts successed');
-            console.log('----------------------');
-        }
-        cb()
-    });
 });

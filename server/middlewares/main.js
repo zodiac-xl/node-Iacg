@@ -22,14 +22,11 @@ export default function (app, config) {
 
 
     if (!config.debug) {
-
         //response-time
         app.use(responseTime());
 
         //logger
         app.use(logger());
-
-
 
     }
 

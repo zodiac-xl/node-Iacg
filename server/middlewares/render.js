@@ -12,12 +12,7 @@ let readFile = function (src) {
 function render(viewPagePath, pageName, locals = {}) {
 
     let data = config;
-    data.user = JSON.stringify(this.session.user);
     data.debug = config.debug;
-    data.hostKeys = JSON.stringify(Object.keys(config.hostMap).filter(function (key) {
-        return /(office|staging)/.test(key);
-    }));
-    data.imgPath = config.path.imgPath;
     data.pageName = pageName;
     data.pageId = locals.$id || pageName;
     data.title = locals.$title || config.name;

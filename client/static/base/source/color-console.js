@@ -116,6 +116,6 @@ var helloWrold = {
 };
 
 console.log(
-    '亲爱的' + window.User.name.substr(1) + ',' + helloWrold.cnTime() +
+    '亲爱的' + (window.User && window.User.name.substr(1) || "游客") + ',' + helloWrold.cnTime() +
     '\n' +
     '今天是' + helloWrold.dayMap[new Date().getDay()].cn + "，" + helloWrold.dayMap[new Date().getDay()].des + '哦，^_^');
