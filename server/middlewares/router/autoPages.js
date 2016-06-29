@@ -15,7 +15,7 @@ export default function (app, config) {
         if (pageName) {
             pageName = pageName[0];
         }else{
-            pageName ='home';
+            pageName ='/home';
         }
 
 
