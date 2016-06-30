@@ -1,5 +1,5 @@
 import gulp             from 'gulp'
-import runSequence      from 'gulp-sequence'
+import runSequence      from 'run-sequence'
 import concat           from 'gulp-concat'
 import uglify           from 'gulp-uglify'
 import uglifycss        from 'gulp-uglifycss'
