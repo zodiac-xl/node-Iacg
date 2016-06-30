@@ -10,7 +10,6 @@ export const options = yargs
     .alias('d', 'debug')
     .argv;
 
-export const jsLoader = 'babel?cacheDirectory&stage=0';
 
 let baseConfig = {
     entry: undefined,
@@ -23,12 +22,24 @@ let baseConfig = {
 
     module: {
         loaders: [
-            {test: /\.js/, loader: jsLoader,exclude:/(node_modules\/[^(@myfe)]|min\.js)/},
-            { test: /\.css$/, loader: ExtractTextPlugin.extract("css?sourceMap") },
-            { test: /\.less$/,loader: ExtractTextPlugin.extract("css?sourceMap!less?sourceMap")},
-            { test: /\.json$/, loader: 'json' },
-            { test: /\.jpe?g$|\.gif$|\.png|\.ico$/, loader: 'file?name=[name].[ext]' },
-            { test: /\.eot$|\.ttf$|\.svg$|\.woff2?$/, loader: 'file?name=[name].[ext]' }
+            {
+                test: /\.js/,
+                loader: 'babel',
+                query: {
+                    "presets": [
+                        "es2015",
+                        "react",
+                        "stage-0"
+                    ],
+                    plugins: ["add-module-exports", "transform-decorators-legacy"],
+                },
+                exclude: /node_modules\/[^(@myfe)]/
+            },
+            {test: /\.css$/, loader: ExtractTextPlugin.extract("css?sourceMap")},
+            {test: /\.less$/, loader: ExtractTextPlugin.extract("css?sourceMap!less?sourceMap")},
+            {test: /\.json$/, loader: 'json'},
+            {test: /\.jpe?g$|\.gif$|\.png|\.ico$/, loader: 'file?name=[name].[ext]'},
+            {test: /\.eot$|\.ttf$|\.svg$|\.woff2?$/, loader: 'file?name=[name].[ext]'}
         ]
     },
 
