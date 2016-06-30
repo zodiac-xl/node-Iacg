@@ -1,4 +1,5 @@
-require('babel/register');
+require('babel-core/register');
+require("babel-polyfill");
 
 var config = require('config');
 var server = require('./server');
