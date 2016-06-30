@@ -13,13 +13,8 @@ echo npm version: $(npm --version)
 
 # install node js package
 #
-npm install npm -g
+npm install
 
-npm                                   \
---registry=http://r.npm.sankuai.com   \
---cache=$HOME/.npm/.cache/mnpm        \
---userconfig=$HOME/.mnpmrc            \
-install
 
 #
 # run gulp commands

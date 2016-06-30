@@ -9,10 +9,7 @@ let __root = (dir) => path.join(path.dirname(__dirname), dir);
 
 let entries = {};
 
-let needWatch =false;
-if(config.debug){
-    needWatch = true;
-}
+let needWatch = false;
 
 glob.sync(config.path.reactPages + "/**/*.jsx")
     .forEach((f) => {
@@ -40,7 +37,7 @@ export default _.extend({}, baseConfig, {
         library: 'Page',
         libraryTarget: 'var'
     },
-    watch:needWatch,
+    watch: needWatch,
 
     externals: {
         "jquery": "jQuery",

@@ -1,0 +1,15 @@
+{
+  "apps": [
+    {
+      "name": "Iacg",
+      "script": "index.js",
+      "exec_interpreter": "node",
+      "node_args": "--harmony",
+      "instances": 4,
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "max_memory_restart": "1400M",
+      "merge_logs": true,
+      "watch": false,
+    }
+  ]
+}

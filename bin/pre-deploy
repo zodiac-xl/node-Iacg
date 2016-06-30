@@ -15,14 +15,7 @@ echo npm version: $(npm --version)
 
 # install node js package
 #
-npm install npm -g
-
-NODE_ENV=production                  \
-npm                                   \
---registry=http://r.npm.sankuai.com   \
---cache=$HOME/.npm/.cache/mnpm        \
---userconfig=$HOME/.mnpmrc            \
-install
+npm install
 
 #
 # run gulp commands
