@@ -7,6 +7,7 @@ bower_components
 ###预编译文件
 index_react.*
 client/static/base/dist
+client/static/amd
 server/md5Map.js
 
 
