@@ -19,12 +19,14 @@ app
     .myUse('error')//catch error
     .myUse('local2ip')
     .myUse('router/alive')
+    .myUse('router/401')
+    .myUse('router/404')
     .myUse('router/mock')
-    .myUse('router/crossProxy')//访问非BD项目接口防跨域转发
     .myUse('main')
-    .myUse('template')
-    .myUse('render')
-    .myUse('router/autoPages')
+    .myUse('redirect')
+    .myUse('template')//后端模板
+    .myUse('render')//后端渲染方法
+    .myUse('router/autoPages')//页面路由
     .myUse('not_found');
 
 

@@ -1,7 +1,6 @@
 import fs               from 'fs';
 import path             from 'path';
 import pathExists       from 'path-exists';
-import URL              from 'url';
 import config           from 'config';
 import md5Map           from '../md5Map';
 
@@ -13,6 +12,7 @@ function render(viewPagePath, pageName, locals = {}) {
 
     let data = config;
     data.debug = config.debug;
+    data.imgPath = config.path.imgPath;
     data.pageName = pageName;
     data.pageId = locals.$id || pageName;
     data.title = locals.$title || config.name;
@@ -49,9 +49,15 @@ function render(viewPagePath, pageName, locals = {}) {
         jsPath = (!config.debug && md5Map[reactJsPath]) ? (jsPath + '?' + md5Map[jsPath]) : jsPath;
         data.javascipts.push(jsPath);
     }
-    if (pathExists.sync(path.join(config.path.viewPages, reactJsPath))) {
-        reactJsPath = (!config.debug && md5Map[reactJsPath]) ? (reactJsPath + '?' + md5Map[reactJsPath]) : reactJsPath;
-        data.javascipts.push(reactJsPath);
+
+    data.requirejavascipts = [];
+    if (config.cmd2amd) {
+        data.requirejavascipts.push(path.join('/amd/client/pages/', pageName, 'index.js'));
+    } else {
+        if (pathExists.sync(path.join(config.path.viewPages, reactJsPath))) {
+            reactJsPath = (!config.debug && md5Map[reactJsPath]) ? (reactJsPath + '?' + md5Map[reactJsPath]) : reactJsPath;
+            data.javascipts.push(reactJsPath);
+        }
     }
 
 

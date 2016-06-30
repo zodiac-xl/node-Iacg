@@ -35,6 +35,8 @@ export default Object.assign(require('../package.json'), {
 
         //layout
         layout: __root('client/layout.html'),
+        transitionLayout: __root('client/transition-layout.html'),
+
 
         //components
         components: __root('components'),

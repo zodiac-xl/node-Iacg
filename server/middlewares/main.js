@@ -9,7 +9,6 @@ import logger               from 'koa-logger';
 import compress      from 'koa-compress';
 
 //
-import body         from 'koa-body';
 import jsonResp     from 'koa-json-response';
 
 
@@ -22,11 +21,14 @@ export default function (app, config) {
 
 
     if (!config.debug) {
+
         //response-time
         app.use(responseTime());
 
         //logger
         app.use(logger());
+
+
 
     }
 
@@ -39,9 +41,6 @@ export default function (app, config) {
         flush: require('zlib').Z_SYNC_FLUSH
     }));
 
-
-    //body parser
-    app.use(body());
 
     //json response
     app.use(jsonResp());

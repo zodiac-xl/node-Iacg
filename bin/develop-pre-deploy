@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+## Enables checking of all commands
+set -e
+
+
+echo "内核信息"
+uname -a
+
+echo "现存 node 版本 ==========================================="
+echo node version: $(node --version)
+echo npm version: $(npm --version)
+
+# install node js package
+#
+npm install npm -g
+
+npm                                   \
+--registry=http://r.npm.sankuai.com   \
+--cache=$HOME/.npm/.cache/mnpm        \
+--userconfig=$HOME/.mnpmrc            \
+install
+
+#
+# run gulp commands
+#
+NODE_ENV=development ./node_modules/gulp/bin/gulp.js preDeploy
+
+
+
+echo "====> $0 EXECUTE OVER <===="

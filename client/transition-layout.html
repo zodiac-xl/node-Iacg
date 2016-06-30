@@ -11,7 +11,7 @@
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
-    <!-- base css-->
+    <!--base css-->
     <link rel="stylesheet" href="/base/dist/css/base.min.css">
 
     <!--page css-->
@@ -19,6 +19,10 @@
     <link rel="stylesheet" href="<%= style %>">
     <% }) %>
 
+
+    <script>
+
+    </script>
 
     <!--base js-->
     <script src="/base/dist/js/base.min.js"></script>
@@ -28,7 +32,6 @@
     <script src="<%= script %>"></script>
     <% }) %>
 
-
     <!--page js-->
     <% requirejavascipts.forEach(function(script){ %>
     <script>
@@ -36,10 +39,37 @@
     </script>
     <% }) %>
 
+
 </head>
 <body>
 
 <div id="app">
+    <div id="container-header">
+
+    </div>
+    <div class="my-page-content">
+
+        <div class="my-page-header">
+        </div>
+        <div class="my-page-top-bar">
+        </div>
+        <div class="my-page-main">
+            <%= body %>
+        </div>
+        <div class="my-page-bottom-bar">
+        </div>
+        <div class="my-page-footer">
+        </div>
+    </div>
+    <div id="container-sideBar">
+    </div>
+    <div id="container-footer">
+
+    </div>
+    <div id="container-debug">
+
+    </div>
+
 </div>
 </body>
 </html>

@@ -3,7 +3,6 @@ import fu                           from 'fileutil';
 import _                            from 'lodash';
 import path                         from 'path';
 import jsonResp                     from 'koa-json-response';
-import URL                          from 'url';
 
 
 export default function (app, config) {

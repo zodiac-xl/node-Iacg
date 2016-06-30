@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Enables checking of all commands
+set -e
+
+
+mkdir -p /var/sankuai/logs/node-bd
+
+# kill pm2
+pm2 kill
+
+# start pm2
+NODE_ENV=development pm2 start process.json
+
+echo "====> $0 EXECUTE OVER <===="
