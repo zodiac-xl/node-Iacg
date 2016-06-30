@@ -1,7 +1,7 @@
 import gulp                 from 'gulp'
 import requireDir           from 'require-dir'
 
-import runSequence          from 'gulp-sequence'
+import runSequence          from 'run-sequence'
 import shell                from 'gulp-shell'
 
 
