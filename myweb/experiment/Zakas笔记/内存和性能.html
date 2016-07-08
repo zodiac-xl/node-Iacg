@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        .wrap{
+            position: absolute;
+            top: 200px;
+            left: 40%;
+        }
+        .test {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: indianred;
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="test">
+        testContent
+    </div>
+    <ul class="context-menu">
+        <li class="1" id="1">上下文菜单1</li>
+        <li class="2" id="2" title="2" data-address="3">上下文菜单2</li>
+        <li class="3">上下文菜单3</li>
+        <li class="4">上下文菜单4</li>
+        <li class="5">上下文菜单5</li>
+    </ul>
+</div>
+<script src="../xPc.js"></script>
+<script>
+    //为可以冒泡的事件添加事件委托
+    //将事件绑定到元素 甚至是document
+    W.addHandler(document.querySelector(".wrap"),"click",function(e){
+        event= W.getEvent(e);
+        var target= W.getEventTarget(event);
+        console.log(target.getAttribute("class"));
+        switch (target.title){  //也可以是title等属性
+            case "1":alert(1);break;
+            case "2":alert(2);break
+            default :break;
+        }
+    })
+    //事件移除ele.onclick=null;的形式
+    //在页面卸载之前用onunloa移除所有事件  事件委托优势就出来了 不用跟踪过多的事件处理程序
+
+
+    //事件模拟
+
+</script>
+</body>
+</html>

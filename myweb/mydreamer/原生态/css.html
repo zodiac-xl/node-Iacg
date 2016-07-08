@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>css</title>
+<script src="../js/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+	padding: 40px 20% 20% 100px;
+	background: rgb(221, 221, 221);
+}
+dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;
+	text-indent: -47px;
+}
+/*编号*/
+body>dl>dt:before {
+	content: "第"counter(chapter)"章: "; /*/section为计数器取的名 可以为任意*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: black;
+	font-weight: bold;
+	font-size: larger;
+}
+body>dl {
+	counter-increment: chapter;  /*计数自增*/
+}
+/*编号*/
+
+
+
+body>dl>dd:before {
+	content: counter(section, upper-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd {
+	counter-increment: section;  /*计数自增*/
+}
+body>dl>dd>dl>dd:before {
+	content: counter(section2, lower-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd>dl>dd {
+	counter-increment: section2;
+}
+ /*编号*/
+ .a{background:red;}
+ .b{background:black;}
+</style>
+</head>
+
+<body>
+<dl>
+<dt>层叠等级的含义 css内部等级优先</strong></dt>
+<dd>
+原则一 - 继承不如指定。<br />
+原则二 - #ID > .class > 标签选择符。<br />
+原则三 - 越具体越强大。<br />
+原则四 - 标签#id >#id ; 标签.class > .class。<br />
+原则五 - 原则一 > 原则二 > 原则三 > 原则四。
+ </dd>
+ </dl>
+<dl> 
+<dt>选择器分组</dt>
+<dd>h2,p{}</dd>
+</dl>
+<dl>
+<dt>多类选择器</dt>
+<dd>class="important warning" 顺序无所谓 如2个class都有定义且重复 在样式表中后面的覆盖前面的重复定义的样式</dd>
+</dl>
+<dl>
+<dt>属性选择器</dt>
+<dd>*[title]选择所有带有title属性的元素 如< h1 title="aa">bb< / h1><br />
+a[href] 或连用a[href][title]  img[alt]; 也可选取指定属性值 img[alt="hello"], p[class="select"]等<br />
+子串匹配属性选择器<br />
+p[attr]<br />
+p[attr=value]<br />
+p[attr~=value] 属性值包含指定词汇单词的元素<br />
+p[attr|=value] 属性值以指定值开头 且该指定值必须为整个单词<br />
+p[attr^=value] 属性值以指定值开头<br />
+p[attr$=value] 属性值以指定值结尾<br />
+p[arrt*=value] 属性值包含指定值</dd>
+</dl>
+<dl>
+<dt>后代选择器 子选择器 相邻兄弟选择器</dt>
+<dd>后代选择器div.main a 子选择器div.main>a 相邻兄弟h1+p</dd>
+</dl>
+<dl>
+<dt>伪类选择器</dt>
+<dd>锚伪类 a:link{} a:visited{} a:hover{} a:active{} hover必须在link和visited之后才有效 active必须在hover之后才有效</dd>
+<dd>伪类与css类 a.red:visited  < a class="red">dd< /a></dd>
+<dd>:first-child  :first-line  :first-letter</dd>
+<dd>:before 在元素之前加内容如content:"aa"; :after在元素之后加内容</dd>
+</dl>
+<script type="text/javascript">
+$(document).ready(function(e) {     
+	$("dd").hide();
+	$("dt").click(function(e){$(this).nextAll().slideToggle()});
+  // $("dl").toggle(function(e){$(this).siblings("dd").slideDown("slow")},function(e){$(this).siblings("dd").slideUp("slow")});
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCUTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html charset=utf-8">
+<style type="text/css">
+body{padding: 30px 5%;background: rgb(221, 221, 221);}
+</style>
+</head>
+<body>
+
+<script type="text/javascript">
+//document.write(navigator.userAgent)
+  function getBrowser() 
+{ 
+var Sys = {}; 
+var ua = navigator.userAgent.toLowerCase(); //(s = ua.match(/(.)(msie) ([\d.]+)/)) ? Sys.ie = s[0] :
+
+											//(s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+											//s[o]表示match到的所有字符
+											//s[1]表示所有字符的第一个括号中的字符
+											//s[n]表示第n个括号中的字符
+											//document.all ie专有
+											//document.opera opera专有
+var re =/(msie|firefox|chrome|opera|version).([\d.]+)/; 
+var m = ua.match(re); 
+Sys.browser = m[1].replace(/version/, "'safari"); 
+Sys.ver = m[2]; 
+a=m[0];
+return Sys; 
+} 
+var sys = getBrowser(); 
+document.write(sys.browser + "===" + sys.ver);
+
+document.write(a);
+    </script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>i站屏保</title>
+    <meta name="copyright" content="Copyright (c) Zodiac">
+    <meta name="keywords"
+          content="ACG A岛 DOTA LOL MAD MUGEN V家 东方 二次元 作死 动漫 动画 匿名版 喵星人 基友 天下漫友是一家 弹幕 新番 日剧 游戏 生放送 电影 番组 直播 美剧 英雄联盟 视频 解说 解说 认真你就输了 评论才是本体 鬼畜">
+    <link rel="bookmark" href="xr.png">
+    <link rel="shortcut icon" href="xr.png">
+</head>
+<body>
+<style type="text/css">
+    #slider_container {
+        position: absolute;
+        left: 50%;
+        margin-left: -480px;
+        border: 1px solid black;
+        background: rgb(7, 6, 6);
+        top: 100px;
+    }
+
+    #slider-1 .slider_nav {
+        background-image: url(img/nav-bg.png)
+    }
+
+    #slider-1 .slider_nav li {
+        background-image: url(img/nav-li.png)
+    }
+
+    #slider-1 .slider_nav li.slider_nav_active, #slider-1 .slider_nav li:hover {
+        background-image: url(img/nav-li-active.png)
+    }
+
+    #slider-1 .slider_nav {
+        cursor: default;
+        display: block;
+        float: right;
+        list-style: none;
+        bottom: 112px;
+        right: 0px;
+        padding: 1px 5px 3px 10px;
+        margin: 0;
+        background-repeat: no-repeat;
+        background-position: top left
+    }
+
+    #slider-1 .slider_nav li {
+        float: left;
+        width: 9px;
+        height: 9px;
+        background-repeat: no-repeat;
+        background-position: 5px 0;
+        text-indent: -9999px;
+        padding: 0 5px 5px 5px;
+        cursor: pointer
+    }
+
+    #slider-1 .slider_nav li:last-child {
+        margin: 0
+    }
+
+    #slider-1 .slider_nav li.slider_nav_active, #slider-1 .slider_nav li:hover {
+        background-repeat: no-repeat
+    }
+
+    #slider-1 {
+        width: 940px;
+        height: 470px;
+        padding: 2px;
+    }
+
+    #slider-content {
+        width: 940px;
+        height: 470px;
+        position: relative;
+        cursor: pointer
+    }
+
+    #slider-1 .cube {
+        width: 157px;
+        height: 157px;
+        position: absolute;
+        overflow: hidden
+    }
+
+    #slider-1 .inner_a {
+        width: 157px;
+        height: 157px;
+        z-index: 2;
+        position: absolute
+    }
+
+    #slider-1 .inner_b {
+        width: 157px;
+        height: 157px;
+        z-index: 1;
+        position: absolute
+    }
+
+    #slider-1 .slider_info_holder {
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        bottom: 115px
+    }
+
+    #slider-1 .info_line {
+        text-align: right;
+        float: right
+    }
+
+    #slider-1 .info_line a {
+        background: rgba(0, 0, 0, 0.66);
+        color: white;
+        display: block;
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 54px;
+        letter-spacing: -2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: 0 8px 1px 8px;
+        background-repeat: repeat;
+        -moz-border-radius: 2px 0 0 2px;
+        -webkit-border-radius: 2px 0 0 2px;
+        border-radius: 2px 0 0 2px
+    }
+
+    #slider-1 .info_line a:hover {
+        background: rgba(202, 40, 196, 0.66);;
+    }
+
+    #slider-feed {
+        display: none
+    }
+
+    #slider-feed {
+        display: none
+    }
+
+    #slider-1 .slider_nav {
+        cursor: default;
+        display: block;
+        float: right;
+        list-style: none;
+        bottom: 112px;
+        right: 0px;
+        padding: 1px 5px 3px 10px;
+        margin: 0;
+        background-repeat: no-repeat;
+        background-position: top left
+    }
+
+    #slider-1 .slider_nav li {
+        float: left;
+        width: 9px;
+        height: 9px;
+        background-repeat: no-repeat;
+        background-position: 5px 0;
+        text-indent: -9999px;
+        padding: 0 5px 5px 5px;
+        cursor: pointer
+    }
+
+    #slider-1 .slider_nav li:last-child {
+        margin: 0
+    }
+
+    #slider-1 .slider_nav li.slider_nav_active, #slider-1 .slider_nav li:hover {
+        background-repeat: no-repeat
+    }</style>
+<script src="../js/jquery.js"></script>
+<!--<script type="text/javascript" src="http://1-ps.googleusercontent.com/h/www.hacg.me/js/jquery.min.js.pagespeed.jm.7wstxQfpDG.js"></script>-->
+<!--<script type="text/javascript" src="http://1-ps.googleusercontent.com/h/www.hacg.me/sm/js/jquery.easing.js.pagespeed.jm.Sasb1cwWfQ.js"></script>-->
+<!--<script type="text/javascript"-->
+<!--src="http://1-ps.googleusercontent.com/h/www.hacg.me/sm/templates/slider/slider-1.js.pagespeed.jm.L2Rf6ZiLvZ.js"></script>-->
+<script src="easing.js"></script>
+<script src="slider.js"></script>
+<script type="text/javascript">
+    var show_slider2_grid = 'true';
+    var show_slider_title = 'true';
+    var slider_autoslide = '3000';</script>
+<audio autoplay="autoplay" style="display:none">
+    <source src="saber.mp3" type="audio/mpeg">
+</audio>
+<div id="slider_container">
+    <div id="slider_wrapper">
+        <div id="slider-1">
+            <div id="slider-content">
+                <div class="cube" id="slider_0_0" style="left:0px;top:0px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style=" width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: 0px 0px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: 0px 0px;"></div>
+                </div>
+                <div class="cube" id="slider_1_0" style="left:157px;top:0px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -157px 0px;"></div>
+                </div>
+                <div class="cube" id="slider_2_0" style="left:314px;top:0px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -314px 0px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -314px 0px;"></div>
+                </div>
+                <div class="cube" id="slider_3_0" style="left:471px;top:0px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -471px 0px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -471px 0px;"></div>
+                </div>
+                <div class="cube" id="slider_4_0" style="left:628px;top:0px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -628px 0px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -628px 0px;"></div>
+                </div>
+                <div class="cube" id="slider_5_0" style="left:785px;top:0px; width:155px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -785px 0px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -785px 0px;"></div>
+                </div>
+                <div class="cube" id="slider_0_1" style="left:0px;top:157px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: 0px -157px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: 0px -157px;"></div>
+                </div>
+                <div class="cube" id="slider_1_1" style="left:157px;top:157px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -157px -157px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -157px -157px;"></div>
+                </div>
+                <div class="cube" id="slider_2_1" style="left:314px;top:157px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -314px -157px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -314px -157px;"></div>
+                </div>
+                <div class="cube" id="slider_3_1" style="left:471px;top:157px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -471px -157px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -471px -157px;"></div>
+                </div>
+                <div class="cube" id="slider_4_1" style="left:628px;top:157px; width:157px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -628px -157px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -628px -157px;"></div>
+                </div>
+                <div class="cube" id="slider_5_1" style="left:785px;top:157px; width:155px; height:157px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: -785px -157px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -785px -157px;"></div>
+                </div>
+                <div class="cube" id="slider_0_2" style="left:0px;top:314px; width:157px; height:156px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78px; display: block; top: 39px; left: 39px; opacity: 0; background-position: 0px -314px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: 0px -314px;"></div>
+                </div>
+                <div class="cube" id="slider_1_2" style="left:157px;top:314px; width:157px; height:156px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78px; height: 78.07777240801285px; display: block; top: 39px; left: 39px; opacity: 0.0010322441802357307; overflow: hidden; background-position: -157px -314px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -157px -314px;"></div>
+                </div>
+                <div class="cube" id="slider_2_2" style="left:314px;top:314px; width:157px; height:156px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78.10050939164091px; height: 78.1033350952548px; display: block; top: 38.95245616073519px; left: 38.95111952147954px; opacity: 0.0014297711874469154; overflow: hidden; background-position: -314px -314px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -314px -314px;"></div>
+                </div>
+                <div class="cube" id="slider_3_2" style="left:471px;top:314px; width:157px; height:156px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78.13170684383205px; height: 78.13540962720897px; display: block; top: 38.9376988666333px; left: 38.93638978738729px; opacity: 0.0017848270512292874; overflow: hidden; background-position: -471px -314px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -471px -314px;"></div>
+                </div>
+                <div class="cube" id="slider_4_2" style="left:628px;top:314px; width:157px; height:156px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78.17139562852681px; height: 78.17621421551682px; display: block; top: 38.92004111198965px; left: 38.917221367893525px; opacity: 0.0023226701464896804; overflow: hidden; background-position: -628px -314px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -628px -314px;"></div>
+                </div>
+                <div class="cube" id="slider_5_2" style="left:785px;top:314px; width:155px; height:156px;">
+                    <div class="inner_a"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g4.jpg,aw=940,ah=470,azc=1.pagespeed.ic.B7v4gNfL0a.jpg); width: 78.20810769536493px; height: 78.21544659739278px; display: block; top: 38.90155906172879px; left: 38.89879151025437px; opacity: 0.0028397900728912573; overflow: hidden; background-position: -785px -314px;"></div>
+                    <div class="inner_b"
+                         style="background-image: url(http://1-ps.googleusercontent.com/h/www.hacg.me/sm/scripts/xtimthumb.php,qsrc=.,_img,_g5.jpg,aw=940,ah=470,azc=1.pagespeed.ic.x_6eI2uF1M.jpg); width: 156px; height: 156px; display: block; top: 0px; left: 0px; opacity: 1; background-position: -785px -314px;"></div>
+                </div>
+                <div class="slider_info_holder">
+                    <div class="info_line"><a href="" style="opacity: 1; font-size: 48px;">天才麻将少女</a></div>
+                    <div class="clear"></div>
+                    <ul class="slider_nav" style="opacity: 1;">
+                        <li class="">0</li>
+                        <li class="">1</li>
+                        <li class="">2</li>
+                        <li class="slider_nav_active">3</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="slider-feed">
+                <div class="slide">
+                    <img class="slide_source" alt=""src="img/ws-banner-01.jpg">
+                    <div class="transition">random</div>
+                    <div class="title">中二病也要谈恋爱</div>
+                    <div class="lightbox"></div>
+                    <div class="link_url"></div>
+                    <div class="s_description"></div>
+                </div>
+                <div class="slide">
+                    <img class="slide_source" alt=""
+                         src="img/ws-banner-02.jpg">
+                    <div class="transition">random</div>
+                    <div class="title">未确认进行式</div>
+                    <div class="lightbox"></div>
+                    <div class="link_url"></div>
+                    <div class="s_description"></div>
+                </div>
+                <div class="slide">
+                    <img class="slide_source" alt="" src="img/ws-banner-03.jpg">
+                    <div class="transition">random</div>
+                    <div class="title">天才麻将少女</div>
+                    <div class="lightbox"></div>
+                    <div class="link_url"></div>
+                    <div class="s_description"></div>
+                </div>
+                <div class="slide">
+                    <img class="slide_source" alt="" src="img/ws-banner-04.jpg">
+                    <div class="transition">random</div>
+                    <div class="title">伪恋</div>
+                    <div class="lightbox"></div>
+                    <div class="link_url"></div>
+                    <div class="s_description"></div>
+                </div>
+                <div class="slider-img-count">4</div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+
+        .snow {
+            width: 18px;
+            height: 27px;
+            background: -moz-linear-gradient(-135deg, #F0DED4 40%, #F12B72 90%);
+            background: -webkit-linear-gradient(-135deg, #F0DED4 40%, #F12B72 90%);
+            background: -o-linear-gradient(-135deg, #F0DED4 40%, #F12B72 90%);
+            background: linear-gradient(-135deg, #F0DED4 40%, #F12B72 90%);
+            -moz-border-radius: 10px 20px 10px 0px;
+            -webkit-border-radius: 10px 20px 10px 0px;
+            -o-border-radius: 10px 20px 10px 0px;
+            border-radius: 10px 177px 30px 171px;
+        }
+
+        body {
+            background: url(img/Sakura.jpg);
+            overflow: hidden;
+        }
+
+        ::-moz-selection {
+            color: #FFFFFF;
+        }
+
+        ::selection {
+            color: #FFFFFF;
+        }
+
+    </style>
+    <script src="snowstorm.js"></script>
+    <script>
+        $( function () {
+            $( ".link_url" ).text("index.html" );
+            $(".info_line a" ).attr("href","index.html")
+        } )
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>错误处理和调试</title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+
+<script>
+
+    //try catch finally
+    try {
+        Math.floor( 1.3 );
+        //window.floor(1.3);
+    }
+    catch ( error ) {
+        W.log( error.message );
+    }
+    finally {
+
+        W.log( 1 ); //无论抛出异常与否finally都会执行 而且如果finally存在是 try catch中的return都将被忽略
+    }
+
+    //自定义错误
+    function CustomError(message){
+        this.name="CustomError";
+        this.message=message;
+    }
+
+    CustomError.prototype=new Error();
+
+//    throw  new CustomError("my message");
+
+
+
+
+    //控制台调试
+    console.error("error");
+    console.info("info");
+    console.log("log");
+    console.warn("warn");
+
+</script>
+
+
+
+</body>
+</html>

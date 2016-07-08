@@ -1,0 +1,316 @@
+/*图标*/
+.m-icon {
+    position: relative;
+}
+
+.m-icon:after {
+    position: absolute;
+    background: url(img/player.png) no-repeat;
+    background-size: 600px auto;
+    content: "";
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+}
+
+.m-icon.m-back:after {
+    background-position: -80px 0;
+    width: 22px;
+    height: 20px;
+    margin-left: -11px;
+    margin-top: -10px;
+}
+
+.m-icon.m-play:after {
+    background-position: -275px 0;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+}
+
+.m-icon.m-pause:after {
+    background-position: -460px 0;
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+}
+
+.m-icon.m-music-light:after {
+    background-position: -275px -60px;
+    width: 9px;
+    height: 9px;
+    margin-left: -7px;
+    margin-top: -4px;
+}
+
+.m-icon.m-play-next:after {
+    background-position: -340px 0;
+    width: 12px;
+    height: 21px;
+    margin-left: -6px;
+    margin-top: -10px;
+}
+
+.m-icon.m-play-previous:after {
+    background-position: -360px 0;
+    width: 12px;
+    height: 21px;
+    margin-left: -6px;
+    margin-top: -10px;
+}
+
+/*音乐播放器*/
+.m-player {
+    background-color: #000000;
+}
+
+.m-player .m-operation-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 125px;
+    bottom: 0;
+    border-top: 1px solid #383838;
+}
+
+.m-player .m-operation-panel > *, .m-player .m-info > * {
+    position: absolute;
+}
+
+.m-player .m-operation-panel .m-play, .m-player .m-operation-panel .m-pause {
+    height: 50px;
+    width: 50px;
+    top: 20px;
+    left: 50%;
+    margin-left: -25px;
+}
+
+.m-player .m-operation-panel .m-play-next, .m-player .m-operation-panel .m-play-previous {
+    width: 44px;
+    height: 44px;
+    left: 50%;
+    top: 23px;
+}
+
+.m-player .m-operation-panel .m-play-next {
+    margin-left: 46px;
+}
+
+.m-player .m-operation-panel .m-play-previous {
+    margin-left: -90px;
+}
+
+.m-player .m-operation-panel .m-cur-time, .m-player .m-operation-panel .m-duration {
+    top: 96px;
+    line-height: 10px;
+    font-size: 10px;
+}
+
+.m-player .m-operation-panel .m-cur-time {
+    left: 14px;
+    color: white;
+}
+
+.m-player .m-operation-panel .m-duration {
+    right: 14px;
+    color: #777777;
+}
+
+.m-player .m-operation-panel .m-buffering {
+    top: 82px;
+    left: 50px;
+    color: white;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.m-player .m-operation-panel .m-progress-bar {
+    top: 100px;
+    height: 2px;
+    border-radius: 1px;
+    left: 50px;
+    right: 50px;
+    background: #777777;
+}
+
+.m-player .m-operation-panel .m-progress {
+    height: 2px;
+    background: white;
+}
+
+.m-player .m-progress-bar .m-cursor {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    height: 10px;
+    width: 10px;
+}
+
+.m-player .m-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 85px;
+    border-bottom: 1px solid #383838;
+}
+
+.m-player .m-info .m-icon.m-back {
+    height: 44px;
+    width: 44px;
+    top: 6px;
+    left: 4px;
+}
+
+.m-player .m-info .m-outer-line {
+    top: 14px;
+    height: 53px;
+    width: 1px;
+    left: 48px;
+    background: #777;
+}
+
+.m-player .m-info .m-title {
+    left: 66px;
+    right: 17px;
+    top: 16px;
+    font-size: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: white;
+    font-weight: bold;
+}
+
+.m-player .m-info .m-album-artist {
+    left: 66px;
+    right: 85px;
+    top: 52px;
+    color: #D1D1D1;
+    font-size: 17px;
+}
+
+.m-player .m-info .m-album-artist > * {
+    line-height: 13px;
+    font-size: 13px;
+}
+
+.m-player .m-info .m-album-title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.m-player .m-info .m-artist {
+    display: none;
+}
+
+.m-player .m-lyrics {
+    position: absolute;
+    top: 111px;
+    bottom: 151px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.m-player .m-img-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 86px;
+    bottom: 126px;
+    overflow: hidden;
+}
+
+.m-player .m-img-wrapper img {
+    width: 100%;
+    display: block;
+}
+
+.m-player .m-img-wrapper .m-img-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.m-player .m-lyrics .m-line {
+    height: 29px;
+    line-height: 29px;
+    font-size: 14px;
+    color: #848484;
+    text-align: center;
+    overflow: hidden;
+}
+
+.m-player .m-lyrics .m-line.current {
+    font-size: 17px;
+    color: white;
+}
+
+/*状态切换*/
+.m-player.m-buffering .m-operation-panel .m-buffering:after {
+    content: "缓冲中...";
+}
+
+.m-player.loading .m-operation-panel .m-buffering:after {
+    content: "加载中...";
+}
+
+.m-player.loading .m-operation-panel .m-cur-time {
+    visibility: hidden;
+}
+
+.m-player.loading .m-operation-panel .m-duration {
+    visibility: hidden;
+}
+
+.m-player .m-operation-panel .m-play, body.playing .m-player .m-operation-panel .m-pause {
+    display: block;
+}
+
+body.playing .m-player .m-operation-panel .m-play, .m-player .m-operation-panel .m-pause {
+    display: none;
+}
+
+/*视频播放器*/
+.m-video-player {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #000000;
+}
+
+.m-video-player .m-wall {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.m-video-player .m-iframe {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+    z-index: 1;
+}
+
+/*横屏时撑满屏幕*/
+@media screen and (orientation: landscape) {
+    .m-video-player .m-iframe {
+        height: 100% !important;
+        top: 0 !important;
+        margin-top: 0 !important;
+    }
+}

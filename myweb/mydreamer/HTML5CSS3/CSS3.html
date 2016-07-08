@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CSS3</title>
+<script src="../js/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+	padding: 40px 20% 20% 100px;
+	background: rgb(221, 221, 221);
+}
+dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;
+	text-indent: -47px;
+}
+/*编号*/
+body>dl>dt:before {
+	content: "第"counter(chapter)"章: "; /*/section为计数器取的名 可以为任意*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: black;
+	font-weight: bold;
+	font-size: larger;
+}
+body>dl {
+	counter-increment: chapter;  /*计数自增*/
+}
+/*编号*/
+
+
+
+body>dl>dd:before {
+	content: counter(section, upper-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd {
+	counter-increment: section;  /*计数自增*/
+}
+body>dl>dd>dl>dd:before {
+	content: counter(section2, lower-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd>dl>dd {
+	counter-increment: section2;
+}
+ /*编号*/
+</style>
+</head>
+
+<body>
+<p>注：属性设置方法在个浏览器可能略有不同 类似borde-radius  -moz-borde-radius(FireFox) -o-borde-radius(Opera) -webkit-borde-radius(Safara/chrome)</p>
+<dl>
+  <dt>css组合选择器 </dt>
+  <dd>E F后代选择器 </dd>
+  <dd>E>F子选择器 </dd>
+  <dd>E+F邻选择器 </dd>
+  <dd>E~F邻后选择器 </dd>
+</dl>
+<dl>
+  <dt>CSS属性选择器 </dt>
+  <dd>E[attr] //p[class] </dd>
+  <dd>E[attr=val] //p[class="red"] </dd>
+  <dd>E[attr~=val] 选择所有attr属性包括多个空格分隔的值，其中一个值等于“val”的E元素 </dd>
+  <dd>E[attr|=val] 选择所有attr属性包含多个连字符-分隔的值，其中一个值以“val”开头的E元素 </dd>
+  <dd>E[attr^=val] 选择所有attr属性值以val开头的E </dd>
+  <dd>E[attr$=val] 选择所有attr属性值以val结尾的E </dd>
+  <dd>E[attr*=val] 选择所有attr属性值包含val的E </dd>
+</dl>
+<dl>
+  <dt>UI元素状态伪类 只有当元素处于某种状态才应用样式</dt>
+  <dd>E:link,E:visited,E:active,E:hover,E:focus,E:enabled,E:disabled,<br />
+    E:read-only,E:read-write,<br />
+    E::selection,注意是两个： //表示元素处于选中状态时的样式 可以是div p td tr等等等元素
+    适用于表单checkbox radio等的 E:checked,<br />
+    E:default(如：默认选择的radio 当用户将默认设定为选取的单选框或复选框修改为非选取状态，使用default选择器设定的样式依然有效),<br />
+    E:indeterminate(不确定的 如：当单选框或复选框未被选择时)</dd>
+</dl>
+<dl>
+  <dt>CSS伪对象选择器</dt>
+  <dd>E:first-line E元素的第一行对象</dd>
+  <dd>E:first-letter E元素的第一个字母</dd>
+  <dd>E:before 在E之前插入生成的内容可以设置css属性 dd:before{content:url(test.wav)或字符串 "aa"; font-size:12px;  color:red; }</dd>
+  <dd>E:after 在E之后插入生成的内容</dd>
+</dl>
+<dl>
+  <dt>结构性过滤</dt>
+  <dd>:root //root根元素 对html文档就是html 不是body 比body小  指含有内容的html部分</dd>
+  <dd>E:not(s) 选择不符合s的元素</dd>
+  <dd>E:empty 所有E的空元素</dd>
+  <dd>E:target //当文档中的超链接跳转到E时  E应用此样式</dd>
+</dl>
+<dl>
+  <dt>子选择器</dt>
+  <dd></dd>
+  <dd>E:nth-child(n) //p:nth-child(2)  父元素的第2个p元素 n可以为even odd偶或奇</dd>
+  <dd>E:nth-child(4n+1) //循环使用样式 当index为4n+1时应用样式  n自动从0到最大
+  <dd>E:nth-last-child(n) //选择倒数第几个子元素</dd>
+  <dd>E:only-child</dd>
+  <dd>E:nth-of-type(n) //和E:nth-child(n)一样 当仅匹配同种类型标签的元素 <br />
+    因为E:nth-child(n)指的是父元素的第几个子元素 而不是父元素中第几个E元素 <br />
+    当父元素不知含有E 元素 还有F元素时E:nth-child(n)出错 应用E:nth-of-type(n)只计算和E同类型的 </dd>
+  <dd>E:nth-last-of-type(n) //同理</dd>
+  <dd>E:last-child,E:first-child,</dd>
+  <dd>E:first-of-type,E:last-of-type</dd>
+  <dd>E:only-child,E:only-of-type;</dd>
+</dl>
+<dl>
+  <dt>使用选择器在页面中插入内容 :before :after</dt>
+  <dd>
+    <textarea rows="13" cols="50">
+  h2:before{
+  content:"content" //插入文字
+  或者
+  content：url(mark.jpg) //插入图像
+  conten：none //不插入内容 css3新增的ormal在这里和none一样 不过normal可以针对除了:before :after意外选择器插入内容的方法
+  color:red;
+  backgroud-color:blue; //同时可以设置插入内容的css样式
+  margin:10px;
+  }
+  </textarea>
+  </dd>
+  <dd>在content中操作元素的attr属性<br />
+    如：将图片的alt属性的值作为图像的标题使用<br />
+    <textarea rows="8" cols="50">
+  img:after{
+	content:attr(alt);
+    display:block;
+    text-align:center;
+    margin-top:5px;
+  }
+</textarea>
+  </dd>
+  <dd>给元素p:before使用content属性来插入项目的编号</dd>
+  <dd>content:counter(计数器名)<br />
+    为了使用连续的编号 需要为元素p追加计数器自增counter-increment:(p的before或after中指定计数器名)
+    <textarea rows="8" cols="50">
+dl>dd:before{
+	content:counter(section)".  "; /*/section为计数器取的名 可以为任意*/
+    /*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	
+  }
+dd{
+  	counter-increment:section;  /*计数自增*/
+	
+  }
+  /*编号*/
+</textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>文字和字体相关样式</dt>
+  <dd>自动换行 除了浏览器本身的自动换行 可以指定换行方式 word-break:normal/keep-all/brak-all<br />
+    normal使用浏览器默认的在半角空格或连字符处换行 不会在单词中键强制换行<br />
+    keep-all只能在半角空格或连字符处换行 break-all允许在单词内换行</dd>
+  <dd>让长单词和URL地址自动换行---word-wrap:break-word</dd>
+  <dd>使用服务端字体<br />
+    @font-face{<br />
+    font-family:WebFont; //声明使用服务端字体<br />
+    sec:url("font/....")
+    }<br />
+    针对元素使用服务端字体时 需要在元素的样式中 将font-family属性指定为Web-Font<br />
+    font-family:Web-Font</dd>
+  <dd>修改字体种类而保持字体尺寸不变--- font-size-adjust 支持不足<br />
+  </dd>
+</dl>
+<dl>
+  <dt>盒子相关样式</dt>
+  <dd>
+    <dl>
+      <dt>display 属性</dt>
+      <dd>inline-block类型  块级元素的行级显示 实现类似float效果<br />
+        注：行级元素没有高宽 把行级元素设置display设为inline-block 可以设置高宽 有了高度就有了vertical-align就有了竖直显示方式<br />
+        同样把块级元素display设为inline-block实现块级元素的行内显示 可以同行多个块级元素</dd>
+      <dd>inline-table类型  把table元素display设为inline-table实现 块级元素table 和其他元素同行显示</dd>
+      <dd>list-item类型  把元素类型标为list-item 可以将多个元素作为列表显示 同时可以使用list-style-type属性修改列表标记如circle</dd>
+    </dl>
+  </dd>
+  <dd>overflow/overflow-x/overflow-y:hidden/scroll/visible<br />
+    属性值为visible时超出容器范围内容依原样显示</dd>
+  <dd>text-overflow 当通过吧overflow属性设为hidden时 被隐藏的内容可以通过设置text-overflow：ellipsis；显示为省略号……（注各浏览器方法不同）</dd>
+  <dd>盒阴影 box-shadow:length length length color</dd>
+  <dd>
+    <dl>
+      <dt>指定针对元素的宽度和高度的计算方法</dt>
+      <dd>box-sizing属性<br />
+        浏览器默认的width和height属性 指的是元素内容 不包括补白(padding)和边框的高度和宽度(border)<br />
+        使用box-sizing:content-box/border-box/padding-box<br />
+        使用content-box时  表示width 和height 指的是元素内容 不包括补白(padding)和边框的高度和宽度(border) 即默认值<br />
+        使用border-box时   表示width 和height 指的是元素内容+padding+border的宽度和高度<br />
+        使用padding-box时  表示width 和height 指的是元素内容+padding的宽度和高度</dd>
+      <dd>使用box-sizing<br />
+        当我们把box-sizing设为border-box后使页面布局更简单</dd>
+    </dl>
+  </dd>
+</dl>
+<dl>
+  <dt>与背景和边框的相关样式</dt>
+  <dd>background-clip:content-box/border-box/padding-box 指定背景的显示范围 默认是content-box背景不包括border<br />
+    background-origin:content-box/border-box/padding-box 绘制背景图像时使用 指绘制背景图像的绘制起点 默认是从内部补白区(padding)的左上角开始<br />
+    background-size:width height 只指定单个值 另一个为auto时表示保持横纵比</dd>
+  <dd>在一个元素中显示多个背景<br />
+    background-image:url(1),url(2),ulr(3);<br />
+    background-repeat:no=repeat,repeat-x,repeat-y;<br />
+    backrground-position:3% 89%,85% center,center top;<br />
+    还可以设置background-clip background-origin background-size等属性<br />
+    注意：图像文件是从上往下叠放的 url(1)最上面 url(3)最下面</dd>
+  <dd>圆角边框 border-radius:10px 10px 10px 10px; 左上角顺时针</dd>
+  <dd>使用图像边框 border-image:url(1) A B C D repeat stretch repeat stretch<br />
+    A B C D表示图片分隔的 上下左右边距 也可以表示上下左右边框宽度 repeat表示图像平铺 stretch图像拉伸<br />
+    使用图像边框是 也可以使用背景图像 不过需使用中间透明的边框图像 防止背景被遮挡</dd>
+</dl>
+<dl>
+  <dt>CSS3变形transform</dt>
+  <dd>实现文字或图像的旋转、缩放、倾斜、移动</dd>
+  <dd>旋转 transform:rotate(45deg);顺时针旋转45度</dd>
+  <dd>缩放 transform:scale(0.5) 或指定水平和垂直transform(0.4,0.6)</dd>
+  <dd>倾斜 transform:skew(30deg,45deg) 水平和垂直方向的倾斜</dd>
+  <dd>移动 transform:translate(50px,50px) 水平垂直方向移动</dd>
+  <dd>多种变形 transform：rotate(45deg) scale(0.5) skew(30deg,45deg)的方式</dd>
+  <dd>指定变形的基准点<br />
+    默认是元素的中心点 transform-origin:left center 分别为水平和垂直方向的基准点</dd>
+</dl>
+<dl>
+  <dt>CSS3动画</dt>
+  <dd>
+    <dl>
+      <dt>Transitions 过渡</dt>
+      <dd>transition:property duration timing-function<br />
+        property确定进行过渡的属性 duration完成过渡所需时间 timing-function过渡的方法 有linear等<br />
+        可以分别设置transition-property  transition-duration  transition-timing-function<br />
+        还有transition-delay 延迟过渡</dd>
+      <dd>示例
+        <textarea rows="18" cols="50">
+  img{
+  		position:absolute;
+        left:0;
+        transform:ratate(0deg);
+        transition:left 2s linear,transform 1s linear;
+        }
+   div:hover img{
+   		position：absolute;
+        left:30px;
+        transform:ratate(45deg);
+        }
+  </textarea>
+      </dd>
+    </dl>
+  </dd>
+  <dd>
+    <dl>
+      <dt>Animations</dt>
+      <dd>animations通过定义关键帧和每个关键帧中元素的属性值实现动画效果</dd>
+      <dd>
+        <textarea rows="18" cols="50">
+  @-webkit-keyframes myanimate{ //定义动画名为myanimate的多个关键帧的动画效果
+  		 0%{
+        	background：red;
+            transform：ratate(24deg);
+            }
+         50%{
+         	background：blue;
+            transform：ratate(45deg);
+            }
+          100%{
+         	background：black;
+            transform：ratate(65deg);
+            }
+   }
+   div:hover{
+   		-webkit-animation-name:myanimate;  //调用动画
+        -webkit-animation-duration:5s;	//动画进行事件
+        -webkit-animation-timing-function:linear; //方式
+        }
+         	   
+  </textarea>
+      </dd>
+    </dl>
+  </dd>
+  <dd>
+    <dl>
+      <dt>实现动画的多种方法function</dt>
+      <dd>linear 动画开始到结束速度不变 线性变化</dd>
+      <dd>ease-in  ease表示减轻 缓和 动画由慢到快</dd>
+      <dd>ease-out 动画由快到慢</dd>
+      <dd>ease 由慢到快到慢</dd>
+      <dd>ease-in-out 同上</dd>
+    </dl>
+  </dd>
+</dl>
+<dl>
+  <dt>多栏布局</dt>
+  <dd>使用float或者position布局时  元素相互独立 不能对齐<br />
+column多栏布局确保各栏中内容底部对齐 当每个栏目的宽度都一样 适合文章显示</dd>
+  <dd>
+  <textarea rows="8" cols="50">
+  #div1{
+  		-webkit-column-count:2; //分为2栏
+        -webkit-column-width:100px; //每栏宽度为100px
+        -webkit-column-gap:40px;  //栏目间间隔为 40px
+        -webkit-column-rule:1px solid red; //栏目之间 间隔线 类似于border
+        }
+        
+  </textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>盒布局</dt>
+  <dd>设置外层容器  display:-webkit-box<br />
+设置需要布局的元素-webkit-box-sizing:border-box 让其包含border</dd>
+  <dd>和多栏布局区别  在于多栏布局不能指定各栏目中显示的确切内容，适合文章显示； 而盒布局可以，适合用来安排网页结构</dd>
+  <dd>弹性盒布局  让总的宽度等于浏览器窗口的宽度 去除指定元素的宽度width 并设置-webkit-box-flex:1/2。。;<br />
+数字1 2等代表这个元素的空白部分占盒子总的空白部分的几份</dd>
+  <dd>改变元素在盒中的显示顺序  -webkit-box-ordinal-group:n n为 1 2 3……显示顺序</dd>
+  <dd>改变排列方向  -webkit-box-orient:horizontal/vertical; 水平/垂直</dd>
+  <dd>盒布局  元素具有宽度和高度自适应性 总宽度和高度等于内容的宽度和高度</dd>
+  <dd>盒的水平 和 垂直对齐<br />
+box-pack:start/center/end; box-align:start/center/end <br />
+根据盒是水平排列或竖直排列的不同 代表水平 竖直或竖直 水平方向排列顺序</dd>
+  <dd>示例
+  <textarea rows="18" cols="50">
+  div{ 
+  		display:-webkit-box; //设置div容器为盒布局
+        border:solid 5px blue; 
+        -webkit-box-orient:horizontal/vertical; //设置显示方向为水平或竖直
+        -webkit-box-pack:center;
+        -webkit-box-align:center;  //设置div盒水平和竖直对齐 为center
+      }
+   div #p2{
+   		-webkit-box-flex:1; //弹性盒布局 设置div盒内的id=p2元素自适应窗口的 空白是总空白的一份
+        -webkit-box-ordinal-group:3 // 设置#p2元素排列顺序为 第3个
+        } 
+   div #p1{
+   		-webkit-box-flex:2; //弹性盒布局 设置div盒内的id=p1元素自适应窗口的 空白是总空白的两份
+        -webkit-box-ordinal-group:1 // 设置#p1元素排列顺序为 第1个
+        } 
+        
+  </textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>Media Queries</dt>
+  <dd>@media 设备类型 and (设备特性){样式代码}
+  </dd>
+  <dd>根据浏览器大小来显示不同的样式<br />
+@media screen and (min-width:1000px){样式代码} //定义窗口宽度在1000px以上的样式<br />
+@media screen and (min-width:640px) and(max-width:999px){样式代码} //定义窗口宽度在640px以上 999px以下的样式</dd>
+  <dd>根据设备的不同显示不同的样式</dd>
+  <dd>Media Queries使用方法 设备类型 和设备特性</dd>
+</dl>
+<dl>
+  <dt>CSS3颜色相关</dt>
+  <dd>通过rgba(255,0,0,0.5)设置颜色  a代表alpha透明度 这里是0.5</dd>
+  <dd>通过hsla(0,100%,100%,0.5) h色调 s饱和度 l亮度 a透明度 设置颜色</dd>
+  <dd>alpha和opacity的区别  alpha通道可以针对元素的背景色和文字颜色等指定透明度 而opacity指定的是整个元素的透明度</dd>
+  <dd>指定一切具有颜色值得属性指定transparent 透明<br />
+background-color:transparent //背景透明<br />
+border-color:transparent //边框透明<br />
+color:transparent //内容颜色透明</dd>
+
+</dl>
+<dl>
+  <dt>用户界面相关样式</dt>
+  <dd>轮廓样式 outline在元素周围绘制一条轮廓线 突出元素<br />
+outline:10px solid red 类似boder</dd>
+  <dd>outline-offset：2px/-2px实现outline轮廓线的向边框外或者内偏移</dd>
+  <dd>resize 允许修改元素尺寸 主要用于可以使用overflow属性的元素包括表单元素<br />
+resize:none/both/horizontal/vertical 不能修改/可以修改宽度和高度/只可以修改宽度/只可以修改高度</dd>
+  <dd>initial(最初的)取消对元素的样式设定<br />
+如：font-size：initial;color：initial 使其原来设定的样式失效使用浏览器默认值</dd>
+
+</dl>
+<script type="text/javascript">
+$(document).ready(function(e) {     
+	$("dd").hide();
+	$("dt").click(function(e){$(this).nextAll().slideToggle()});
+  // $("dl").toggle(function(e){$(this).siblings("dd").slideDown("slow")},function(e){$(this).siblings("dd").slideUp("slow")});
+})
+
+</script>
+</body>
+</html>

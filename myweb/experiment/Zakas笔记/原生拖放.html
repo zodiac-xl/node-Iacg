@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+<div draggable="true" class="forDrop">draggable</div>
+<br/>
+<div class="forDrop">dropable</div>
+<script>
+
+
+    var dragDom = document.querySelector( ".forDrop" ),
+            dropDom = document.querySelector( ".forDrop" );
+
+    W.addHandler( dragDom, "dragstart", function ( e ) {
+        e.dataTransfer.setData("text","hello zodiac");
+        W.log( "dragstart" );
+    } );
+    W.addHandler( dragDom, "drag", function ( e ) {
+        W.log( "drag" );
+    } );
+    W.addHandler( dragDom, "dragend", function ( e ) {
+        W.log( "dragend" );
+    } );
+
+
+
+
+
+    W.addHandler( dropDom, "dragenter", function ( e ) {
+        W.preventDefault( e );
+        W.log( "dragenter" );
+    } );
+    W.addHandler( dropDom, "dragover", function ( e ) {
+        W.preventDefault( e );
+        W.log( "dragover" );
+    } );
+    W.addHandler( dropDom, "drop", function ( e ) {
+       var data=e.dataTransfer.getData("text");
+        W.preventDefault( e );
+        W.log( "drop" );
+    } );
+    W.addHandler( dropDom, "dragleave", function ( e ) {
+        W.preventDefault( e );
+        W.log( "dragleave" );
+    } );
+</script>
+
+
+</body>
+</html>

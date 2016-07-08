@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery事件控制</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<style type="text/css">
+body {
+	padding: 30px 5%;
+	background: rgb(221, 221, 221);
+}
+</style>
+</head>
+
+<body>
+<table>
+  <caption>
+  jquery中的事件
+  </caption>
+  <tr>
+    <td>blur</td>
+    <td>触发失去焦点事件</td>
+  </tr>
+  <tr>
+    <td>blur(fn)</td>
+    <td>为失去焦点事件绑定一个事件函数</td>
+  </tr>
+  <tr>
+    <td>change()</td>
+    <td>触发change事件</td>
+  </tr>
+  <tr>
+    <td>change(fn)</td>
+    <td>为change事件绑定函数</td>
+  </tr>
+  <tr>
+    <td>click()</td>
+    <td>同上有click(fn)</td>
+  </tr>
+  <tr>
+    <td>dbclick()</td>
+    <td>dbclick(fn)</td>
+  </tr>
+  <tr>
+    <td>error()</td>
+    <td>触发error事件</td>
+  </tr>
+  <tr>
+    <td>error(fn)</td>
+    <td>当javascript发生错误时会触发error()事件</td>
+  </tr>
+  <tr>
+    <td>focus()</td>
+    <td>focus(fn)</td>
+  </tr>
+  <tr>
+    <td>keydown(),keyup(),keypress()</td>
+    <td>keydown(fn),keyup(fn),keypress(fn),load(fn)</td>
+  </tr>
+  <tr>
+    <td>mousedown(fn),mouseover(fn)</td>
+    <td>mouseup(fn),mouseout(fn),mousemove(fn)</td>
+  </tr>
+  <tr>
+    <td>resize(fn)</td>
+    <td>当文档的窗口大小改变时触发</td>
+  </tr>
+  <tr>
+    <td>scroll(fn)</td>
+    <td>当滚动条变化时触发</td>
+  </tr>
+  <tr>
+    <td>select(),submit()</td>
+    <td>select(fn),submit(fn)</td>
+  </tr>
+  <tr>
+    <td>unload(fn)</td>
+    <td>在元素卸载时触发</td>
+  </tr>
+</table>
+<dl>
+  <dt>arguments.callee</dt>
+  <dd>arguments代表当前函数的参数的数组 arguments.callee表示当前正在执行的函数 
+    常用来注销匿名事件 this.removeEventListener("click",arguments.callee,true)或this.detach（"click",arguments.callee)</dd>
+</dl>
+<dl>
+  <dt>.is()</dt>
+  <dd>$f.is("p")</dd>
+  <dd>判断节点f是否是p节点</dd>
+  <dd>$("#checkall").is(:checked)</dd>
+  <dd>检查id为checkall的复选框是否被选中 是则返回true 否则返回false</dd>
+</dl>
+<dl>
+  <dt>event.target</dt>
+  <dd>事件属性的target属性 用来查明那个元素发生了事件</dd>
+  <dd>$("p").click(function(event){var $s=$(event.target); if($s.is(p[id="a"]){alert("s")})})</dd>
+  <dd>不用jQuery时 非ie用 event.target 获取发生事件的元素 ie用event.srcElement来获取发生事件的元素</dd>
+</dl>
+<dl>
+  <dt>事件绑定</dt>
+  <dd>bind(type,[date],fn) ,[date]作为event.date传递给事件对象，大多数情况不使用</dd>
+  <dd>多事件绑定$("div").bind("click",fn(1));$("div").bind("click",fn(2));$("div").bind("dbclick",fn(2));<br />
+    或者连写$("div").bind("click",fn(2)).bind("click",fn(1))</dd>
+  <dd>unblind(type,[date]), type [date]均为可选  $("input:button").unbind("click");</dd>
+  <dd>绑定一次性事件 $("div").one("click",function(){alert($(this).text())}) //one(type);</dd>
+  <dd>jQuery3.1新增事件委派方法live() 和解除方法die()</dd>
+  <dd>live()方法能给当前以及未来将会匹配的元素绑定一个事件处理函数 <br />
+    如给$("p")绑定click事件apend增加一个段落p在后面 新增的段落也同时陪委派live()定义的click事件</dd>
+  <dd>解除方法die()不带参数时表示解除所有live()事件 带参数则解除指定type事件</dd>
+  <dd>live()和ind()不同一次只能绑定一个事件 而且只支持用选择器选择的元素 只支持mouseover之类和keydown之类等事件</dd>
+</dl>
+<dl>
+  <dt>jQuery命名空间</dt>
+  <dd>jQuery支持事件命名空间，方便时间管理<br />
+    如：$("div").bind("click.a",fn());$("div").bind("dbclick.a",fn()) //.a就是这两个事件的别名<br />
+    $("div").unbind(".a")这样div的所有别名为.a的事件都被删除了<br />
+    在trigger("click！")方法加上！号 则表示触发的不含别名的事件 trigger(".a")触发别名为.a的事件</dd>
+  <dd></dd>
+</dl>
+<dl>
+  <dt>模拟用户操作</dt>
+  <dd>trigger()和triggerHandler()  triggerHandler()不会触发页面默认事件 例如：模拟submit trigger()会导致页面真的提交 而triggerHandler却不会</dd>
+  <dd>触发事件$("input:button").bind("click",function(event,msg1,msg2){
+    alert(mgs1+mgs2);}).trigger("click",["we are young"，[we are strong]);</dd>
+  <dd>悬停事件 hover(over,out) 例:$("a.main").hover(function(){window.status="hhttp:www.baidu.com";return true;},function(){window.status="out";return true;}</dd>
+  <dd>鼠标连击事件 toggle(odd,even) 例：$(#tool").toggle(function(){$(this).css("display,"")},function(){$(this).css("display","none"};)</dd>
+  <dd>阻止事件冒泡   $(".test").mouseover(function(event){$(".test1").addClass("red");event.stopPropagation();});//阻止冒泡 </dd>
+  <dd>event.preventDefault(); //阻止浏览器默认操作</dd>
+  <dd>也可以用return false同时阻止冒泡和浏览器默认操作</dd>
+</dl>
+<table>
+  <caption>
+  jQuery的Event对象的属性和方法
+  </caption>
+  <tr>
+    <td>type</td>
+    <td>获取事件的类型，如：click，mouseover等名称与注册事件处理函数时使用的名称相同</td>
+  </tr>
+  <tr>
+    <td>target</td>
+    <td>返回发生事件的节点 用来获取当前被激活时间的具体对象</td>
+  </tr>
+  <tr>
+    <td>relatedTarget</td>
+    <td>应用与事件的目标节点相关的节点 <br />
+      对于mouseover事件来说，
+      它是鼠标移到目标上时所离开的那个节点<br />
+      对于mouseout事件来说，它是鼠标离开目标时鼠标将要进入的那个节点</td>
+  </tr>
+  <tr>
+    <td>altKey</td>
+    <td>表示在声明鼠标事件时，是否按下了Alt键 按下则返回true</td>
+  </tr>
+  <tr>
+    <td>ctrlKey</td>
+    <td>表示在声明鼠标事件时，是否按下了Ctrl键 按下则返回true</td>
+  </tr>
+  <tr>
+    <td>shiftKey和metaKey</td>
+    <td>同上</td>
+  </tr>
+  <tr>
+    <td>which</td>
+    <td>当声明mousedown,mouseup,click事件时，显示鼠标的状态值，表示那个鼠标键改变了状态<br />
+      按下左键 返回1, 中键 返回2, 右键 返回3</td>
+  </tr>
+  <tr>
+    <td>whick</td>
+    <td>但声明的是keydown,keypress事件时，返回触发事件的键盘键的数字编码</td>
+  </tr>
+  <tr>
+    <td>pageX,pageY</td>
+    <td>对鼠标事件来说，指定光标指针相对页面原点的水平和垂直坐标</td>
+  </tr>
+  <tr>
+    <td>screenX,screenY</td>
+    <td>对于鼠标事件来说,指定光标指针相对于屏幕原点的水平和垂直坐标</td>
+  </tr>
+  <tr>
+    <td>data</td>
+    <td>返回事件处理函数的第二个参数所传递的额外数据</td>
+  </tr>
+  <tr>
+    <td>preventDefault()</td>
+    <td>取消默认操作</td>
+  </tr>
+  <tr>
+    <td>stopPropagation()</td>
+    <td>取消冒泡 防止事件沿着DOM树向上传播</td>
+  </tr>
+</table>
+<script>
+	$(document).ready(function(e) {
+        $("table").attr('border','1');
+		$("table").css({'background':'rgb(214, 210, 210)',
+		'border-color': 'rgb(236, 221, 221)'});
+		$("caption").css({'color': 'rgb(32, 96, 211)','font-weight': '900','font-size': '22px'});
+    });
+</script>
+</body>
+</html>

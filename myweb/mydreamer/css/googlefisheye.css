@@ -1,0 +1,29 @@
+#logo{position: absolute;top: 25px;left: 100px;}
+.nav{
+	position: absolute;
+width: 250px;
+top: 180px;
+left: 150px;
+}
+.nav-item{
+	position: absolute;
+	height: 50px;	
+}
+
+
+a.nav-item2{
+font: bold 12px Arial, Helvetica, sans-serif;
+display:block;
+position:absolute;
+text-align:center;
+bottom: 0px;
+}
+.nav-item2 span {
+	display: none;
+	padding-left: 20px;
+}
+.nav-item2 img {
+	border: none; 
+	margin: 5px 10px 0px; 
+	width: 100%; 
+}

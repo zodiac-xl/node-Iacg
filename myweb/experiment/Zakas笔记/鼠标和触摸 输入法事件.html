@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>鼠标和触摸事件</title>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+<div class="aa" style="background: indianred;height: 200px;width: 200px"></div>
+<!--input和textInput事件-->
+<!--//输入法-->
+<!--<script>-->
+    <!--W.addHandler(a,"input",function(e){})-->
+    <!--W.addHandler(a,"textInput",function(e){e.data}) //e.data是输入的值-->
+    <!--W.addHandler(a,"compositionstart",function(e){e.data}) //开启输入法e.data是输入的值-->
+    <!--W.addHandler(a,"compositionupdate",function(e){e.data}) //使用输入法e.data是输入的值-->
+    <!--W.addHandler(a,"compositionend",function(e){e.data}) //关闭输入法e.data是输入的值-->
+<!--</script>-->
+
+<!--//鼠标-->
+<!--contextmenu鼠标右键替换掉默认-->
+<!--mouse:-->
+<!--mousedown,-->
+<!--mousemove,-->
+<!--click,-->
+<!--mouseup,-->
+<!--click,-->
+<!--dbclick,-->
+<!--focus blur-->
+<!--mousedown-->
+<!--mouseenter鼠标首次一如元素触发 这个事件不冒泡在后代元素上不触发 dom3级事件-->
+<!--mouseleave鼠标首次移出元素范围外（包括子元素）触发 这个事件不冒泡在后代元素上不触发 dom3级事件-->
+<!--mouseout鼠标位于元素上方移入另一个元素 另一个元素可以是这个元素外部也可以是他的子元素-->
+<!--mouseover鼠标位于一个元素外部 用户首次移入另一个元素边界之内时触发-->
+<!--mouseup-->
+<!--scroll-->
+<!--scrollTo-->
+<!--scrollTop-->
+<!--scrollLeft-->
+<!--scrollHeight-->
+<!--srcollWidth-->
+<!--滑轮事件mousewheel 事件的wheelDelta等于120的倍数 根据正负判断滑轮滚动方向在opera9.5版本前顺序是颠倒的&ndash;&gt;-->
+
+<!--//触摸-->
+<!--touch:-->
+<!--touchStart-->
+<!--touchmove-->
+<!--touchend-->
+
+<!--//位置-->
+<!--position:-->
+<!--height,-->
+<!--width,-->
+<!--offsetHeight,-->
+<!--offsetWidth,-->
+<!--offsetTop,-->
+<!--offsetLeft,-->
+<!--offsetParent();-->
+<!--offsetX,offsetY-->
+<!--pageX,pageY,-->
+<!--screenX,screenY,-->
+<!--clientX,clientY-->
+<!--clientHeight,clientWidth,-->
+<!--clientLeft,clientTop-->
+<!--x y事件属性  height,width,top,left element属性-->
+<script>
+    W.addHandler(document,"mousewheel",function(ev){
+            event= W.getEvent(ev);
+        var delta= W.getWheelDelta(event);
+        alert(delta);
+            })
+    var a = document.querySelector( ".aa" )
+    W.follow( a, 3 ,function(ev){
+        console.log(ev.el.offsetTop);
+    });
+</script>
+
+</body>
+</html>

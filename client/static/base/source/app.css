@@ -1,0 +1,29 @@
+@import "./reset";
+
+html {
+  font-size: 100px;
+  -webkit-tap-highlight-color: transparent;
+  height: 100%;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: #f3f3f3;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.14rem;
+  line-height: 1;
+  color: #333;
+}
+
+.screen {
+  width: 9.68rem;
+  transition: .5s;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.widescreen {
+  width: 11.4rem;
+  transition: .5s;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> <!--导入google maps api-->
+<title>无标题文档</title>
+</head>
+
+<body onload="init()">
+<div id="map" style="width:400px;height:400px"></div>
+<script type="text/javascript">
+function init(){
+	navigator.geolocation.getCurrentPosition(function(position){
+		var coords=position.coords; //获取本地坐标
+		var latlng=new google.maps.LatLng(coords.latitude,coords.longitude); //latlng(坐标) 设置google map坐标
+		var myoption={
+			zoom:14, //缩放大小
+			center:latlng, //中心
+			mapTypeId:google.maps.MapTypeId.ROADMAP
+		};
+		var map1;
+		//在文档中打开map
+		map1=new google.maps.Map(document.getElementById("map"),myoption);;
+		
+		//为map添加标记 提示
+		var marker=new google.maps.Marker({ 
+			position:latlng,
+			map:map1
+		});
+		//设置标注窗口
+		var infowindow=new google.maps.InfoWindow({
+			content:"当前位置"
+		});
+		infowindow.open(map1,marker);
+	})
+}
+</script>
+</body>
+</html>

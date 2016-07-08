@@ -1,0 +1,29 @@
+<html >     
+<head>     
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />     
+<title>闭包演示</title> 
+  
+<script type="text/javascript">     
+    
+function init() {     
+    var pAry = document.getElementsByTagName("p");     
+    for( var i=0; i<pAry.length; i++ ) {     
+         pAry[i].onclick = function() {     
+         alert(i);     //原因是执行for马上执行完 i=length 并创建了length个function（）
+				//而这个function没有参数 函数里的alert（i）是引用最后的ｉ；
+    }     
+  }     
+}     
+</script> 
+<style type="text/css">
+body{padding: 30px 5%;background: rgb(221, 221, 221);}
+</style>    
+</head>     
+<body onLoad="init();">     
+<p>产品一</p>     
+<p>产品二</p>     
+<p>产品三</p>     
+<p>产品四</p>     
+<p>产品五</p>     
+</body>     
+</html> 

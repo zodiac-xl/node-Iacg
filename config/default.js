@@ -4,7 +4,7 @@ let __root = (dir) => path.join(path.dirname(__dirname), dir);
 
 
 export default Object.assign(require('../package.json'), {
-    name: "iacg",
+    name: "I站",
     path: {
         client: __root('client'),
 
@@ -25,6 +25,13 @@ export default Object.assign(require('../package.json'), {
                 options: {
                     defer: false,
                     maxAge: 2 * 60 * 60 * 1000
+                }
+            },
+            {
+                path: __root('myweb'),
+                options: {
+                    defer: false,
+                    maxAge: 0
                 }
             }
         ],

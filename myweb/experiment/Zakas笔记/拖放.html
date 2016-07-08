@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+    <style>
+        body {
+            min-height: 400px;
+            min-width: 400px;
+            background: royalblue;
+        }
+
+        .aa {
+            height: 100px;
+            width: 100px;
+            background: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="aa">
+    dsadddd
+</div>
+<script>
+    function EventTarget() {
+        this.handlers = {};
+    }
+
+    EventTarget.prototype = {
+        constructor : EventTarget,
+        addHandler : function ( type, handler ) {
+            if ( typeof this.handlers[type] == "undefined" ) {
+                this.handlers[type] = [];
+            }
+            this.handlers[type].push( handler );
+        },
+
+        fire : function ( event ) {
+            if ( !event.target ) {
+                event.target = this;
+            }
+            if ( this.handlers[event.type] instanceof Array ) {
+                var handlers = this.handlers[event.type];
+                for ( var i = 0, len = handlers.length; i < len; i++ ) {
+                    handlers[i]( event );
+                }
+            }
+        },
+
+        removeHandler : function ( type, handler ) {
+            if ( this.handlers[type] instanceof Array ) {
+                var handlers = this.handlers[type];
+                for ( var i = 0, len = handlers.length; i < len; i++ ) {
+                    if ( handlers[i] == handler ) {
+                        break;
+                    }
+                }
+                handlers.splice( i, 1 );
+            }
+        }
+    };
+    var target = new EventTarget();
+
+    //添加一个message事件处理器
+    // target.addHandler("message",handleMessage);
+
+    //添加一个message事件处理器
+    // target.addHandler("message",handleMessage1);
+
+    //触发所有message事件处理器
+    //  target.fire({type:"message",message:"Hello World"});
+
+    //触发一个message事件处理器
+    // target.removeHandler("message",handleMessage);
+
+    //触发所有message事件处理器
+    //target.fire({type:"message",message:"Hello World1"});
+
+
+    //endregion
+
+
+    //region拖放
+    var DragDrop = function () {
+        var dragDrop = new EventTarget(),
+                dragging = null,
+                diffX = 0,
+                diffY = 0;
+
+        function handleEvent( event ) {
+            //获取事件和对象
+            event = W.getEvent( event );
+            var target = W.getEventTarget( event );
+
+            //确定事件类型
+            switch ( event.type ) {
+                case "mousedown":
+                    if ( target.className.indexOf( "draggable" ) > -1 ) {
+                        dragging = target;
+                        diffX = event.clientX - target.offsetLeft;
+                        diffY = event.clientY - target.offsetTop;
+                        dragDrop.fire( {type : "dragstart", target : dragging, x : event.clientX, y : event.clientY} );
+                    }
+                    break;
+                case "mousemove":
+                    if ( dragging != null ) {
+
+                        //指定位置
+                        dragging.style.left = (event.clientX - diffX) + "px";
+                        dragging.style.top = (event.clientY - diffY) + "px";
+
+                        dragDrop.fire( {type : "drag", target : dragging, x : event.clientX, y : event.clientY} );
+                    }
+                    break;
+                case "mouseup":
+                    dragDrop.fire( {type : "dragend", target : dragging, x : event.clientX, y : event.clientY} );
+                    dragging = null;
+
+                    break;
+                default :
+                    break;
+            }
+        }
+
+        //公共接口
+        dragDrop.enable = function () {
+            W.addHandler( document, "mousedown", handleEvent );
+            W.addHandler( document, "mousemove", handleEvent );
+            W.addHandler( document, "mouseup", handleEvent );
+        };
+        dragDrop.disable = function () {
+            W.removeHandler( document, "mousedown", handleEvent );
+            W.removeHandler( document, "mousemove", handleEvent );
+            W.removeHandler( document, "mouseup", handleEvent );
+        };
+        return dragDrop;
+    }();
+
+    DragDrop.addHandler( "dragstart", function ( e ) {
+        W.log( e.x );
+    } );
+    DragDrop.addHandler( "drag", function ( e ) {
+        W.log( e.x );
+    } );
+    DragDrop.addHandler( "dragend", function ( e ) {
+        W.log( e.x );
+    } );
+    document.querySelector( ".aa" ).classList.add( "draggable" );
+    DragDrop.enable();
+
+
+
+    //endregion
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+/* css reset */ 
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{padding:0;margin:0;} 
+h1,h2,h3,h4,h5,h6{font-weight:normal;font-size:100%;}  
+ol,ul,dl{list-style:none;}                           
+caption,th {text-align:left;}                 
+a{text-decoration:none;}           
+a:hover{text-decoration:underline;} 
+q:before,q:after{content:'';}   /*<q>表示引用“ ”  块引用<blockquote> 前后添加了换行，并增加了外边距。*/
+fieldset,img,abbr,acronym{border:0;} /*<abbr title="etcetera">etc.</abbr>
+								<acronym title="World Wide Web">WWW</acronym>缩写和首字母缩写*/          
+table{border-collapse:collapse;border-spacing:0 0;}     
+

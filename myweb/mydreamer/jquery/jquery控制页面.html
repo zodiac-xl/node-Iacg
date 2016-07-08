@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<title>jquery控制页面</title>
+<style type="text/css">
+body {
+	padding: 30px 5%;
+	background: rgb(221, 221, 221);
+}
+</style>
+</head>
+
+<body>
+<dl>
+  <dt>对内容和值进行操作</dt>
+  <dd>
+    <dl>
+      <dt>对元素内容操作</dt>
+      <dd>$("div").text(); //获取内容</dd>
+      <dd>$("div").text(val); //设置内容$("div").text("我是div的文本内容");</dd>
+      <dd>$("div").html(); //获取内容</dd>
+      <dd>$("div").html(val); //设置内容 $("div").text("< p >我是div的html< /p >");</dd>
+    </dl>
+  </dd>
+  <dd>
+    <dl>
+      <dt>对元素值进行操作</dt>
+      <dd>val() 获取第一个匹配到的元素的值 //$(.a).val();获取的是第一个class为a的元素的值</dd>
+      <dd>val(val) 用于设置所有匹配的值 //$(.a).val("新值");为全部class为a的元素值设为新值</dd>
+      <dd>val(arrVal) 用于check select和radio等元素设置值 参数为字符串数组 //$("select").val(['列表1','列表2'])； 为下拉表设置多选值</dd>
+    </dl>
+  </dd>
+</dl>
+<table >
+  <caption>
+  在元素内部插入节点（子节点）
+  </caption>
+  <tr>
+    <th>方法</th>
+    <th>说明 </th>
+    <th>示例</th>
+  </tr>
+  <tr>
+    <td>append(content)</td>
+    <td>为所有匹配元素追加内容</td>
+    <td>$("#b").append("< p>A< /p>"); //向id=b的元素内追加一个段落</td>
+  </tr>
+  <tr>
+    <td>appendTo(content)</td>
+    <td>把所有匹配元素添加到另一个元素的元素集合中</td>
+    <td>$(".b").append(".a"); //将所有class=b的元素移动到所有class=a元素内部的后面 对class=a的css对class=b有效 </td>
+  </tr>
+  <tr>
+    <td>prepend(content)</td>
+    <td>为所有匹配元内部前置内容</td>
+    <td>$("#b").prepend("< p>A< /p>"); //向id=b的元素内部前添加一个段落</td>
+  </tr>
+  <tr>
+    <td>prependTo(content)</td>
+    <td>把所有匹配元素前置到另一个元素的元素集合中</td>
+    <td>$(".b").prepend(".a"); //将所有class=b的元素移动到所有class=a元素内部的前面 对class=a的css对class=b有效</td>
+  </tr>
+</table>
+<table >
+  <caption>
+  在元素外部插入节点（兄弟节点）
+  </caption>
+  <tr>
+    <th>方法</th>
+    <th>说明 </th>
+    <th>示例</th>
+  </tr>
+  <tr>
+    <td>afer(content)</td>
+    <td>在所有匹配元素后插入内容</td>
+    <td>$("#b").after("< p>A< /p>"); //向id=b的元素后面添加一个段落</td>
+  </tr>
+  <tr>
+    <td>insertAfer(content)</td>
+    <td>将所有匹配元素插入到另一个指定元素的后面</td>
+    <td>$("< p>A< /p>")).insertAfer(".a"); //将要添加的段落插入class=a的元素后面 </td>
+  </tr>
+  <tr>
+    <td>before(content)</td>
+    <td>在所有匹配元素前插入内容</td>
+    <td>$("#b").before("< p>A< /p>"); //向id=b的元素前面添加一个段落</td>
+  </tr>
+  <tr>
+    <td>insertBefore(content)</td>
+    <td>将所有匹配元素插入到另一个指定元素的前面</td>
+    <td>$("< p>A< /p>")).insertBefore(".a"); //将要添加的段落插入class=a的元素前面 </td>
+  </tr>
+</table>
+<dl>
+  <dt>删除 复制 替换节点</dt>
+  <dd>$("#div1").empty(); $("#div1").remove(); </dd>
+  <dd>$("#div1").clone();</dd>
+  <dd>$("#div1").replaceWith("< div> replaceWith()方法< /div >"); //替换id=div1的元素</dd>
+  <dd>$("< div> replaceAll()方法< /div >").replaceAll("#div2"); //替换id=div2的元素</dd>
+</dl>
+<table >
+  <caption>
+  对元素属性的操作
+  </caption>
+  <tr>
+    <th>方法</th>
+    <th>说明 </th>
+    <th>示例</th>
+  </tr>
+  <tr>
+    <td>attr(name)</td>
+    <td>获取匹配到的第一个元素的属性值 无则返回undefined</td>
+    <td>$("img").attr("src"); //获取页面第一个img元素的src属性值</td>
+  </tr>
+  <tr>
+    <td>attr(key,value)</td>
+    <td>为所有匹配到的元素设置一个属性的值</td>
+    <td>$("img").attr("title","草莓"); //为图片添加一个标题属性 值为草莓</td>
+  </tr>
+  <tr>
+    <td>attr(key,fn)</td>
+    <td>为说匹配到的元素设置一个函数返回的属性值</td>
+    <td>$("#fn").attr("value",function(){return this.name;}); //返回元素的名称设为value</td>
+  </tr>
+  <tr>
+    <td>attr(properties)</td>
+    <td>为所有匹配元素以集合（{名：值，名：值}）的形式设置多个属性</td>
+    <td>$("img").attr({src:'test.gif',title:'hehe'});</td>
+  </tr>
+  <tr>
+    <td>removeAttr(name)</td>
+    <td>为所有匹配元素删除一个属性</td>
+    <td>$("img").removeAttr("title");</td>
+  </tr>
+</table>
+<table >
+  <caption>
+  对元素的css操作
+  </caption>
+  <tr>
+    <th>方法</th>
+    <th>说明 </th>
+    <th>示例</th>
+  </tr>
+  <tr>
+    <td>addClass(class)</td>
+    <td>为元素添加class</td>
+    <td>$("div").addClass("blue line"); //为全部div添加了blue和line两个css类</td>
+  </tr>
+  <tr>
+    <td>removeClass(class)</td>
+    <td>为元素删除class</td>
+    <td>$("div").removeClass("blue"); //为全部div删除了blue css类</td>
+  </tr>
+  <tr>
+    <td>toggleClass(class)</td>
+    <td>开光如果存在要添加的class则删除 如果不存在则添加</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>toggleClass(class,switch)</td>
+    <td>如果switch为true则添加class 为false则删除class</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>css(name)</td>
+    <td>返回第一个匹配元素的样式属性</td>
+    <td>$("div").css("color")</td>
+  </tr>
+  <tr>
+    <td>css(name,value)</td>
+    <td>设置css属性</td>
+    <td>$("img").css("border","1px solid red")</td>
+  </tr>
+  <tr>
+    <td>css(properties)</td>
+    <td>设置多个css属性</td>
+    <td>$("img").css({"border"："1px solid red",
+      "color":"red"}) </td>
+  </tr>
+</table>
+<dl>
+  <dt>元素的消失重现</dt>
+  <dd>$(this).animate{{"left":-160px},"slow",function(){$(this).animate({"left":0},"slow")}}</dd>
+</dl>
+<dl>
+  <dt>循环滚动</dt>
+  <dd>function(){ sroll();}</dd>
+  <dd>function scroll(){ setTimeout(scroll,1000)}</dd>
+  <dd></dd>
+  `
+</dl>
+<dl>
+  <dt>绝对偏移位置</dt>
+  <dd>E.offset() //返回一个对象 包含两个属性top和left 仅对可见元素有效</dd>
+</dl>
+<dl>
+  <dt>相对偏移位置</dt>
+  <dd>E.position() //相对父级定位元素（定位元素指设置了position属性的元素）返回一个对象 包含两个属性top和left 仅对可见元素有效</dd>
+</dl>
+<script>
+	$(document).ready(function(e) {
+        $("table").attr('border','1');
+		$("table").css({'background':'rgb(214, 210, 210)',
+		'border-color': 'rgb(236, 221, 221)'});
+		$("caption").css({'color': 'rgb(32, 96, 211)','font-weight': '900','font-size': '22px'});
+    });
+</script>
+</body>
+</html>

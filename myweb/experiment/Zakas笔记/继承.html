@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+    <style>
+        body {
+            min-height: 400px;
+            min-width: 400px;
+            background: #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+<script>
+
+    //类式继承 每个实例都有一个副本
+    function EditInPlaceArea( months, day ) {
+        this.months = months;
+        this.day = day;
+    }
+    EditInPlaceArea.prototype = {
+        get : function () {
+            return this.day;
+        }
+    };
+    var zodiac = new EditInPlaceArea( 1, 5 ),
+            result = zodiac.get();
+
+    W.log( result );
+
+
+    //原型式继承 原型链读取成员的方式（在原型链中查找成员）使得所有克隆出来的对象都共享每个属性和方法的唯一一份实例，
+    // 只有在直接设置了某个克隆出来的对象的属性和方法时，情况才会发生变化。更加节省内存
+    function clone( object ) {
+        function F() {
+        }
+
+        F.prototype = object;
+        return new F;
+    }
+
+
+    var EditInPlaceField = {  //原型式继承不使用构造函数，所以类式继承方案中的构造函数代码被移到了名为configure的方法中
+        configure : function ( months, day ) {
+            this.months = months;
+            this.day = day;
+        },
+        get : function () {
+            return this.day;
+        }
+    };
+    zodiac = clone( EditInPlaceField );
+    zodiac.configure( 1, 5 );//类似类式继承的构造初始化
+    result = zodiac.get();
+    W.log( result );
+
+
+    //掺元类解决方案
+    //首先创建一个包含所有要共享的方法的掺元类，然后再创建一个新类，并使用augment(增大)函数来让新类共享到那些方法。
+    function augment( receivingClass, givingClass ) {
+        if ( arguments[2] ) { //只赋予部分指定的方法 当指向复制其中的一部份时，额外的参数可以参加匹配
+            for ( var i = 2, len = arguments.length; i < len; i++ ) {
+                receivingClass.prototype[arguments[i]] = givingClass.prototype[arguments[i]];
+            }
+        }
+        else { //赋予全部方法
+            for ( var methodName in givingClass.prototype ) {
+                if ( !receivingClass.prototype[methodName] ) {
+                    receivingClass.prototype[methodName] = givingClass.prototype[methodName];
+                }
+            }
+        }
+    }
+
+    var EditInPlaceMiXin = function () {
+    };
+    EditInPlaceMiXin.prototype = {
+        get : function () {
+            return this.day;
+        }
+    };
+
+    augment(EditInPlaceArea,EditInPlaceMiXin);//将EditInPlaceMiXin扩充到EditInPlaceArea 适合组织彼此迥然不同的类所共享的方法
+
+</script>
+
+</body>
+</html>

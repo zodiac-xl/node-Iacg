@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>web fonts速查</title>
+    <link href="../example/日历/reset.css">
+    <meta name="keywords" content="web fonts">
+    <style>
+        .hide{
+            display: none!important;
+        }
+        body {
+            padding: 100px;
+            font-family: "微软雅黑", Microsoft YaHei, Arial, Lucida, Verdana, Hiragino Sans GB, STHeiti, WenQuanYi Micro Hei, SimSun, sans-serif;
+        }
+        body>div{
+            float: left;
+        }
+        table {
+            text-align: center;
+            color: #333;
+            border-collapse: collapse;
+        }
+
+        table caption {
+            font-size: 1.25em;
+            padding: 0.692em 0;
+        }
+
+
+        table tbody td,table  th{
+            border: 1px solid #ddd;
+            padding: 7px 10px;
+            vertical-align: top;
+        }
+        table th{
+            background:#F0F0F0 center right no-repeat;
+        }
+        tr:hover{
+            background: rgb(223, 223, 223);
+        }
+
+
+
+
+
+
+
+        @font-face {
+            font-family: 'base_icon';
+            src: url("fonts/base.woff") format("woff"), url("fonts/base.otf");
+        }
+        @font-face {
+            font-family: 'cate_icon';
+            src: url("fonts/cate.woff") format("woff"), url("fonts/cate.otf");
+        }
+        @font-face {
+            font-family: 'meituan_icon';
+            src: url("fonts/meituan_icon.otf");
+        }
+        .base td:last-child{
+            font-family:base_icon;
+        }
+        .cate td:last-child{
+            font-family:cate_icon;
+        }
+        .meituan td:last-child{
+            font-family:meituan_icon;
+        }
+    </style>
+</head>
+<body>
+<div class="base ">
+    <table summary="base.woff速查 ">
+        <caption>base.woff速查 fontFamily base_icon</caption>
+        <thead>
+            <tr>
+                <th scope="col">glyphName</th>
+                <th scope="col">Unicode</th>
+                <th scope="col">默认字体</th>
+                <th scope="col">引用字体</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div class="cate">
+    <table summary="cate.woff速查">
+        <caption>cate.woff速查 fontFamily cate_icon</caption>
+        <thead>
+            <tr>
+                <th scope="col">glyphName</th>
+                <th scope="col">Unicode</th>
+                <th scope="col">默认字体</th>
+                <th scope="col">引用字体</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<div class="meituan">
+    <table summary="meituan.otf速查">
+        <caption>meituan.otf速查 fontFamily MIF (老版)</caption>
+        <thead>
+            <tr>
+                <th scope="col">glyphName</th>
+                <th scope="col">Unicode</th>
+                <th scope="col">默认字体</th>
+                <th scope="col">引用字体</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<!--<script src="../zPc.js"></script>-->
+<script src="../jquery.js"></script>
+<script>
+    //unicode="\u"+codePoint
+
+    //glyphName
+    // Unicode codePoint
+    function doTable( parent, tableData ) {
+        $.each(tableData,function(i,item){
+            var tr = document.createElement( "tr" );
+
+            $.each(new Array(4), function () {
+                var td = document.createElement( "td" ),
+                        span = document.createElement( "span" );
+                td.appendChild( span );
+                tr.appendChild( td );
+            } );
+            var tdSpan = tr.querySelectorAll( "td span" ),
+                    name = item["name"],
+                    unicode = "\\u" + item["codePoint"];
+            if(name=="11"){
+                name="uni"+unicode;
+            }
+            tdSpan[0].innerText = name;
+            tdSpan[1].innerText = unicode;
+            tdSpan[2].innerHTML = unicodeToString(unicode);
+            debugger;
+            tdSpan[3].innerText = unicodeToString(unicode);
+            parent.appendChild( tr );
+        });
+    }
+    var baseFontsData = [
+        {
+            "name" : "dollar",
+            "codePoint" : "0024"
+        },
+        {
+            "name" : "S",
+            "codePoint" : "0053"
+        },
+        {
+            "name" : "uni235F",
+            "codePoint" : "235F"
+        },
+        {
+            "name" : "uni0229B",
+            "codePoint" : "229B"
+        },
+        {
+            "name" : "edit",
+            "codePoint" : "0DAB"
+        },
+        {
+            "name" : "countdown",
+            "codePoint" : "06DD"
+        },
+        {
+            "name" : "H22073",
+            "codePoint" : "25A1"
+        },
+        {
+            "name" : "uni2A66",
+            "codePoint" : "2A66"
+        },
+        {
+            "name" : "u1F514",
+            "codePoint" : "1F514"
+        },
+        {
+            "name" : "u1f4f1",
+            "codePoint" : "260E"
+        },
+        {
+            "name" : "_0241",
+            "codePoint" : "26DF"
+        },
+        {
+            "name" : "_0242",
+            "codePoint" : "26BF"
+        },
+        {
+            "name" : "u26a0",
+            "codePoint" : "26A0"
+        },
+        {
+            "name" : "uni22BD",
+            "codePoint" : "22BD"
+        },
+        {
+            "name" : "uniFF39",
+            "codePoint" : "FF39"
+        },
+        {
+            "name" : "_240",
+            "codePoint" : "233B"
+        },
+        {
+            "name" : "_241",
+            "codePoint" : "2338"
+        },
+        {
+            "name" : "_242",
+            "codePoint" : "2339"
+        },
+        {
+            "name" : "_243",
+            "codePoint" : "233A"
+        },
+        {
+            "name" : "_244",
+            "codePoint" : "2395"
+        },
+        {
+            "name" : "_245",
+            "codePoint" : "26E3"
+        },
+        {
+            "name" : "circlex",
+            "codePoint" : "2718"
+        },
+        {
+            "name" : "_252",
+            "codePoint" : "25AD"
+        },
+        {
+            "name" : "_253",
+            "codePoint" : "2717"
+        },
+        {
+            "name" : "right",
+            "codePoint" : "2713"
+        },
+        {
+            "name" : "circleZheng",
+            "codePoint" : "25D4"
+        },
+        {
+            "name" : "circle10",
+            "codePoint" : "2789"
+        },
+        {
+            "name" : "uni2365",
+            "codePoint" : "2365"
+        },
+        {
+            "name" : "uni2315",
+            "codePoint" : "2315"
+        },
+        {
+            "name" : "uni224B",
+            "codePoint" : "224B"
+        },
+        {
+            "name" : "uni27F0",
+            "codePoint" : "27F0"
+        },
+        {
+            "name" : "uni270E",
+            "codePoint" : "270E"
+        },
+        {
+            "name" : "uni2714",
+            "codePoint" : "2714"
+        },
+        {
+            "name" : "uni25D0",
+            "codePoint" : "25D0"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "25D2"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "25D3"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "21E7"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "238B"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "29BF"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2706"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2606"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2605"
+        }
+    ];
+    doTable( document.querySelector( ".base tbody" ), baseFontsData );
+    var cateFontsData=[
+        {
+            "name" : "11",
+            "codePoint" : "6CF3"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "4E70"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "7CD5"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5FEB"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "70B9"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "591C"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5238"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "66F4"
+        },
+        {
+            "name" : "dai",
+            "codePoint" : "4EE3"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "65B0"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "70ED"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5956"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5168"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "4E50"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "6E38"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "7F8E"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5403"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "6D3B"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "4F4F"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "770B"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "6CC9"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "8DB3"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5531"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "7597"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "666F"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5916"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "8D2D"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "7968"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "526A"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "6444"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "5A5A"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "9910"
+        }
+    ];
+    doTable( document.querySelector( ".cate tbody" ), cateFontsData );
+    var meituanFontsData=[
+        {
+            "name" : "11",
+            "codePoint" : "263B"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "263A"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2639"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2605"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2606"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "25BC"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "293C"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2706"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "260F"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2364"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2709"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "270E"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2FF0"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "22CE"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2611"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2612"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "25F1"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "25F3"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "26A0"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2630"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2631"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2632"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "2633"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "1438"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "1433"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D0"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D1"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D2"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D3"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D4"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D5"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D6"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D7"
+        },
+        {
+            "name" : "11",
+            "codePoint" : "24D8"
+        }
+    ];
+    doTable( document.querySelector( ".meituan tbody" ), meituanFontsData );
+
+
+    function unicodeToString( text ) {
+        return unescape( text.replace( /\\u/g, "%u" ) )
+    }
+</script>
+</body>
+</html>

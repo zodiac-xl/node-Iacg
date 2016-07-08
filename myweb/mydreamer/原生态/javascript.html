@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>javascript</title>
+<script src="../js/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+	padding: 40px 20% 20% 100px;
+	background: rgb(221, 221, 221);
+}
+dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;
+	text-indent: -47px;
+}
+/*编号*/
+body>dl>dt:before {
+	content: "第"counter(chapter)"章: "; /*/section为计数器取的名 可以为任意*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: black;
+	font-weight: bold;
+	font-size: larger;
+}
+body>dl {
+	counter-increment: chapter;  /*计数自增*/
+}
+/*编号*/
+
+
+
+body>dl>dd:before {
+	content: counter(section, upper-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd {
+	counter-increment: section;  /*计数自增*/
+}
+body>dl>dd>dl>dd:before {
+	content: counter(section2, lower-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd>dl>dd {
+	counter-increment: section2;
+}
+ /*编号*/
+</style>
+</head>
+
+<body>
+<dl>
+<dt>arguments.callee</dt>
+<dd>callee 属性是 arguments 对象的一个成员，该属性仅当相关函数正在执行时才可用。
+
+callee 属性的初始值是正被执行的 Function 对象。这将允许匿名函数成为递归的。</dd>
+<textarea>
+function factorial(n) {
+   if (n <= 0)
+      return 1;
+   else
+      return n * arguments.callee(n - 1)
+}
+print(factorial(3));
+
+输出为 6
+</textarea>
+</dl>
+<dl>
+<dt>脚本主要内容</dt>
+<dd>document.write("dddd") write()方法只能在document下使用 在文档为加载时使用 write()将内容添加到文档末尾 在文档加载完成后即onload或ready使用 将重写文档 覆盖 整个页面<br />
+element.src图像  element.style.color样式   if isNaN(x)验证x是否全为数字</dd>
+</dl>
+<dl>
+<dt>javascript对象</dt>
+<dd>属性 text.length  text.indexOf()  text.replace() text.search() text.toUpperCase()</dd>
+<dd>创建对象<br />
+person=new Object();<br />
+person.firstname="bill"；<br />
+person.age=56;</dd>
+<dd>访问对象属性 objectNama.propertyname<br />
+访问对象方法 objectName.methodName()</dd>
+</dl>
+<dl>
+<dt>正则</dt>
+<dd>直接语法var regexp=/pattern/attribute  如=/hello/gim 匹配hello 全局 大小写 换行</dd>
+<dd>创建RegExp对象语法var regexp=new RegExp(pattern,attribute);  如=new RegExp("hello","gim"); 匹配hello g全局 i忽略大小写 m换行</dd>
+<dd>元字符<br />
+ .查找单个字符除了换行和结束符 \w查找单词字符 \W查找非单词字符  \d查找数字字符 \D查找非数字字符 \s查找空白字符 \S查找非空白字符 <br />
+\b查找边界字符 \B查找非边界字符 \0查找nul字符 \n查找换行字符 \f查找换页字符 \r查找回车字符<br />
+\xxx查找八进制字符 \xdd查找十六进制字符 \uxxxx查找十六进制unicode字符</dd>
+<dd>量词<br />
+n+ 匹配包含至少一个n的字符串<br />
+n* 匹配包含零个或多个n的字符串<br />
+n? 匹配包含零个或一个n的字符串<br />
+n{x} 匹配包含x个n的字符串<br />
+n{x,y} 匹配包含x或y个n的字符串<br />
+n{x,} 匹配包含至少x个n的字符串<br />
+n$ 匹配以n结尾的字符串<br />
+^n 匹配以n开头的字符串<br />
+?=n 匹配任何其后紧跟着指定字符串n的字符串<br />
+?!=n 匹配任何其后没有紧跟指定字符串n的字符串
+</dd>
+<dd>RegExp对象方法<br />
+compile 编译正则表达式<br />
+exec 检索字符串中指定值 返回在找到的值 对确定其位置<br />
+test 检索字符串子中指定值 返回true或false
+</dd>
+<dd>支持正则表达式的String对象方法<br />
+search() 检索与正则匹配的子字符串 sringObject.search(regexp) 返回第一个匹配的起始位置 没找到则返回-1<br />
+match() 返回匹配到的值 相比较 a.valueOf()返回a的原始值  indexOf返回的时字符串的位置var str="12345" leng=integer.valueOf(str.substring(2)).intValue(); subsring(2)取第二个位置开始的子串 这里为345 integer.valueOf是intger类的一个静态方法 把string参数转化为integer类型  integer.intValue()方法将其他类型转化为int类型<br />
+replace()替换匹配<br />
+split()把字符串切割成字符串数组 string.split()和array.join()操作相反 <br />
+str.split(" ");" "表示空格 ""表示每个字符切割一次 ":"遇到：切割一次 /\s+遇到至少一个空白字符切割一次 str.split("",3)保留切割的3个子字符串放入数组
+</dd>
+</dl>
+
+
+<script type="text/javascript">
+$(document).ready(function(e) {     
+	$("dd").hide();
+	$("dt").click(function(e){$(this).nextAll().slideToggle()});
+  // $("dl").toggle(function(e){$(this).siblings("dd").slideDown("slow")},function(e){$(this).siblings("dd").slideUp("slow")});
+})
+ document.write("hello \
+ world")
+</script>
+</body>
+</html>

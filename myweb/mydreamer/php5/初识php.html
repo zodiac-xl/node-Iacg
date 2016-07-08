@@ -1,0 +1,842 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../css/reset.css" rel="stylesheet" type="text/css"/>
+<title>初识PHP5</title>
+<script src="../js/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+	padding:100px 50px;
+	background: rgb(221, 221, 221);
+	font-size: 17px;
+	
+}
+strong {
+	display: block;
+	margin-top: 20px;
+	color: rgb(34, 34, 34);
+	font-size: 20px;
+}
+pre {
+	color: rgb(44, 44, 44);
+	
+}
+ .show{position:absolute;padding:50px;top:5%}
+ strong{background: rgb(179, 169, 169);
+line-height: 60px;
+font-family: "Comic Sans MS", cursive;
+color: rgb(73, 73, 73);
+font-size: 22px;
+position: relative;
+float: left;
+margin: 20px;
+width: 250px;
+height: 54px;
+text-align: center;
+vertical-align: middle;
+box-shadow: 7px 7px 5px rgb(114, 114, 114);
+border-radius: 32px 32px 10px 10px;}
+input[type="button"]{position: fixed;
+right: 10%;
+top: 50%;
+width: 50px;
+height: 34px;
+font-size: 22px;
+font-family: "Comic Sans MS", cursive;
+color: rgb(73, 73, 73);
+background: rgb(228, 217, 92);
+text-align: center;
+vertical-align: middle;
+box-shadow: -1px -1px 5px rgb(114, 114, 114);
+border-radius: 4px;opacity:0.5
+}
+input[type="button"]:hover{opacity:1;}
+
+
+
+
+
+dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;
+	text-indent: -47px;
+}
+/*编号*/
+body>dl>dt:before {
+	content: "第"counter(chapter)"章: "; /*/section为计数器取的名 可以为任意*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: black;
+	font-weight: bold;
+	font-size: larger;
+}
+body>dl {
+	counter-increment: chapter;  /*计数自增*/
+}
+/*编号*/
+
+
+
+body>dl>dd:before {
+	content: counter(section, upper-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd {
+	counter-increment: section;  /*计数自增*/
+}
+body>dl>dd>dl>dd:before {
+	content: counter(section2, lower-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd>dl>dd {
+	counter-increment: section2;
+}
+ /*编号*/
+
+</style>
+</head>
+
+<body>
+<strong>实现引用赋值</strong>
+<pre>
+    < ?php
+        $b=&$a; //实现引用赋值
+        $a=7;
+        echo $b; //当变量a的值被修改时，变量b的值也会被同步修改
+    ?>
+    </pre>
+<strong>PHP的整型integer或int</strong>
+<pre>
+    $nub=040; //八进制基数为8 由3为数字组成，由前缀0以及0-7组成来表示一个数
+    $nub=0xff；//十六进制基数为16 其十六位字符由0到9和字母A-F组成 前缀由“0x”（零和x）组成 都不区分大小写 
+    </pre>
+<strong>PHP数组</strong>
+<pre>
+    $a[0]="中国"； //数组和数字关联
+    $b[重庆]="中国"；//数组和项目相关联
+    </pre>
+<strong>PHP对象</strong>
+<pre>
+     类似c++
+    /*创建一个类 名为Books*/
+    class Books{
+    	/*成员变量*/
+    	public $price;
+        public $title;
+        /*成员方法*/
+        function setPrice($par){
+        	$this->price=$par
+            echo $this->price."< br/>";
+           }
+     $PHPBook=new Books; //新建实例
+     $PHPBook->setPrice(89); 
+      </pre>
+<strong>PHP特殊数据类型</strong>
+<pre>
+     NUll 使用unset($var)函数删除一个变量后，这个变量的值也为NULL
+     
+     资源  描述一个PHP的扩展资源，
+          例如，一个数据库查询(Query)、
+               一个打开的文件句柄(fopen)
+               或一个数据库连接以及字符流(stream)等扩展类型
+     		如使用var_dump()函数打印变量的所有内容 var_dump($var); 
+	 </pre>
+<strong>PHP变量打印和输出</strong>
+<pre>
+     echo函数和print、printf、sprintf四个输出函数
+     
+     echo函数单纯显示文本信息和变量值，没有返回值
+     print(包括printf、sprintf)函数除了显示外，还会返回一个布尔值
+     echo函数没有返回值，但可以使用逗号(，)和小圆点(.)来显示字符串
+     print函数只能用小圆点来连接显示，不能使用逗号来接收多个参数
+     如：
+         echo "你好","我好"; //使用逗号连接字符串
+         echo "你好"."我好"; //使用小圆点连接字符串
+         print "你好"."我好"; //使用小圆点连接字符串 如果使用逗号连接会出错
+         单纯显示文字时，echo函数的效率比print函数高
+     
+     printf函数用于格式化输出字符串 用于以%开头的格式字符串替换原字符串
+     	printf("%dhello","11"); //11hello
+        printf("hello%d","11"); //hello11
+     %d表示按十进制长整形输出，%s表示按字符串输出，%f表示按浮点数输出
+     %b表示按二进制输出，%c表示转换为相应的ASCLL字符 %o表示转换为八进制 %x/%X转为为小写/大写的十六进制
+     %1或%2这种类型的格式字符串，按1 2 3。。顺序进行参数替换显示，替换后的数据类型显示使用$表示 如/s换为$s
+     如：
+     	 printf("2010年, %2\$s准备收购%1\$s","Yelp","Yahoo!");
+         //结果为：2010年， Yahoo!准备收购Yelp
+         printf("2010年, %1\$s准备收购%2\$s","Yelp","Yahoo!");
+         //结果为：2010年， Yelp准备收购Yahoo!
+     sprintf函数和printf基本相同，当它是将转换后的结果保存到一个字符串变量中，而不是直接输出。
+     如：
+     	 $var3=3.1;
+         $formatted=sprintf("%02.2f",$var3); //$formatted值为03.10
+         //%01.2f 表示转格式为浮点数 第一个参数为0表示如果位置为空就用0来填充 
+         						  第二个参数为1表示小数点前面数位至少要有1位以上 
+                                  第三个参数2表示小数位数至少要有2位以上
+         //%-01.2f 负号表示向左对齐 默认向右 $formatted值由03.10变为3.10  （理解为去掉左边的0）
+	</pre>
+<strong>PHP显示数组和对象</strong>
+<pre>
+     print_r($array/$var) r是取自array的单词 该函数用来打印数组内容 和 普通的变量
+         print_r($_REQUEST);
+         print_r($_GET); //打印get方法传递的表单内容
+         print_r($_POST); //打印post方法传递的表单内容
+     var_dump($object/$array/$var) dump是倒出的意思 该函数用来将变量或对象内容全部输出出来
+         var_dump($DB);	//打印$DB数据库连接对象的内容
+         var_dump($fileHandle); //打印文件句柄对象的内容
+         var_dump($Smarty); //打印Smarty模板对象
+     var_export($object/$array/$var)输出或返回一个变量的字符串表示 返回的是合法的PHP源代码 
+     可以通过吧第二个参数设为TRUE返回变量的表示
+         $a=array(1,2,array("a","b","c"));
+         var_export($a);
+         echo "< hr>";
+         $v=var_export($a,TRUE);
+         echo $v;
+         
+     echo print printf可以打印变量内容 但不能显示数组
+     print_r var_dump不仅能打印数组 标量 变量，还可以打印对象的内容
+     var_dump还可以打印布尔变量和资源（Resource）的内容
+     var_export函数可以返回传递给该函数的变量的结构信息，与var_dump()类似，不同的是返回的内容是合法的PHP源代码
+     </pre>
+<strong>PHP变量操作符</strong>
+<pre>
+     字符串换行连接
+     	$str="迎接上海"；
+        $str.="2010 世博会"； //使用.和=实现换行连接
+     也可以用花括号连接
+     	$a="hello";
+        $b="wu";
+        $str="say ".$a.$b." sir";
+        $str="say {$a}{$b} sir";
+     </pre>
+<strong>PHP显示数组和对象</strong>
+<pre>
+     <font color="blue">Php双引号和单引号区别</font>
+     	php中 如果字符串中包含变量 使用双引号php显示这个变量的内容，
+     	而使用单引号时php会将整个字符串包括变量都是为纯文本
+     
+      <font color="blue">HereDoc允许在php中嵌入一些大的文本内容 如电子邮件、一些HTML或文本等</font>
+     	以< < < THIS_HEREDOC开头，以前面关键字THIS_HERERDOC做对应，表示引用结束。
+     	< < < 后面可以是任意名称 如< < < hello 并以hello表示HereDoc的结束
+     	注意结束符前面不能有任何空格或TAB字符 否则出错
+     	如
+     	 	echo < < < hello
+             	phpphphphphphhhhhhhhhhhhhhhhhhhhhhh
+         	hello;
+         
+         
+      <font color="blue">php格式控制符</font>
+     	\n windows中换行
+        \r\n UNIX换行
+        \r Mac Os系统换行
+        \t 跳子 跳八个空格
+        
+      <font color="blue">php递增递减</font>
+     	$var++   返回var            
+        ++$var   返回var+1
+        $var--   返回var
+        --$var   返回var-1
+        
+      <font color="blue">三元操作符</font>
+     	 格式1： <布尔表达式>?<值>:<值>  $result=($grade>=60?"及格"："不及格");
+         格式2：  <布尔表达式>?<表达式1>:<表达式2>  $result=($x>$Y)?($x/$y)"($X*$Y);
+         
+      <font color="blue">php布尔运算符</font>
+     	 $aAND$b AND逻辑与 如果$a和$b都为true
+         $aOR$b  OR逻辑或 如果$a或$b任一为true
+         $aXOR$b  XOR逻辑异或 如果$a或$b任一为true，当不同时为true
+         !$a 逻辑非
+         $a&&$b 逻辑与
+         $a||$b 逻辑或
+         
+      <font color="blue">php位操作符</font>
+     	 位操作符是将一个整型变量当作一系列的二进制bit(位)来处理 常用于加密处理和用户权限处理
+         $a&$b      & AND(按位与)  在$a和$b中都为1的设为1
+         $a|$b      | OR(按位或)  在$a或$b中为1的都设为1
+         $a^$b      ^ Xor(按位异或)  在$a和$b中不同的位设为1
+         ~$a        ~ NOT(按位非)   在$a中位为0的设为1，为1的设为0
+         $a<<$b      << Shift left(左移)  将$a中的位向左移动$b次(每次移动都表示"乘以2")
+         $a>>$b      >> Shift right(右移)  将$a中的位向右移动$b次(每次移动都表示"除以2")
+</pre>         
+<strong>php数据类型转换</strong>
+<pre>
+      <font color="blue">php数据类型自动转换</font>
+     	 php为弱类型语言 变量不用声明类型 也称为动态语言
+         php会根据运算逻辑自动转化数据类型 明显的+在php中为数字运算符 .为字符串运算符
+         	echo 2+"10个小红花";
+            php认为它是数字相加 把操作数都转化为数字
+            	php对非数字的转化的规则
+                  通用的：
+                  	 布尔值 false为0 true为1
+                     NUll空值 为0
+                     Resource 显示为字符串；The resource’ s#(id); 
+                  php中还有：转化字符串为数字 它会先扫描字符串最左侧是否有数字字符，
+                  	 有则将字符串转化为这个数字，否则会视为0；
+                     "10个小红花"转化为10
+                     "没有10个小红花"转化为0
+	  <font color="blue">php数据类型强制转换</font>
+     	 第一种方式：在变量前加小括号 把想要强制转换为的数据类型写在括号里
+         第二种方法：使用settype函数来实现
+         	$var=(int)$var; //把$var转换为int类型重新赋值给$var
+            settype($var,'int') //转化$var为int类型
+         数据类型有：
+         	int/integer		整型
+            bool/Boolean	布尔型
+            float/double/real	浮点型/双精度浮点型/单精度浮点型
+            String		字符串
+            Array		数组
+            Object		对象
+            NULL		NULL
+         使用intval()取整 直接舍掉小数点后数值 不会四舍五入
+         	intval(22.24)	//22
+            intval("10朵小红花") //10
+            intval("没有10朵小红花") //0
+         转换为字符串类型
+            整型	        字符串		直接在整型数据两边加上引号就是转换后的结果
+            浮点型       字符串		直接在整型数据两边加上引号就是转换后的结果
+            布尔型       字符串		false 0  true 1
+            数组	        字符串		直接转换为字符串"Array"
+            对象	        字符串		直接转换为字符串"Object"
+            NULL        字符串		直接转换为空字符串
+            
+         转换为数组
+            整型 浮点型 布尔型 资源 字符串 转换为数组得到的数组都只有一个数据元素 就是未转换前的数据
+            
+            对象      数组    转换时将对象的成员变量的名称作为数组的key,而转换后数组每个key的value都为空
+                            (1) 如果成员变量为私有的(private),转换后key的名称为"类名+成员变量名"
+                            (2) 如果成员变量为公有的(public),转换后key的名称为"成员变量名"
+                            (3) 如果成员变量为受保护的(protected),转换后key的名称为"*+成员变量名"
+            NULL直接转换为一个空数组                            
+         
+         转换为对象
+            整型 浮点型 布尔型 字符串转行为对象时，将会新建一个名为"scalar"的属性，并将原变量的值存入其中
+            数组      对象     转换时把key作为对象成员变量的名称，对应各个key的value值作为对象成员变量的保存的值
+            NULL      直接转换为空对象
+</pre>
+<strong>PHP超级全局数组</strong>
+<pre>            
+         php超级全局数组（Super Global Array）是php内置的 不需要重新定义
+            在php脚本执行时，php会自动将当前脚本需要收集的数据放在超级全局数组中 如表单提交的值 用户会话 系统环境等
+            $_GET[] 取得以GET方法提交的表单的变量数组
+            $_POST[] 取得以GET方法提交的表单的变量数组
+            $_COOKIE[] 取得和设置当前网站的cookie标识
+            $_SESSION[] 取得当前用户访问的唯一标识，以数组形式体现，如SESSIONID以及SESSION数据
+            $_ENV[] 当前php的环境变量数组
+            $_SERVER[] 当前php服务器变量数组 包含WEB服务器设置 客户端请求信息或当前脚本的执行环境信息等
+            $_FILES[] 上传文件时提交到当前脚本的参数值，以数组形式体现
+            $_REQUEST[] 包含当前脚本提交的全部请求 包括$_GET、$_POST、$_COOKIE、$_SESSION的所有内容
+            $GLOBALS[] 该超级变量数组包含正在执行的脚本的所有超级全局数组的引用内容
+            
+            修改全局数组的值
+            如： $_ENV['COMPUTERNAME']="PHP5.2 production server";//重新设置计算机名称
+</pre>
+<strong>PHP变量和常量</strong>
+<pre>            
+          <font color="blue">变量和脚本处理</font>
+           isset($var)函数检测变量是否定义 返回布尔值
+             检测数组中某一元素 isset($_POST["user_name"])
+             检测对象的属性是否定义 isset($obj->property)
+             也可以对多个变量进行检查isset($var1,$var2,$var3) 只要有一个未定义则返回false
+             这个函数经常用来检查表单是否提交 通过检查表单的某个变量是否提交(如$_POST["user_name"])，就可以知道是否提交了某个文本框或按钮
+           unset($var)函数删除变量
+           empty($var)检测变量值是否为空 空则返回true 反之false
+           其他检测类函数族
+             is_integer()
+             is_numeric()
+             is_string()
+             is_array()
+             is_bool()
+             is_float()
+             is_object()
+             is_null()
+             is_resource()
+             遵循相同的命名规则 测试变量的数据类型
+             is_scalar()检测变量是否为标量变量 如果变量是数组或对象 返回false
+             
+             
+           <font color="blue">php定义常量</font>
+            define("CONSTANT_NAME",常量值)
+            常量和变量区别
+              常量只能保存整型 浮点型 字符串或布尔值 定义布尔值时 值默认为true
+              常量定义或引用时 常量没有$美元符号 
+              常量作用域是全局的
+           <font color="blue">php魔术常量</font>
+            魔术常量 就是这个变量保存着PHP脚本运行时的状态 如脚本名称、运行的行号等
+              __LINE__ 返回运行中PHP脚本的当前行号 //__为2个下划线
+              __FILE__ 返回当前执行的PHP脚本的完整路径和文件名，包含一个绝对路径
+              __FUNCTION__ 返回该函数被定义时的名字
+              __CLASS__ 返回该类被定义时的名字
+              __METHOD__ 返回类的成员方法的名称
+</pre>
+<strong>PHP的控制结构</strong>
+<pre>
+   if
+     if(){}
+     elseif(){}
+     else{}
+   switch  
+     $answer="y";
+     switch($answer){
+        case "x":echo"erro";
+        case "y":echo"您好";break;
+        default:echo"默认情况";
+     break语句放在case语句后 跳出循环 
+     由上而下遇到default语句时结束
+   while(){}
+   do{} while()
+   for($i=0;i<10;i++){}
+   for(;;){}这是一个无限循环
+   foreach(数组 as $value){echo $value;}//将数组里的数组元素遍历给变量$value
+     foreach只能对数组和对象遍历 不能根据条件表达式来处理循环 所以需要while/for循环语句存在
+   foreach(关联数组 as $key=>$value){echo $key."=".$value}
+     $s=array("ch"=>80,"zh"=>70);
+     foreach($s as $sb=>$va)
+       {
+         echo "$sb=$va";
+       }
+   循环控制语句
+     break 是终止所在语句的所有循环
+     continue是跳过continue下面的所有语句重新开始循环   
+</pre>
+<strong>PHP包含控制语句</strong> 
+<pre>
+    <font color="blue">include和require</font>
+     include "test1.php";//这样test1中的全局变量和常量等本文件也可以使用了
+     也可以使用相对路径或绝对路径来引用文件
+     include $_SERVER["DOCUMENT_ROOT"]."/test1.php";
+     reqiure_once(dirname(__FILE__)."/test1.php";
+       dirname(__FILE__)函数返回当前文件的目录名称
+     用APP_PATH常量定义当前系统的绝对路径reqiure_once(APP_PATH."/test1.php")
+     使用相对路径名require_once("../test1.php")
+     ./表示当前脚本所在目录
+     ../表示当前脚本的上一级目录
+     ../../表示当前脚本的上一级目录的上一级目录 依次类推
+     
+     可以用url来进行文件包含 使用URL包含时，PHP会先把这个文件的源代码下载到本地，然后包含进当前脚本，之后会再会运行一次，耗费时间较多
+     include("http://blog.sina.com.cn/index.php");这个url必须返回正确的PHP脚本，且不是静态页面
+     
+     include和require的区别
+       require语句包含的文件中若有语法错误或不存在时会提示警告Fatal error,并终止程序的进行
+       而include只会显示Warnning警告错误，然后继续执行该脚本后面的语句，不会终止程序进行
+       
+     include_once和require_once表示有且仅会包含一次 如果再次include_once/require_once相同的文件时 就会被PHP忽略
+       使用include_once或require_once时，PHP每次都会查询当前文件是否被包含，可以避免重复引用，但造成效率低下
+       5.2版本后include和require的效率被优化 所以使用include和require就可以了
+       
+  <font color="blue">eval()相当于小型php解析器，给它一个正确的PHP语句或表达式，它就能执行，用来动态执行PHP代码</font>
+   $str="$var=5";
+   $fn="exit(){echo '我被执行了'}";
+   eval($str);echo $var; //5 （表达式被执行了）
+   eval($fn); // 我被执行了 （函数被执行了）
+  <font color="blue">exit()与die()终止脚本的执行 exit和die指向同一个函数 die()是exit()函数的别名</font>
+   函数只接受一个参数，可以是字符串或数值 也可以为空
+   为空和为0时die()/die(0) 脚本提前终止执行
+   die("abc");会提前终止脚本 同时将参数abc输出到系统终端上
+   如
+     $fp=fopen("./test1.php","r") or die("打开失败"); 
+     //当文件打开失败时返回布尔值false，die函数会终止脚本执行 并显示传递给它的参数 
+</pre>
+<strong>PHP系统函数</strong>
+<pre>
+  PHP中<font color=red>函数名称不区分大小写 函数重名时 程序将终止执行</font>，函数定义和js大同小异
+    和js一样php也会先加载函数 所以在函数定义之前调用函数也是可以的 变量同样只有在需要用时才会去求它的值
+    
+ <font color="blue">PHP从函数中返回值</font>
+  return和echo  return只能在函数中使用
+  返回数组时可以用
+        list($var1,$var2,$var3)=$array;
+        echo $var1,$var2,$var3
+        使用list函数将数组元素赋给变量 然后输出出来
+  返回布尔值时
+        echo true; //1
+        echo "true"; //true
+        return "true"; //true
+        return true;//使用var_dump()打印布尔值出来(boolean)true;
+   <font color="blue">函数参数的传递</font>
+    使用return可以提前结束函数
+      function a(){
+         if($color="red"){
+           return;
+           }
+           echo "a";
+       }
+       a();//当满足$color="red"条件时 a()函数会提前结束 不会输出"a";
+  func_num_args()函数在自定义函数中，获取目前传入了几个参数的数量
+  func_get_arg(参数) 参数可以是下标0,1,2等 也可以是具体的那个参数 获取传递过来的参数的值
+  <font color="red">使用引用&传值</font>类似c++的指针
+  <font color="blue">局部变量转化为全局变量</font>
+    php函数类的变量是局部变量 可以用global把它声明为全局变量
+    如 global $a; //变量$a被声明为了全局变量
+  <font color="blue">静态变量 static $var;</font> 静态变量在函数结束后不会被内存回收 第二次执行时可以直接取得原来操作过的值
+   如static $a=1;echo $a++;echo $a++; //两次输出结果不一样 分别为 1和2
+  <font color="blue">定义常量</font> define("a",6) //定义了一个叫a的常量 值为6 常量是全局的
+  <font color="blue">递归函数</font>
+    如 function a($nub){
+          if($nub<=10){
+            return $nub+a($nub+1);
+            }
+        }
+       echo a(1); //从 1加到10 结果为55
+  <font color="blue">解决函数重名问题</font>
+    使用function_exists()函数来检测用户自定义的函数名称是否已经存在
+    if(!function_exists("showAll")){
+       function showAll(){ //如果不存在函数showAll 则可以创建showAll()
+       }
+     }
+     
+    也可以使用create_function()快速创建一个函数 函数名称由PHP动态生成 通过变量调用
+     如 
+      $a=create_function('$var1,var2','echo "新函数".$messager;');
+      //第一个参数里的var1，var2，var3等都是新建函数的参数 第二个参数为新建函数的function表达式；
+      echo $a; //得到新建函数的名字
+      echo $a();  //调用函数$a;
+  <font color="blue">可变变量</font>
+     在PHP中允许吧一个变量的值作为另一个变量的名字 称为可变变量
+        例1：
+           $a="php5";
+           $$a="php笔记";
+           echo $php5;
+           echo $$a;   //输出都为'php笔记'
+        例2：
+           $a="123";
+           $$a="php笔记";
+           echo ${'123'}; //因为$123是一个非法的命名 当变量名不合法时 可以用花括号来显示
+           echo $$a;   //输出都为'php笔记'
+        例3：可变变量动态调用函数
+           function myFunc($a){
+              echo $a;
+            }
+           $a="myFunc";
+           $a("test");//成功调用函数myFunc()   
+</pre>
+<strong>PHP字符串操作</strong>
+<pre>
+  <font color="blue">转义字符串 \</font>
+  如要输出$var="this is a \'dog\'" 输出"’" 单引号
+         $var="the \$var is $var" 输出"$var"变量名
+ <font color="blue">自动转义字符串数据</font>
+  addslashes(string)函数为字符串里面的部分字符添加反斜杠转义字符
+                 只为4个字符添加 包括单引号"'" 双引号""" 反斜杠"\"和NULL ("\0")
+  php会对$_GET[],$_POST[],$_COOKIE[],$_REQUEST[]与表单相关的数组自动增加转义功能，因此再对这几个超级变量数组进行转义会造成错误
+  stripslashes()函数是addslashes()函数的反操作
+  使用addslashes()将数据放入数据库 拿出来的时候记得使用stripslashes()去掉转义字符
+  
+  addcslashes(<string>,charactors) charactors指定需要执行转义操作的字符串中的字符
+     在php中\o,\r,\n,\t是预先定义的转义序列 不需要再转义   
+     addcslashes($str,"s");//为字符s添加转义
+     addcslashes($str,"a..z");//为一组字符串a到z添加转义
+     
+ <font color="blue">数值转换字符串</font>
+ chr($var) $var是合法的ASCLL码值
+ 如chr(98) //结果为a
+ ord($str) 返回$str字符串首字母的ASCLL嘛值 对chr()函数做补充
+ <font color="blue">字符串序列化</font>
+ serialize($str)将字符串转化为可存储在数据库或会话记录中的字符串
+ 如 serialize("php"); 结果为s:3:"php"  s表示字符串类型 3表示长度 "php"表示值
+ unserialze()反序列化 将序列化数据还原为正常数据
+ <font color="blue">trim($string)去除字符串中的空格和格式控制符\n \r \t \0</font>
+ 兄弟函数有
+   ltrim()去除字符串变量左侧的空格和格式控制符
+   rtrim()去除字符串变量右侧的空格和格式控制符
+ <font color="blue">格式化字符串</font>
+ nl2br($str)将字符串中\n换行符转换为html中的< br />标签 常用于用户提交表单文本内容转换后添加到数据表中
+                                                   或从数据表中提取，用它转换显示一个标准的HTML换行的内容
+ wordwrap()函数用于指定从某列字符进行强制换行
+ wordwrap($str,20,"< br/>"); //在一行的第20个字符处强制换行
+ 
+ <font color="blue">改变字符串大小写</font>
+ strtolower($str); //转换为小写
+ strtoupper($str); //转换为大写
+ ucfirst($str); //转换首字符大写
+ ucwords($str); //转换所有单词首字母大写
+ <font color="blue">字符串切分</font>
+ explode()函数用于切分一个有明显标识的字符串 切分后返回一个索引数组
+ $arr=explode("@",$email); //以@进行切分 和split类似
+ <font color="blue">字符串截取</font>
+ substr($str,n,m)
+ <font color="blue">字符串长度</font>
+ strlen($str); //注意一个汉字占用二个ASCLL字符长度
+ <font color="blue">字符串单词统计</font>
+ str_word_count($str); 统计单词个数
+ <font color="blue">字符串查找</font>
+ strstr($string,"keyword");//返回布尔值 查找$string中是否有"keyword"子串
+ strpos($string,"keyword",5)//返回的是子串所出现的位置号 还可以设置从字符串中第几个字符开始查找 这里是从5
+ mb_strpos()是用来处理双字节字符 如中文日文等
+ str_repeat("php5",10);用来重复显示一个字符或字符串 这里是重复10次
+ substr_count($str,$keyword);计算子串出现了多少次
+ <font color="blue">字符串处理</font>
+ str_replace("beingjing",$var,$text);第一个参数是要替换掉的字符串 第二个是要替换为的字符串 第三个参数是搜索的目标文本
+ strrev($str) 将字符串反转
+ <font color="blue">转换为HTML实体 让浏览器不解释它</font">
+    HTML中有一些字符含有特殊意义 需要使用字符实体entities 
+      entities含有三部分 一个与字符$ 一个实体名或实体号 最后一个是分号;  
+    在php中，htmlspecialchars()和htmlentities()函数用来将字符转换为html实体，一方面为了页面显示安全 另一方面使php代码不易出错
+      htmlspecialchars($str,ENT_COMPAT,"UTF-8")
+      第一个参数是要转换的字符串 第二个可选参数是选择引号的转换模式
+        有三个常量
+          ENT_COMPAT:表示转换双引号但保留单引号 默认值
+          ENT_QUOTES:表示同时转换双引号和单引号
+          ENT_NOQUOTES：表示两个都不转换
+        第三个可选参数是选择转换字符的编码集
+     htmlentities()和htmlspecialchars()类似
+     html_entity_decode()是htmlentities()的反函数 把HTML实体转换为正常的字符
+ 
+ <font color="blue">清除HTML标签</font>
+    strip_tags(string,[,allow])
+    strip_tags()函数可以清除出字符串中所有的HTML超文本字符 使它成为一个纯文本字符串 第二个参数可以规定允许的标签不被清楚
+
+    $str="email: < a href='www.baidu.com' >baidu< /a>";
+    echo $str; //email :baidu
+    echo strip_tags($str);//email :baidu 看似一样 但第一个baidu是带超链接 而第二个baidu是纯文本
+    echo strip_tags($str,"< a>"); //保留a标签不被清除
+    
+ <font color="blue">字符串比较</font>
+    strcmp($str1,$str2) 比较2个变量是否整体完全相同 返回int值  0则相同 1则不同
+    strncmp()可以指定比较前几个字符
+    strncmp($str1,$str2,3) 比较2个变量的前3个字符是否相同
+ <font color="blue">字符串解析</font>
+    strtok(string,$token);//按$token参数来解析字符串
+    $str="员工A：思想创新|积极进步,技术开发部"；
+    $token=":|,"; //字符串使用： | ，3种分隔符，以此为标志分析字符串
+    $tokenized=strtok($str,$token); //分析后存入数组
+    while($tokenized){  //从数组中循环显示每个元素
+     echo "值=$tokenized<br>";
+	$tokenized=strtok($tokens);
+    }
+    //结果为：   值=员工A
+               值=思想创新
+               值=积极进步
+               值=技术开发部
+ <font color="blue">查找并替换字符串</font>
+ strpbrk($text,"w");从查找到的w开始生成新的字符串
+ $text="hello php5 PHP5"
+ strpbrk($str,"h"); //结果为hello php5 PHP5
+ strpbrk($str,"H"); //结果为PHP5
+ 
+  <font color="blue">检测是否属于特定的用户名称设定</font>
+  strspn("hello","oleh"); 
+  //返回5  表示hello字符串中有5个字符都包含在在第二个参数"oleh"中
+  检验用户名：
+      $array1=range(0,9); //range()函数生成指定范围的数组
+      $array2=range("a","z");
+      $chars=implode("",$array1).implode("",$array2); //implode()函数将数组转化为字符串
+      $username="raymond";
+      echo "用户名可以使用合法的字符串:$chars<br>";
+      if(($n=strspn($username,$chars))!=strlen($username)){ 
+      //strspn()函数检查$username包含在$chars中的字符个数是否等于它本身的字符串长度
+        echo "长度为$n的字符串\"$username\".是一个非法的用户名"；
+        }  
+  strcspn("hello","oleh");和strspan()函数相反 返回str1中没有包含在str2中的字符的个数 这里为0
+  strcspn("hello","e"); //结果为4  hello中有4个字符没有包含在"e"中
+    
+</pre>
+<strong>日期和时间</strong>
+<pre>
+  time()返回时间戳 即自1970年1月1日到现在经过的秒数
+  <font color="blue">日期函数</font>
+  取得和改变默认时区
+    date.default_timezone_get()  获得时间函数的默认时区
+    date.default_timezone_set()  设置时间函数的默认时区
+    date.default_timezone_set('PRC')  //设置默认时区为中国北京时区
+    也可以直接修改php.ini中date_timezone值
+     如：date.timezone=ETC/GMT-8  将服务器时区设为东八区 即中国时区
+ date()函数
+    date(format,timestamp) formate规定输出事件的格式 timestamp规定时间戳 如不设置 相同为time()函数
+    date.default_timezone_set('PRC')  //设置默认时区为中国北京时区
+    echo date("Y-m-d" G:i:s")  //输入当前时间 如2013-12-26 16：53:20
+    date(1); //Saturday
+    date("1",time()-86400); //Friday
+ getdate(stamp);根据给定时间戳 返回一个完整的日期时间的关联数组
+ $now=time()-86400; //规定时间戳
+ $array=getdate($now); //不给定参数时 时间戳默认为当前日期和时间
+ print_r($array);
+ 结果：array(
+             [seconds]=>4
+             [minutes]=>15
+             [hours]=>7
+             [mday]=>25 //一个月中的几号
+             [wday]=>1 //星期几
+             [mon]=>11  //几月
+             [year]=>2014 //年份 2014
+             [yday]=>24 //一年中的第几天
+             [weekday]=>Monday //英文星期
+             [month]=>January  //英文月份
+             [0]=>1264412894 // 时间戳
+             )
+ checkdate()函数 用于检测一个日期格式是否正确 接收的参数为月，日，年，返回一个布尔值
+ <font color="blue">时间函数</font>
+ time()返回系统当前的时间，以UNIX时间戳的方式显示
+ mktime($hour,$minute,$second,$month,$day,$year)
+   与getdate()相反 它将一系列的日期和时间值生成一个UNIX时间戳 不带自变量时 它生成当前日期和时间的时间戳
+ strtotime($str);将英文日期和时间字符串转化为UNIX时间戳 此函数用来将非标准日期或时间转化为标准、兼容的UNIX时间戳
+ strftime()函数将UNIX时间戳格式化适用于系统当前环境的日期字符串。引用此函数建立与当前环境兼容的日期字符串
+   setlocael(LC_TIME,"zhs");  //设置本地环境为简体中文
+   echo strftime("Month:%B");
+   echo strftime("Day:%A");
+ 
+ 以下2个函数以格林威治时间来做标准输出 所以都已gm开头
+   gmmktime($hour,$minute,$second,$month,$day,$year);//将格林威治格式的时间生成UNIX时间戳
+   gmdate("d-M-y h:i A",gmmktime()); //将当前的格林威格式的时间转化为可阅读的格林威日期字符串
+   
+ microtime()函数一般用来测试代码段运行了多长时间 计算脚本执行话费的时间 返回当前UIX时间以及GMT时间1970-1-1到现在所消逝的秒数和微秒数
+   function utime(){
+       $rtime=explode(" ",microtime());//返回当前UIX时间以及GMT时间1970-1-1到现在所消逝的秒数和微秒数
+                                       //使用explode()将字符串转化为数组
+       $usec=(double)$rtime[0];
+       $sec=(double)$rtime[1];
+       return $usec+$sec;
+       }
+    $start=utime();
+    //将下面代码放在需计算执行时间的脚本的后面
+    $end=utime();
+    $run=$end-$start;
+    echo "脚本运行了$run秒";
+</pre>
+<strong>网络相关处理</strong>
+<pre>
+   <font color="blue">header()函数</font>
+   php的header()函数允许发送指定的HTTP头信息，主要包括提供非常有用的验证功能以及URL重定向等功能
+   
+   1.发送HTTP头信息
+     HTTP的一个非常有用的头"Location"，使用该关键字实现页面转向
+     header("Location:http://lady.sohu.com"); //重定向
+     
+      <font color="blue">延时转向</font>
+      header("refresh:3;url=http://www.php.net");
+      把Location换成refresh，用以指定等待的时间，然后再调转到url指定的页面
+   2.处理客户端缓存 告诉浏览器网页的过期时间 请求是什么 成功与否 还可以让客户端浏览器返回一些代码
+      header("HTTP/1.1 200 OK");
+      header("HTTP/1.1 404 Not Found");还可以发送500 403等HTTP头信息
+      
+      禁止浏览器缓存当前HTML内容：
+        header('Cache-Control:no-cache,no-store,max-age=0,must-revalidate');
+        header('Expires:Mon, 26 Jul 1997 05:00:00 GTM'); //数据保留到这个时间
+        header('Pragma:no-cache');
+        
+        header('Refresh:10,url=http://www.baidu.com/');
+        与HTML的META标识符功能相同
+        < meta http-equiv='refresh' content='10;http://www.baidu.com/"/>
+        
+        告诉浏览器页面最后更新时间
+        $time=time()-60;
+        header('Last-Modified:'.gmdate('D, d M Y H:i:s',$time)." GMT'); 
+        
+        发送内容的长度（对于缓存很有用）
+        header('Content-Length:1234');
+        
+        自动跳转
+        header("301 MOved Permanently");
+        header("Location:http://www.baidu.com/");
+        
+        发送一个下载的头信息 常用于下载文件：
+        header('Content-Type:application/octet-stream');
+        header('Content-Disposition:attachment; filename="example.rar"'); //下载的文件
+        header('Content-Transfer-Encoding:binary');//二进制编码
+        //调入文件并发送给浏览器
+        readfile('example.rar');
+        //当前文件使用的语言
+        header('Content-language:zh-CN');
+        
+        
+        设置发送给网页的内容(MIME)和所使用的字符集（文本文件和HTML文档使用）：
+        header('Content-Type:text/html;charset=gb2312');
+        header('Content-Type:text/html;charset=utf-8');
+        header('Content-Type:text/plain'); //发送的文件为纯文本文件
+        header('Content-Type:image/jpeg'); //jpeg格式的图片
+        header('Content-Type:application/zip');  //zip压缩文件
+        header('Content-Type:application/pdf'); //PDF文档
+        header('Content-Type:audio/mpeg'); //音频格式文件MP3 wmv等
+        
+        发送一个Flash文档，表示是一个Flash动画文件，常用于PHP的Ming扩展库
+        header('Content-Type:application/x-shockwave-flash'); 
+  <font color="blue">处理url字符串</font>  
+      http://www.pehi.com.cn:80/sort/index.php?brouwse=all&key=1#more
+      www主机  pehi域名  .com.cn中国国际二级域名 .cn为中国域名  .com/.net/.org/.name为国际域名
+      :80端口  brouwse=all&key=1参数名和值  #more为HTML中的锚点
+      
+       http://www.pehi.com.cn后面的字符串被称为URI(Uniform Resource Identifier)统一资源标识符
+       整个字符串称为URL(Uniform Resource Locator) 统一资源定位符
+       
+     PHP中对URL和URI字符串解析的函数
+     parse_url()
+     示例：
+         $url='http://www.pehi.com.cn:80/sort/index.php?brouwse=all&key=1#more';
+         $p=parse_url($url);
+         foreach($p as $name=>$content){
+            echo "< b>$name:< /b>$content< br/>";
+            }
+            
+     结果为：
+           scheme:http
+           host:www.pehi.com.cn
+           port:80
+           path:/sort/index.php
+           query:brouwse=all&key=1
+           fragment:more
+           
+    pars_str()用于分析url 对url上传递的值或服务器变量Query String进行分析 可不再用explode()函数进行切分后处理
+    假设当前url路径为
+     http://www.pehi.com.cn:80/sort/index.php?browse=all&key=1#more
+     pars_str($_SERVER['QUERY_STRING'];
+     //根据差描述 自动生成$browse和$key变量和他们的值
+     echo $browse;
+     echo $key;
+     
+  <font color="blue">URL编码encode</font>
+   URL编码(encode)的原理是将url中的空格，以及不安全的ASCLL字符和双字节字符(如汉字 日文)等转化为%开头的十六进制编码
+   
+   如 $name="小龙"；
+      $encodename=urlencode($name); //将中文转为%开头的十六进制编码
+      $decodename=urldecode($encodename); //%开头的十六进制解码为编码前格式
+  
+   
+    <font color="blue">获取PHP环境信息</font>
+    get_loaded_extensions(); //获取加载的php扩展
+    get_extension_funcs($extension) //获取每个扩展的所有函数和方法
+    
+    $a=get_extension_funcs('mysql');
+	echo implode(" ",$a); 输出mysql的所有函数和方法
+    
+   <font color="blue">其他操作符</font>
+   @错误抑制符
+     在常见的数据库连接和文件创建操作或出现除0等操作时 可以用@符号来抑制错误信息输出到浏览器端
+     $a=@(50/0);
+     @mysql_query($sql);
+     @mkdir('/user/1/1');
+     
+  执行外部命令
+  使用· ·不是单引号 是ESC下方的上档键   这一方法叫做 backtrack追踪
+    $out=`dir c:`; //返回c盘子目录和文件信息
+    print_r($out); //使用windows或部分linux
+
+    $out1=shell_exec("dir");  //获取当前文件下的子目录和文件信息
+    echo $out1; 
+    使用` `和shell的不同在于前者将结果放在一个数组中 后者将结果放在一个标量变量中
+</pre>
+
+<input type="button" value="返回"/>
+
+
+
+<script type="text/livescript">
+$(document).ready(function(e) {
+ 	$("pre").hide();
+	$("strong").click(function(e) {
+    $(this).next().show();
+	$(this).next().addClass("show");
+	$(document).scrollTop(0);
+	$("strong").hide();
+	});
+	$('input[value="返回"]').click(function(e){
+		$("strong").show();
+		$(document).scrollTop(0);
+		$(".show").removeClass("show");
+		$("pre").hide();
+	})
+})
+</script>
+</body>
+</html>

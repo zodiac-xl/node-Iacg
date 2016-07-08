@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Keywords" content="前端ui库，js特效，js交互效果">
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/experirence.css">
+<link rel="stylesheet" type="text/css" href="css/head.css">
+<script src="js/jquery.js"  type="text/javascript"></script>
+<script src="js/head.js" type="text/javascript"></script>
+<script src="js/experirence.js" type="text/javascript"></script>
+<script src="js/to-top/to-top.js"></script>
+<title>Zodiac笔记</title>
+<style type="text/css">
+/**/
+
+/*.main>dl{position:relative;float:left;} float布局*/
+.main>dl{display:inline-block;vertical-align:middle;} /*inline-block布局*/
+
+/*.main {
+	-webkit-columns: 2;
+	-webkit-column-rule: 1px solid black;
+} */        /*多栏布局 优势：解决对齐*/
+
+/*.main{
+	display:-webkit-box;  //box布局
+}
+.main>dl{-webkit-box-sizing:border-box;}*/
+/**/
+dt {
+	background: rgb(172, 172, 172);
+	line-height: 50px;
+	width: 200px;
+	text-align: center;
+	margin: 4px 300px auto 0px;
+	border-radius: 6px;
+}
+dd {
+	backgroud: red;
+	line-height: 20px;
+}
+textarea {
+	background: rgb(213, 213, 213);
+}
+</style>
+</head>
+
+<body>
+<div class="header">
+  <h1 class="logo"><a href="#"></a></h1>
+  <div class="bgchange">
+    <label style="background-color: rgb(243, 243, 243)"></label>
+    <label style="background-color: rgb(197, 190, 218);" ></label>
+    <label style="background-color: rgb(214, 201, 149);"></label>
+    <label style="background-color: rgb(46, 46, 46);" ></label>
+  </div>
+  <div class="bgchange">
+    <input id="ab" type="radio" class="a" name="bg" checked />
+    <input type="radio" class="b" name="bg" />
+    <input type="radio" class="c" name="bg"/>
+    <input type="radio" class="d" name="bg"/>
+  </div>
+  <a href="index.html" class="home">回到首页</a> </div>
+<div class="nav" id="nav">
+  <ul>
+    <li><a  href="index.html">主页</a></li>
+    <li class="ui"><a  href="ui.html">我的ui</a></li>
+    <li><a  href="experience.html">我的笔记</a></li>
+    <li><a  href="jq.html">jQuery笔记</a></li>
+    <li><a  href="book.html">我的书架</a></li><li><a  href="html5css3.html">HTML5CSS3</a></li>
+<li><a  href="原生态.html">原生态</a></li>
+  </ul>
+</div>
+<div class="nav" id="nav1" style="display:none">
+  <ul>
+    <li><a id="all" href="#">全部</a></li>
+    <li><a id="focus"  href="#">焦点图</a></li>
+    <li><a id="data" href="#">数据统计</a></li>
+    <li><a id='photo' href="#">相册</a></li>
+    <li><a id='menu'  href="#">菜单</a></li>
+    <li><a id='widget'  href="#">控件</a></li>
+  </ul>
+</div>
+<div class="main">
+
+  <dl>
+    <dt>js屏蔽键盘或鼠标</dt>
+    <dd>
+      <textarea rows="22" cols="50">
+    屏蔽键盘
+< body onkeydown='a()' >
+function a(){
+	if(event.keyCode==8){
+
+	event.keyCode=0;
+	event.returnValue=false;
+	alert('当前设置不允许使用退格键')
+	}
+	else return true；
+}
+
+
+屏蔽鼠标
+< body onmousedown=‘b()’ >
+function b(){
+	if(event.button==2){
+
+	event.returnValue=false;
+	alert('禁止使用鼠标右键‘）；
+	}
+
+}
+</textarea>
+    </dd>
+  </dl>
+  <dl>
+    <dt>js识别浏览器</dt>
+    <dd><a href="experienceWeb/js识别浏览器.html">示例</a></dd>
+    <dd>
+      <textarea cols="60" rows="15">
+  function getBrowser() 
+{ 
+var Sys = {}; 
+var ua = navigator.userAgent.toLowerCase(); 
+var re =/(msie|firefox|chrome|opera|version).([\d.]+)/; 
+var m = ua.match(re); 
+Sys.browser = m[1].replace(/version/, "'safari"); 
+Sys.ver = m[2]; 
+a=m[0];
+return Sys; 
+} 
+var sys = getBrowser(); 
+document.write(sys.browser + "===" + sys.ver);
+document.write(a);
+</textarea>
+    </dd>
+  </dl>
+  <dl>
+    <dt>name和id</dt>
+    <dd>
+      <textarea rows="22" cols="40">举个简单的例子
+< form name="form1">
+用户名：<input type=text name="username" id="username">
+密码：<input type=password name="password" id="pwd">
+< /form>
+如果我要获得用户名和密码;JS用name可以直接获得的话，
+就得写成document.form1.username.value;
+document.form1.password.value;
+用id获得：
+docuement.getElementById("username");
+docuement.getElementById("pwd");
+有时候name 可能会出现相同的名字，
+所以这时候我们用name获得就无法确定获得的是哪个值了。
+document.getElemntsByName("username");
+这里得到的是一个数组
+</textarea>
+    </dd>
+  </dl>
+  <dl>
+    <dt>onload和ready区别</dt>
+    <dd>.onload不仅要求页面的DOM tree全部加载完成，<br/>
+      而且要求所有的外部图片和资源全部加载完成</dd>
+    <dd>.ready仅只需要加载所有的DOM结构，<br />
+      在浏览器把所有的HTML放入DOM tree之前就执行方法。<br />
+      包括在加载外部图片和资源之前。</dd>
+  </dl>
+  <dl>
+    <dt>闭包引起的问题 for循环</dt>
+    <dd><a href="experienceWeb/闭包for循环取同一个数.html">取同一个数</a></dd>
+    <dd><a href="experienceWeb/闭包for循环取不同数.html">取不同的数</a></dd>
+  </dl>
+    <dl>
+    <dt>字符串和数组</dt>
+    <dd><a href="experienceWeb/字符串和数组.html">详细</a></dd>
+  </dl>
+  <dl>
+    <dt>html字符实体和转义字符</dt>
+    <dd><a href="experienceWeb/html字符实体和转义字符.html">详细</a></dd>
+  </dl>
+  <dl>
+    <dt>匿名函数的作用</dt>
+    <dd><a href="experienceWeb/匿名函数作用.html">详细</a></dd>
+  </dl>
+  <dl>
+    <dt>js内置函数</dt>
+    <dd><a href="experienceWeb/javascript的内置函数.html">详细</a></dd>
+  </dl>
+  <dl>
+    <dt>ff和ie区别</dt>
+    <dd><a href="experienceWeb/ff和ie的区别.html">详细</a></dd>
+  </dl>
+  <dl>
+    <dt>背景位置和缩放</dt>
+    <dd><a href="experienceWeb/背景布局位置 缩放.html">详细</a></dd>
+  </dl>
+    <dl>
+    <dt>离开页面前确认</dt>
+    <dd> < body onbeforeunload="return '3qq'" ></dd>
+  </dl>
+  
+</div>
+<script>
+$(document).ready(function(e) {     
+	$("dd").hide();
+	$("dt").click(function(e){$(this).nextAll().slideToggle()});
+  // $("dl").toggle(function(e){$(this).siblings("dd").slideDown("slow")},function(e){$(this).siblings("dd").slideUp("slow")});
+})//function(ev){$(ev).nextAll().hide();}
+
+
+</script>
+</body>
+</html>

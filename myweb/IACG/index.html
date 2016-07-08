@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>i站首页</title>
+    <link rel="bookmark" href="img/xr.png">
+    <link rel="shortcut icon" href="img/xr.png">
+    <link rel="stylesheet" type="text/css" href="http://sandbox.runjs.cn/uploads/rs/392/w5zrkmek/style.css">
+
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/mainPage.css" rel="stylesheet">
+</head>
+<body class="a">
+<div id="layout">
+    <div class="head">
+        <ul>
+            <li class="web-logo">
+                <div></div>
+            </li>
+            <li class="head-nav">
+                <div>
+                    <div class="open-nav">i站</div>
+                    <ul class="nav">
+                        <li>i站主页</li>
+                        <li>动漫情报局</li>
+                        <li>声优</li>
+                        <li>欢乐周边</li>
+                        <li>宅科技</li>
+                        <li>次元百科</li>
+                        <li>动漫图库</li>
+                        <li>好资源分享</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="logo">登录</li>
+            <li class="register">注册</li>
+        </ul>
+    </div>
+    <div class="side-nav">
+        <div class="side-nav-ul-wrap">
+            <ul class="nav">
+                <li>i站主页</li>
+                <li>动漫情报局</li>
+                <li>声优</li>
+                <li><a href="index.html">欢乐周边</a></li>
+                <li>宅科技</li>
+                <li>次元百科</li>
+                <li>动漫图库</li>
+                <li>好资源分享</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide">
+        <ul class="slide-img">
+            <li><a href="">
+                <div class="img-wrap"><img src="img/banner-01.jpg"></div>
+            </a></li>
+            <li class="on">
+                <a href="">
+                    <div class="img-wrap"><img src="img/banner-02.jpg"></div>
+                </a></li>
+            <li><a href="">
+                <div class="img-wrap"><img src="img/banner-03.jpg"></div>
+            </a></li>
+            <li><a href="">
+                <div class="img-wrap"><img src="img/banner-04.jpg">
+                </div>
+            </a></li>
+            <li><a href="">
+                <div class="img-wrap"><img src="img/banner-05.jpg"></div>
+            </a></li>
+            <li><a href="">
+                <div class="img-wrap"><img src="img/banner-06.jpg"></div>
+            </a></li>
+        </ul>
+        <ul class="slide-bar">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+    </div>
+    <div class="newIT">
+        <div class="title head"><span>技术前沿:</span><span>尝鲜verlet物理引擎</span></div>
+        <canvas id="scratch" style=" width: 340px;height: 240px"></canvas>
+    </div>
+    <!--<div class="nav-tag-wrap">-->
+    <!--<div class="nav-tag ">-->
+    <!--<a><img src="img/nav-tag-01.jpg"></a>-->
+    <!--<a href="#products"><img src="img/nav-tag-02.jpg"></a>-->
+    <!--<a><img src="img/nav-tag-03.jpg"></a>-->
+    <!--<a><img src="img/nav-tag-01.jpg"></a>-->
+    <!--<a><img src="img/nav-tag-02.jpg"></a>-->
+    <!--<a><img src="img/nav-tag-03.jpg"></a>-->
+    <!--<a><img src="img/nav-tag-01.jpg"></a>-->
+    <!--<a><img src="img/nav-tag-02.jpg"></a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="columns">
+        <div class="column-01">
+            <div id="cartoon">
+                <div class="head">
+                    <span>动漫</span>
+                </div>
+                <ul class="hot img">
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://r4.ykimg.com/0515000052A6E00F6758396700058F9A" alt="漆黑的子弹">
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href="http://v.youku.com/v_show/id_XNzA2OTE2MDUy.html" target="video" title="漆黑的子弹"></a>
+                        </div>
+                        <div class="v-title">漆黑的子弹</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://r4.ykimg.com/0515000052C133F76758396B5405BAA0" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href="http://v.youku.com/v_show/id_XNzA2OTE2MDUy.html" target="video" ></a>
+                        </div>
+                        <div class="v-title">约会大作战 第二季</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://r4.ykimg.com/0515000052A6DFD06758393DF102580B" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href="http://v.youku.com/v_show/id_XNzA2NTI4OTYw.html" target="video" ></a>
+                        </div>
+                        <div class="v-title">恶魔之谜</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://r4.ykimg.com/05150000530995CD6758391A6907FB68" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href="http://v.youku.com/v_show/id_XNzA2NDc1MzA4.html" target="video" ></a>
+                        </div>
+                        <div class="v-title">艾斯卡与罗吉的工房</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://r4.ykimg.com/05150000520C7885675839556A0AA0F1" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href="http://v.youku.com/v_show/id_XNDI4ODQyMDE2.html" target="video" ></a>
+                        </div>
+                        <div class="v-title">通灵王</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://r1.ykimg.com/0510000052CE49606714C0312D0AB73C" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href="http://v.youku.com/v_show/id_XNzAyMjQyMzA0.html" target="video"></a>
+                        </div>
+                        <div class="v-title">邻座同学是怪咖</div>
+                    </li>
+                </ul>
+            </div>
+            <div id="pic">
+                <div class="head">
+                    <span>图库</span>
+                </div>
+                <ul class="hot img">
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://img1.gtimg.com/dbimg/2013/piclib/20131029/16/03ee49d30591c1748efcf74f29ed52064.jpg" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href=""></a>
+                        </div>
+                        <div class="v-title"> 《斩服少女》</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://img1.gtimg.com/dbimg/2014/piclib/20140427/21/8987fb6cb0b90e1751faf80eacd172a24.jpg" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href=""></a>
+                        </div>
+                        <div class="v-title">《Fate》"解花语"画册</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://img1.gtimg.com/dbimg/2014/piclib/20140109/18/acd6b3c06c25e7ddba3e4bc0607c9c7f4.jpg" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href=""></a>
+                        </div>
+                        <div class="v-title"> 物语系列女主角</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://img1.gtimg.com/dbimg/2014/piclib/20140419/19/96b02606344b13bc4ae0c49c12cfd0c54.jpg" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href=""></a>
+                        </div>
+                        <div class="v-title"> 《无线特斯拉》</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://img1.gtimg.com/dbimg/2013/piclib/20131127/18/98bd284c70f7fdc448195581bc7c7ebe4.jpg" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href=""></a>
+                        </div>
+                        <div class="v-title"> [TSUBASA]物语 特集书</div>
+                    </li>
+                    <li class="item">
+                        <div class="v-thumb">
+                            <div class="img-wrap">
+                                <img src="http://img1.gtimg.com/dbimg/2014/piclib/20140401/22/675eb4f1c201d67451370170ade7e8164.jpg" >
+                            </div>
+                        </div>
+                        <div class="v-link">
+                            <a href=""></a>
+                        </div>
+                        <div class="v-title">五月精选</div>
+                    </li>
+                </ul>
+            </div>
+            <div id="music">
+                <div class="head">
+                    <span>动漫之声</span>
+                </div>
+                <ul class="example">
+                    <li>
+                        <div class="img-wrap"><img src="http://img.xiami.net/images/collect/225/25/21729225_1372954981_4.jpg"></div>
+                        <div class="title font-wrap">动漫纯音乐</div>
+                    </li>
+                    <li>
+                        <div class="img-wrap"><img src="http://img.xiami.net/images/collect/529/29/12189529_1342446380_4.jpg"></div>
+                        <div class="title font-wrap">对不起，我们都是动漫前奏党。</div>
+                    </li>
+                    <li>
+                        <div class="img-wrap"><img src="http://img.xiami.net/images/collect/282/82/21655282_1369652555_4.jpg"></div>
+                        <div class="title font-wrap">那些耳熟能详的动漫经典曲</div>
+                    </li>
+                    <li>
+                        <div class="img-wrap"><img src="http://img.xiami.net/images/collect/993/93/6827993_1314883517_4.jpg"></div>
+                        <div class="title font-wrap">萌宅♂精选『治愈神曲』动漫萌系</div>
+                    </li>
+                    <li class="noMR">
+                        <div class="img-wrap"><img src="http://img.xiami.net/images/collect/961/61/49509611306169761_4.jpg"></div>
+                        <div class="title font-wrap">动漫歌曲，每一首歌都是一段回忆</div>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="item">
+                        <div class="title dark">
+                            <a class="dark" href>Sex (I'm A)</a>
+                        </div>
+                        <div class="source dark">Lovage</div>
+                        <div class="tips">
+                            <span class="dark">it's fucking....cool... 小朋友不要打开听哟.it's fucking....cool... 小朋友不要打开听哟.</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title dark">
+                            <a class="dark" href>Sex (I'm A)</a>
+                        </div>
+                        <div class="source dark">Lovage</div>
+                        <div class="tips">
+                            <span class="dark">it's fucking....cool... 小朋友不要打开听哟.it's fucking....cool... 小朋友不要打开听哟.</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title dark">
+                            <a class="dark" href>Sex (I'm A)</a>
+                        </div>
+                        <div class="source dark">Lovage</div>
+                        <div class="tips">
+                            <span class="dark">it's fucking....cool... 小朋友不要打开听哟.it's fucking....cool... 小朋友不要打开听哟.</span>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div id="it-news">
+                <div class="head">
+                    <span>IT新闻</span>
+                </div>
+                <ul>
+                    <li>
+                        <a href="" title="中国网络红人秦火火周五出庭受审"><span class="title font-ellipsis">中国网络红人秦火火周五出庭受审 </span><span class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="中国留加拿大女生柳乾谋杀案被告被定罪"><span class="title font-ellipsis">中国留加拿大女生柳乾谋杀案被告被定罪</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="分析：搜寻MH370行动有望进入新阶段"><span class="title font-ellipsis">分析：搜寻MH370行动有望进入新阶段</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="英媒：中国人抢购房产造成英国人买房难"><span class="title font-ellipsis">英媒：中国人抢购房产造成英国人买房难</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="这个女人不寻常"><span class="title font-ellipsis">这个女人不寻常</span><span class="time">[04.07]</span></a>
+                    </li>
+                    <li><a href="" title="皮斯托瑞斯出庭辩护并为女友被杀道歉"><span class="title font-ellipsis">皮斯托瑞斯出庭辩护并为女友被杀道歉</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="column-02">
+            <div id="products">
+                <div class="head">
+                    <span>欢乐周边</span>
+                </div>
+                <ul class="example">
+                    <li>
+                        <div class="img-wrap"><img src="http://caracal.moeid.com/8f/8f62/8f6260138461807d70161821009803af.png"></div>
+                        <div class="title font-wrap">晓美焰 和服盛装Ver.</div>
+                    </li>
+                    <li>
+                        <div class="img-wrap"><img src="http://caracal.moeid.com/52/5200/520097a543791bb4b77a23ebeeb32f6f.jpg"></div>
+                        <div class="title font-wrap">舰娘专题</div>
+                    </li>
+                    <li class="noMR">
+                        <div class="img-wrap"><img src="http://caracal.moeid.com/d8/d8c9/d8c9dde42613ad4ec3cae68fedb9c62f.png"></div>
+                        <div class="title font-wrap">篠之之箒 泳装Ver.</div>
+                    </li>
+                </ul>
+                <ul class="hot">
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【手办】</span>这造型是传说中的XXX新娘吗?Alphamax-Fate/EXTRA系列 Saber新品手办性感降临~</a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【手办】</span>这造型是传说中的XXX新娘吗?Alphamax-Fate/EXTRA系列 Saber新品手办性感降临~</a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【手办】</span>这造型是传说中的XXX新娘吗?Alphamax-Fate/EXTRA系列 Saber新品手办性感降临~</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="cartoon-news">
+                <div class="head">
+                    <span>动漫情报局</span>
+                </div>
+                <ul class="hot img">
+                    <li class="item ">
+                        <div class="title">
+                            <a href><span class="type">【手办】</span>这造型是传说中的XXX新娘吗?Alphamax-Fate/EXTRA系列 Saber新品手办性感降临~</a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【杂谈】仅供吐槽，那些动漫中出现的难解之谜</span></a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【杂谈】动漫声优的稿子是什么样子？</span></a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【资讯】鸟山明：魔人布欧之后便不想再画战斗漫画了</span></a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【杂谈】仅供吐槽，那些动漫中出现的难解之谜</span></a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【资讯】鸟山明：魔人布欧之后便不想再画战斗漫画了</span></a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【杂谈】仅供吐槽，那些动漫中出现的难解之谜</span></a>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="title">
+                            <a href><span class="type">【资讯】鸟山明：魔人布欧之后便不想再画战斗漫画了</span></a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div id="world-news">
+                <div class="head">
+                    <span>看世界</span>
+                </div>
+                <ul>
+                    <li>
+                        <a href="" title="中国网络红人秦火火周五出庭受审"><span class="title font-ellipsis">中国网络红人秦火火周五出庭受审 </span><span class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="中国留加拿大女生柳乾谋杀案被告被定罪"><span class="title font-ellipsis">中国留加拿大女生柳乾谋杀案被告被定罪</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="分析：搜寻MH370行动有望进入新阶段"><span class="title font-ellipsis">分析：搜寻MH370行动有望进入新阶段</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="英媒：中国人抢购房产造成英国人买房难"><span class="title font-ellipsis">英媒：中国人抢购房产造成英国人买房难</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                    <li><a href="" title="这个女人不寻常"><span class="title font-ellipsis">这个女人不寻常</span><span class="time">[04.07]</span></a>
+                    </li>
+                    <li><a href="" title="皮斯托瑞斯出庭辩护并为女友被杀道歉"><span class="title font-ellipsis">皮斯托瑞斯出庭辩护并为女友被杀道歉</span><span
+                            class="time">[04.08]</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="column-03">
+            <div id="right">
+                <div class="right rightfirst pie">
+                    <div class="rightleft pie"></div>
+                    <div class="rightright pie"></div>
+
+                    <div class="rightbody pie">
+                        <div id="searchright">
+                            <form action="/news/search" method="get">
+                                <input id="searchrightinput" name="s" type="text" value="" placeholder="搜索感兴趣的新闻"> <input type="submit"
+                                                                                                                          id="searchrightbtn"
+                                                                                                                          value="搜索">
+                            </form>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="right rightfirst pie">
+                    <div class="rightleft pie" style="
+    display: none;
+"></div>
+                    <div class="rightright pie"></div>
+                    <div class="righttitle">动漫聊天</div>
+                    <div class="righttitleback pie"></div>
+                    <div class="rightbody pie">
+                        <div id="topchat" style="height: 120px;">
+                            <div id="soundtagicon2" class="soundtagicon"></div>
+                            <div class="chattitle">万事屋</div>
+                            <a href="http://dollars.missevan.cn/chat/room?rid=24989&amp;rcode=" target="_blank" class="rightchatbtn pie">加入</a>
+                            <div class="soundbox">
+                                <div class="soundbody">
+                                    <div class="soundarrow1"></div>
+                                    <div class="soundarrow2" style="border-right-color:#91c0ed;"></div>
+                                    <div class="soundiconbox pie"><img height="46px" width="46px"
+                                                                       src="http://missevan-icon.oss.aliyuncs.com/icons/icon01.png"></div>
+                                    <div class="soundusername">符言</div>
+                                    <div class="soundmainvalue pie" style="background-color:#91c0ed">...这样子真的好么</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="right rightfirst pie">
+                    <div class="rightleft pie"></div>
+                    <div class="rightright pie"></div>
+                    <div class="righttitle">Hot标签</div>
+                    <div class="righttitleback pie"></div>
+                    <div class="rightbody pie">
+                        <div id="tags">
+
+
+                            <div class="clear"></div>
+                            <div class="tag">
+                                <a data-clickedtimes="1674547" hidefocus="true" href="/news/tag?tagid=23" class="tagrandom1">宅</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="271386" hidefocus="true" href="/news/tag?tagid=234" class="tagrandom2">萌</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="184574" hidefocus="true" href="/news/tag?tagid=147" class="tagrandom3">音乐</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="164913" hidefocus="true" href="/news/tag?tagid=61" class="tagrandom4">海贼王</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="123430" hidefocus="true" href="/news/tag?tagid=718" class="tagrandom5">刀剑神域</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="721116" hidefocus="true" href="/news/tag?tagid=694" class="tagrandom1">最新消息</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="251908" hidefocus="true" href="/news/tag?tagid=85" class="tagrandom2">魔法少女小圆</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="179741" hidefocus="true" href="/news/tag?tagid=427" class="tagrandom3">Game</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="151703" hidefocus="true" href="/news/tag?tagid=6" class="tagrandom4">Fate/Zero</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="118096" hidefocus="true" href="/news/tag?tagid=18" class="tagrandom5">轻小说</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="407296" hidefocus="true" href="/news/tag?tagid=274" class="tagrandom1">声优</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="235243" hidefocus="true" href="/news/tag?tagid=777" class="tagrandom2">进击的巨人</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="178950" hidefocus="true" href="/news/tag?tagid=121" class="tagrandom3">初音</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="148723" hidefocus="true" href="/news/tag?tagid=333" class="tagrandom4">新漫速递</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="115288" hidefocus="true" href="/news/tag?tagid=623" class="tagrandom5">手办</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="283089" hidefocus="true" href="/news/tag?tagid=164" class="tagrandom1">动画放送</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="231284" hidefocus="true" href="/news/tag?tagid=201" class="tagrandom2">笑脸男</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="169054" hidefocus="true" href="/news/tag?tagid=19" class="tagrandom3">Cosplay</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="132588" hidefocus="true" href="/news/tag?tagid=815" class="tagrandom4">腐</a></div>
+                            <div class="tag">
+                                <a data-clickedtimes="114756" hidefocus="true" href="/news/tag?tagid=284" class="tagrandom5">EVA</a></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+
+                <div class="right rightfirst pie">
+                    <div class="rightleft pie"></div>
+                    <div class="rightright pie"></div>
+                    <div class="righttitle">本周前十</div>
+                    <div class="righttitleback pie"></div>
+                    <div class="rightbody pie">
+                        <div id="weeknews">
+                            <div class="weeknews top3news">
+                                <a target="_blank" href="/news/article?newsid=20217">【宅系】国内最强2014年度4月新番 鉴赏报告 庶民版 下篇</a></div>
+                            <div class="weeknews top3news">
+                                <a target="_blank" href="/news/article?newsid=20216">【宅系】国内最强2014年度4月新番 鉴赏报告 庶民版 上篇</a></div>
+                            <div class="weeknews top3news">
+                                <a target="_blank" href="/news/article?newsid=20140">【宅系】Cosplay就是这样玩 可爱肉感无极限 专访Coser Neneko</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=20220"> 【美图】足控绅士速来舔屏 二次元萌妹伸肢展足福利图集</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=20195">【美图】贫乳舰娘又来屠版 最迅傲娇丁字裤“岛风”图集预览</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=20165">【杂谈】游戏和动漫领域，最逆天的设定可能是「因果律武器」</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=20192">【投票】日本男士最想看的“四月新番”TOP10</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=20226">【杂谈】动漫中的插入广告：画可乐罐比画人物还细致（多图）</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=20219">【杂谈】被誉为神作的《星际牛仔》：这就是男人的浪漫</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=20166">【投票】最佳蓝色头发的动画角色排名 第一当然是绫波丽</a></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="right rightfirst pie">
+                    <div class="rightleft pie"></div>
+                    <div class="rightright pie"></div>
+                    <div class="righttitle">本季前十</div>
+                    <div class="righttitleback pie"></div>
+                    <div class="rightbody pie">
+                        <div id="quarternews">
+                            <div class="weeknews top3news">
+                                <a target="_blank" href="/news/article?newsid=20217">【宅系】国内最强2014年度4月新番 鉴赏报告 庶民版 下篇</a></div>
+                            <div class="weeknews top3news">
+                                <a target="_blank" href="/news/article?newsid=20216">【宅系】国内最强2014年度4月新番 鉴赏报告 庶民版 上篇</a></div>
+                            <div class="weeknews top3news">
+                                <a target="_blank" href="/news/article?newsid=19726">【COS】台湾hisoka tsuzuki 亚丝娜 Cosplay</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=18701">【宅系】新年福利：女孩子坐+过膝长袜的破坏力惊人</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=18946">【杂谈】一部值得关注的国产 3D 动画《纳米核心》（多图剧透）</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=19161">【宅系】布朗熊和可妮兔：愿你找到一起简单幸福下去的人</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=19398">【资讯】TV动画《无头骑士异闻录 Durarara!!》新系列制作决定！</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=19300">【杂谈】那些好看的要死却火不起来的动漫</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=19879">【美图】黑丝巨乳蓝色军服 重巡舰娘高雄福利美图预览</a></div>
+                            <div class="weeknews ">
+                                <a target="_blank" href="/news/article?newsid=19022">【COS】《冰雪奇缘》Elsa Cosplay</a></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="right rightfirst pie">
+                    <div class="rightleft pie"></div>
+                    <div class="rightright pie"></div>
+                    <div class="righttitle">友情链接</div>
+                    <div class="righttitleback pie"></div>
+                    <div class="rightbody pie">
+                        <div id="newslinks">
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.missevan.cn"><img class="lazy"
+                                                                                      src="http://missevan-icon.oss.aliyuncs.com/links/201312/a8921b5f42b619f807815adba7a02dc0225658.png"
+                                                                                      width="88px" height="31px" title="MissEvan动漫" alt="MissEvan动漫"
+                                                                                      data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/a8921b5f42b619f807815adba7a02dc0225658.png"
+                                                                                      style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://comic.youku.com/"><img class="lazy"
+                                                                                       src="http://missevan-icon.oss.aliyuncs.com/links/201404/e48c8b40878ad1f2fe421eb6b5ce911e152636.png"
+                                                                                       width="88px" height="31px" title="优酷动漫" alt="优酷动漫"
+                                                                                       data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/e48c8b40878ad1f2fe421eb6b5ce911e152636.png"
+                                                                                       style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.moejam.com/"><img class="lazy"
+                                                                                      src="http://missevan-icon.oss.aliyuncs.com/links/201312/b76207ddfeafbbf9b3aa98b601ca21e0235056.png"
+                                                                                      width="88px" height="31px" title="梦域动漫" alt="梦域动漫"
+                                                                                      data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/b76207ddfeafbbf9b3aa98b601ca21e0235056.png"
+                                                                                      style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.pps.tv/comic/"><img class="lazy"
+                                                                                        src="http://missevan-icon.oss.aliyuncs.com/links/201404/375bf1e7c4c768b05781a760d204c281153131.png"
+                                                                                        width="88px" height="31px" title="PPS动漫" alt="PPS动漫"
+                                                                                        data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/375bf1e7c4c768b05781a760d204c281153131.png"
+                                                                                        style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.hippoanimation.com/"><img class="lazy"
+                                                                                              src="http://missevan-icon.oss.aliyuncs.com/links/201312/9cc01e63a0201c9bfeb9742c2fcd97fc235154.png"
+                                                                                              width="88px" height="31px" title="河马动画" alt="河马动画"
+                                                                                              data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/9cc01e63a0201c9bfeb9742c2fcd97fc235154.png"
+                                                                                              style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://cartoon.chinadaily.com.cn/"><img class="lazy"
+                                                                                                 src="http://missevan-icon.oss.aliyuncs.com/links/201312/db9f99c9f08557faa5cd3203344aa141235257.png"
+                                                                                                 width="88px" height="31px" title="中国新闻漫画网"
+                                                                                                 alt="中国新闻漫画网"
+                                                                                                 data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/db9f99c9f08557faa5cd3203344aa141235257.png"
+                                                                                                 style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.acgmall.com/"><img class="lazy"
+                                                                                       src="http://missevan-icon.oss.aliyuncs.com/links/201312/25f67ab39b57c646520dfcaed2315444235409.png"
+                                                                                       width="88px" height="31px" title="国家数字娱乐网" alt="国家数字娱乐网"
+                                                                                       data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/25f67ab39b57c646520dfcaed2315444235409.png"
+                                                                                       style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.jpbeta.net/"><img class="lazy"
+                                                                                      src="http://missevan-icon.oss.aliyuncs.com/links/201312/57bd206d023ea476d3ec998cd096543e235443.png"
+                                                                                      width="88px" height="31px" title="多元化日本文化资讯站" alt="多元化日本文化资讯站"
+                                                                                      data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/57bd206d023ea476d3ec998cd096543e235443.png"
+                                                                                      style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.iqiyi.com/dongman/"><img class="lazy"
+                                                                                             src="http://missevan-icon.oss.aliyuncs.com/links/201404/385f6161fb7d4d86a7f3e309e2af86b1153410.png"
+                                                                                             width="88px" height="31px" title="爱奇艺动漫" alt="爱奇艺动漫"
+                                                                                             data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/385f6161fb7d4d86a7f3e309e2af86b1153410.png"
+                                                                                             style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.wfmhw.net/"><img class="lazy"
+                                                                                     src="http://missevan-icon.oss.aliyuncs.com/links/201312/764cf0c4d6c7ef5b66098849b84cba4c235523.png"
+                                                                                     width="88px" height="31px" title="潍坊漫画网" alt="潍坊漫画网"
+                                                                                     data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/764cf0c4d6c7ef5b66098849b84cba4c235523.png"
+                                                                                     style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.mhkjw.com/"><img class="lazy"
+                                                                                     src="http://missevan-icon.oss.aliyuncs.com/links/201312/814c3bf28f853b542a278cce2a59591b235545.png"
+                                                                                     width="88px" height="31px" title="漫画空间" alt="漫画空间"
+                                                                                     data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/814c3bf28f853b542a278cce2a59591b235545.png"
+                                                                                     style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.gxdmw.com/"><img class="lazy"
+                                                                                     src="http://missevan-icon.oss.aliyuncs.com/links/201312/ce8ced88f8b9c7c339f7a50f61314a75235615.png"
+                                                                                     width="88px" height="31px" title="高校动漫网" alt="高校动漫网"
+                                                                                     data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/ce8ced88f8b9c7c339f7a50f61314a75235615.png"
+                                                                                     style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://comic.letv.com/"><img class="lazy"
+                                                                                      src="http://missevan-icon.oss.aliyuncs.com/links/201404/525f9d264c30a2b433fa012948f30fa3152729.png"
+                                                                                      width="88px" height="31px" title="乐视网" alt="乐视网"
+                                                                                      data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/525f9d264c30a2b433fa012948f30fa3152729.png"
+                                                                                      style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://v.qq.com/cartoon/"><img class="lazy"
+                                                                                        src="http://missevan-icon.oss.aliyuncs.com/links/201404/4c08a5409d6dade9356438fe8171941f152839.png"
+                                                                                        width="88px" height="31px" title="腾讯视频" alt="腾讯视频"
+                                                                                        data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/4c08a5409d6dade9356438fe8171941f152839.png"
+                                                                                        style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://tv.sohu.com/comic/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201404/921721f44904e078db2057b2e5f00cc6153753.png"
+                                                                                         width="88px" height="31px" title="搜狐动漫" alt="搜狐动漫"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/921721f44904e078db2057b2e5f00cc6153753.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.comicfans.net/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201401/7be4e05a6f9f9e7503ee680fe1a5ddfe100806.png"
+                                                                                         width="88px" height="31px" title="漫友网" alt="漫友网"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201401/7be4e05a6f9f9e7503ee680fe1a5ddfe100806.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://comic.zongheng.com/"><img class="lazy"
+                                                                                          src="http://missevan-icon.oss.aliyuncs.com/links/201312/6767eb89924d6f3911c6320f350b1fe9235930.png"
+                                                                                          width="88px" height="31px" title="纵横动漫" alt="纵横动漫"
+                                                                                          data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/6767eb89924d6f3911c6320f350b1fe9235930.png"
+                                                                                          style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://comic.sina.com.cn/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201312/11e31cb3054d09618dec9d5920bd65b5235952.png"
+                                                                                         width="88px" height="31px" title="新浪动漫" alt="新浪动漫"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/11e31cb3054d09618dec9d5920bd65b5235952.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://comic.qq.com/"><img class="lazy"
+                                                                                    src="http://missevan-icon.oss.aliyuncs.com/links/201404/9efa05a8813a2a0fa738459d8f29bd85154005.png"
+                                                                                    width="88px" height="31px" title="腾讯动漫" alt="腾讯动漫"
+                                                                                    data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/9efa05a8813a2a0fa738459d8f29bd85154005.png"
+                                                                                    style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.ishangman.com/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201312/a1764445670b2f0f80aff6f2f6161a7e000033.png"
+                                                                                         width="88px" height="31px" title="尚漫" alt="尚漫"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/a1764445670b2f0f80aff6f2f6161a7e000033.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.cartooncentury.com/"><img class="lazy"
+                                                                                              src="http://missevan-icon.oss.aliyuncs.com/links/201312/d8f40d5ff847c284229a2c82831cfc3e000052.png"
+                                                                                              width="88px" height="31px" title="卡通世纪" alt="卡通世纪"
+                                                                                              data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/d8f40d5ff847c284229a2c82831cfc3e000052.png"
+                                                                                              style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.cosplay8.com/"><img class="lazy"
+                                                                                        src="http://missevan-icon.oss.aliyuncs.com/links/201402/1bb87d41d15fe27b500a4bfcde01bb0e143600.png"
+                                                                                        width="88px" height="31px" title="Cosplay中国" alt="Cosplay中国"
+                                                                                        data-original="http://missevan-icon.oss.aliyuncs.com/links/201402/1bb87d41d15fe27b500a4bfcde01bb0e143600.png"
+                                                                                        style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.69ps.com/"><img class="lazy"
+                                                                                    src="http://missevan-icon.oss.aliyuncs.com/links/201312/109ff856f2382f8c92761f909e243ef3000158.png"
+                                                                                    width="88px" height="31px" title="中国插画联盟" alt="中国插画联盟"
+                                                                                    data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/109ff856f2382f8c92761f909e243ef3000158.png"
+                                                                                    style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://cartoon.tudou.com/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201404/d8c30cf6c2e1e39ad7c0312e8a09cd4e154250.png"
+                                                                                         width="88px" height="31px" title="土豆动漫" alt="土豆动漫"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/d8c30cf6c2e1e39ad7c0312e8a09cd4e154250.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://manhua.uuu9.com/"><img class="lazy"
+                                                                                       src="http://missevan-icon.oss.aliyuncs.com/links/201312/61c90f09e61e79b482ced1b1e90e3b3a000302.png"
+                                                                                       width="88px" height="31px" title="游久网漫画频道" alt="游久网漫画频道"
+                                                                                       data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/61c90f09e61e79b482ced1b1e90e3b3a000302.png"
+                                                                                       style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.lccartoon.com/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201312/06b80dc1cea72b5220cfeac50669561e000325.png"
+                                                                                         width="88px" height="31px" title="聊漫网" alt="聊漫网"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/06b80dc1cea72b5220cfeac50669561e000325.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://anime.kankan.com/"><img class="lazy"
+                                                                                        src="http://missevan-icon.oss.aliyuncs.com/links/201312/da7b93c0dcf731a3d27dd26640570349000359.png"
+                                                                                        width="88px" height="31px" title="迅雷动漫" alt="迅雷动漫"
+                                                                                        data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/da7b93c0dcf731a3d27dd26640570349000359.png"
+                                                                                        style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.arting365.com/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201312/8244bf4ad47ed4475251099c793a0ed4000601.png"
+                                                                                         width="88px" height="31px" title="中国艺术设计联盟" alt="中国艺术设计联盟"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201312/8244bf4ad47ed4475251099c793a0ed4000601.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://manhua.weibo.com/"><img class="lazy"
+                                                                                        src="http://missevan-icon.oss.aliyuncs.com/links/201404/9f906f86486e16f9966f16fbb27bb2e0154553.png"
+                                                                                        width="88px" height="31px" title="微漫画" alt="微漫画"
+                                                                                        data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/9f906f86486e16f9966f16fbb27bb2e0154553.png"
+                                                                                        style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://comic.sina.com.cn/"><img class="lazy"
+                                                                                         src="http://missevan-icon.oss.aliyuncs.com/links/201404/3f947ced08c973a05c06a81449eda5ed154826.png"
+                                                                                         width="88px" height="31px" title="新浪动漫" alt="新浪动漫"
+                                                                                         data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/3f947ced08c973a05c06a81449eda5ed154826.png"
+                                                                                         style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.cccnews.com.cn/"><img class="lazy"
+                                                                                          src="http://missevan-icon.oss.aliyuncs.com/links/201403/5afb4ffc7880fc804136f8ab52b421af140242.png"
+                                                                                          width="88px" height="31px" title="中国动漫产业新闻网" alt="中国动漫产业新闻网"
+                                                                                          data-original="http://missevan-icon.oss.aliyuncs.com/links/201403/5afb4ffc7880fc804136f8ab52b421af140242.png"
+                                                                                          style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://www.cctvdream.com.cn/"><img class="lazy"
+                                                                                            src="http://missevan-icon.oss.aliyuncs.com/links/201404/9b3313a0c8b545fe01d289ae438cc36f155108.png"
+                                                                                            width="88px" height="31px" title="新科动漫" alt="新科动漫"
+                                                                                            data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/9b3313a0c8b545fe01d289ae438cc36f155108.png"
+                                                                                            style="display: inline;"></a></div>
+                            <div class="newslink">
+                                <a target="_blank" href="http://comic.people.com.cn/"><img class="lazy"
+                                                                                           src="http://missevan-icon.oss.aliyuncs.com/links/201404/68125f946aa6dbf845f70872bb43d984155224.png"
+                                                                                           width="88px" height="31px" title="人民网动漫" alt="人民网动漫"
+                                                                                           data-original="http://missevan-icon.oss.aliyuncs.com/links/201404/68125f946aa6dbf845f70872bb43d984155224.png"
+                                                                                           style="display: inline;"></a></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="right rightfirst pie">
+                    <div class="rightleft pie"></div>
+                    <div class="rightright pie"></div>
+                    <div class="righttitle">关注我们</div>
+                    <div class="righttitleback pie"></div>
+                    <div class="rightbody pie">
+                        <div id="newsteam">
+                            <div class="wxlink">
+                                <a target="_blank" title="I站官方微信平台" href="/news/article?newsid=14549">
+                                    <div class="img-wrap">
+                                        <img height="256" alt="M站微信官方平台" src="img/dr.jpg"></div>
+                                </a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="kankore-bath">
+        <div class="water" style="-webkit-animation: waves-r2l 10s linear infinite;">
+            <div class="copyright">Zodiac ©2014</div>
+        </div>
+        <div class="akagi kan" href="http://mall.030buy.com/p/SG_008089">
+            <img src="http://www.030buy.com/static/images/kankore-bath-akagi.png">
+        </div>
+        <div class="shimakaze kan floating" href="http://mall.030buy.com/p/SG_008090">
+            <img src="http://www.030buy.com/static/images/kankore-bath-shimakaze.png">
+        </div>
+        <div class="ryujo kan" href="http://mall.030buy.com/p/SG_011751">
+            <img src="http://www.030buy.com/static/images/kankore-bath-ryujo.png">
+        </div>
+        <div class="kitakami kan" href="http://mall.030buy.com/p/SG_011752">
+            <img src="http://www.030buy.com/static/images/kankore-bath-kitakami.png">
+        </div>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/xl.js"></script>
+<script src="js/mainPage.js"></script>
+<link rel="stylesheet" type="text/css" href="http://sandbox.runjs.cn/uploads/rs/392/w5zrkmek/style.css">
+
+<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/392/w5zrkmek/verlet-1.0.0.min.js"
+</body>
+</html>
+

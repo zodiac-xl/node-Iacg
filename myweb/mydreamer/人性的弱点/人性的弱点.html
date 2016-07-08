@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../css/reset.css" rel="stylesheet" type="text/css" />
+<title>无标题文档</title>
+<style type="text/css">
+body {
+	padding: 40px 20% 20% 100px;
+	background: rgb(221, 221, 221);
+}
+dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;
+	text-indent: -47px;
+}
+body>dl>dt{
+	font-size: x-large;
+	font-weight: 600;
+	color: rgb(85, 70, 197);
+}
+body>dl {
+	counter-increment: chapter
+}
+body>dl>dt:before {
+	content: counter(chapter,cjk-ideographic)"、";
+	color: rgb(77, 75, 94);
+} /*cjk-ideographic 为list-style-type 属性值*/
+dl>dd>ul{counter-reset:ii;}
+body>dl>dd>dl>dd:nth-child(2),body>dl>dd>dl>dt{font-weight:600;color: rgb(82, 73, 73);font-size:x-large;}
+dl>dd>ul>li:before {
+	content:counter(ii,disc)" ";
+	counter-increment:ii;
+}
+body ul[class="test"] {
+	list-style: none;
+	counter-reset: item;
+}
+li{list-style-type:none;font-size: large;color: rgb(82, 73, 73);font-weight:500;}
+body ul[class="test"] li:before {
+	content: counters(item, ".")": "" ";
+	counter-increment: item;
+}
+</style>
+</head>
+
+<body>
+<dl>
+  <dt>与人相处</dt>
+  <dd>
+    <dl>
+      <dt>如欲采蜜，勿蹴蜂房</dt>
+      <dd>dd</dd>
+      <dd>
+        <ul>
+          <li>批评不但不会改变事实，反而招致愤恨</li>
+          <li>因批评引起的愤恨，常常使雇员、亲人和朋友的情绪大为低落，并且对应该矫正的现实状况，一点好处也没有</li>
+          <li>尽量去了解别人，而不要用责骂的方式;尽量设身处地去想————他们为什么这么做。 这比起批评责怪要有益、有趣得多，而且让人心生同情、忍耐和仁慈</li>
+        </ul>
+      </dd>
+    </dl>
+    <dl>
+      <dt></dt>
+      <dd></dd>
+    </dl>
+    <dl>
+      <dt></dt>
+      <dd></dd>
+    </dl>
+  </dd>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+</dl>
+<ul class="test">
+  <li>
+    <ul class="test">
+      <li>a</li>
+      <li>b</li>
+    </ul>
+  </li>
+  <li>
+    <ul class="test">
+      <li>c</li>
+      <li>d</li>
+    </ul>
+  </li>
+</ul>
+</body>
+</html>

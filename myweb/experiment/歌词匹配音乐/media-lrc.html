@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="mobileoptimized" content="0"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="browsermode" content="application">
+    <script src="../zMobile.js"></script>
+    <script src="media.js"></script>
+    <link href="zCloud7Media.css" rel="stylesheet">
+    <title>歌词匹配音乐</title>
+    <style>
+        .m-line {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .m-line.on {
+            color: blue;
+            background: #48ff6d;
+        }
+
+        .m-player {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<!--播放器-->
+<div class="m-player">
+    <div class="m-info">
+        <div class="m-icon m-back"></div>
+        <div class="m-outer-line"></div>
+        <div class="m-title"></div>
+        <div class="m-album-artist">
+            <div class="m-album-title"></div>
+            <div class="m-inner-line"></div>
+            <div class="m-artist"></div>
+        </div>
+    </div>
+    <div class="m-img-wrapper">
+        <img>
+
+        <div class="m-img-mask"></div>
+    </div>
+    <div class="m-lyrics">
+        <div class="m-up-blank"></div>
+        <div class="m-lines"></div>
+        <div class="m-bottom-blank"></div>
+    </div>
+    <div class="m-operation-panel">
+        <div class="m-icon m-play-next"></div>
+        <div class="m-icon m-play-previous"></div>
+        <div class="m-icon m-play"></div>
+        <div class="m-icon m-pause"></div>
+        <div class="m-cur-time"></div>
+        <div class="m-buffering"></div>
+        <div class="m-progress-bar">
+            <div class="m-progress"></div>
+            <div class="m-cursor m-icon m-music-light"></div>
+        </div>
+        <div class="m-duration"></div>
+    </div>
+</div>
+<!--播放器-->
+<script>
+
+
+    window.onload = function () {
+        var audio = document.createElement("audio"),
+        src = "./music/Goodbye_Happiness.m4a",
+        lrc = "./music/Goodbye_Happiness.lrc",
+        timeLine = null,
+        progressWidth = 0,
+        lyric = document.querySelector(".m-lyrics"),
+        lyricLines = lyric.querySelector(".m-lines"),
+        lyricHeight = lyric.offsetHeight;
+
+        progressWidth = document.querySelector(".m-progress-bar").offsetWidth;
+        Z.css(lyric.querySelector(".m-up-blank"), "height", lyricHeight * 0.45 + "px");
+        Z.css(lyric.querySelector(".m-bottom-blank"), "height", lyricHeight * 0.55 + "px");
+
+        var songData = {
+            title: "hello kitty",
+            cover: "./img/blog01.jpg"
+        };
+        var albumData = {
+            title: "kitty"
+        };
+        var curAnimate;
+
+        function play(src, lrc) {
+            //播放
+            audio.src = src;
+            audio.load();
+            Z.bindEvent(audio, "loadeddata", function () {
+                audio.play();
+                var duration = audio.duration;
+                document.querySelector(".m-duration").innerHTML = toTime(duration);
+            });
+
+
+            // 填充数据
+            document.querySelector(".m-title").innerHTML = songData.title;
+            document.querySelector(".m-album-title").innerHTML = albumData.title;
+            document.querySelector("img").src = songData.cover;
+
+            // 清空歌词
+            lyricLines.innerHTML = "";
+            var isNew = true;
+            // 和时间相关的div
+            var oCurTime = document.querySelector(".m-cur-time"); // 当前时间
+            var oDuration = document.querySelector(".m-duration"); // 持续时间
+            var oProgress = document.querySelector(".m-progress"); // 进度
+            var oCursor = document.querySelector(".m-cursor"); // 进度游标
+
+            // 设置进度
+            function setProgress(ratio) {
+                Z.css(oProgress, "width", ratio*100 + "%");
+                Z.translate(oCursor, ratio * progressWidth, 0);
+            }
+
+            document.querySelector("body").classList.add("loading");
+            setProgress(0);
+
+            // 如果有歌词,但还没有下载,下载歌词
+            if (!timeLine) {
+                Z.ajax({
+                    url: lrc,
+                    onLoad: function (text) {
+                        timeLine = parseLrc(text);
+                    }
+                });
+            }
+
+            var lineHeight,
+            curLyricNode = null;
+            curAnimate = Z.requestAnimate(
+                    function () {
+                        var curTime = audio.currentTime * 1000,
+                        duration = audio.duration * 1000;
+
+                        if (timeLine) {
+                            // 将歌词加入到div中,这件事情只做一次
+                            if (isNew) {
+                                (function () {
+                                    var lastLine = null, cur = 0;
+                                    loopArray(timeLine, function (line) {
+                                        line.node = Z.element("div", {
+                                            innerHTML: line.lyric,
+                                            classList: "m-line"
+                                        }, lyricLines);
+
+                                        if (lastLine) {
+                                            lastLine.duration = line.start - cur;
+                                        }
+                                        cur = line.start;
+                                        lastLine = line;
+                                    });
+                                    lastLine.duration = 100000000;
+                                    lineHeight = document.querySelector(".m-line").offsetHeight;
+                                    isNew = false;
+                                })();
+                            }
+
+
+                            // 二分法寻找区间
+                            var start = 0, end = timeLine.length - 1, curIndex, curLine;
+                            while (true) {
+                                curIndex = Math.floor(( start + end ) / 2);
+                                curLine = timeLine[curIndex];
+
+                                if (curTime < curLine.start) {
+                                    end = curIndex;
+                                }
+                                else if (curTime >= curLine.start + curLine.duration) {
+                                    start = curIndex + 1;
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+
+                            // region 歌词动画
+                            if (curLyricNode && curLyricNode !== curLine.node) {
+
+                                curLyricNode.classList.remove("current");
+                            }
+                            curLyricNode = curLine.node;
+
+                            var curTop = ( curIndex + ( curTime - curLine.start ) / curLine.duration ) * lineHeight << 0;
+                            Z.translate(lyricLines, 0, -curTop);
+                            curLyricNode.classList.add("current");
+                            // endregion
+
+                            oCurTime.innerHTML = toTime(curTime);
+                            oDuration.innerHTML = toTime(duration);
+                            setProgress(curTime / duration);
+
+                            //缓冲
+                            if (audio.buffered.length && audio.currentTime >= audio.buffered.end(0)) {
+                                document.body.classList.add("buffering");
+                            }
+                            else {
+                                document.body.classList.remove("buffering");
+                            }
+                        }
+
+
+                    }
+            );
+            // 二分法寻找区间
+        }
+
+        play(src, lrc);
+
+        var pause = false;
+        Z.onTap(document.querySelector(".m-play"), function () {
+            if (pause) {
+                if (audio.duration == audio.currentTime) {
+                    audio.load();
+                    audio.play();
+                }
+                else {
+                    audio.play();
+                }
+                curAnimate && curAnimate.start();
+                pause = false;
+            }
+            else {
+                audio.pause();
+                curAnimate && curAnimate.stop();
+                pause = true;
+            }
+        })
+
+    }
+</script>
+</body>
+</html>

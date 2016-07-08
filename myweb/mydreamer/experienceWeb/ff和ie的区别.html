@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js判断</title>
+<style type="text/css">
+body{padding: 30px 5%;background: rgb(221, 221, 221);}
+textarea {
+	background: rgb(213, 213, 213);
+}
+</style>
+</head>
+
+<body style="padding:30px 200px">
+<textarea rows="60" cols="130" style="margin:auto;text-align:left;">
+FF和IE的差别
+1.   
+ul标签中FF中有个padding值，却没有margin值，而在IE中正好相反   
+解决办法:将ul的padding和margin都设为0(也可以不是0)如：padding:0;margin:0;list-style:none;   
+另外form默认在IE中也会有margin值，所以最好也将其margin和padding设为0   
+
+2.   
+ie中cursor:hand可以将鼠标设为手形，FF不行，   
+解决：都用cursor:pointer   
+
+3、居中问题   
+ie需要将父窗口:text-align:center;而ff则是margin-left:auto;margin-right:auto;   
+
+4.IE和FF盒模型有区别，所以有需要特殊设置   
+IE Box的总宽度是： width+padding+border+margin宽度总和   
+FF Box的总宽度就是 width的宽度，padding+border+margin的宽度在含在width内。   
+   
+5.透明滤镜：   
+IE：filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=30);   
+FF：opacity:0.3;   
+或者：   
+IE：filter:alpha(opacity=60);    
+
+
+6.function GetKeyCode(e) {//取得不同浏览器下的键盘事件值   
+        var keyc;   
+        if(window.event) {//ie键盘事件   
+            keyc=e.keyCode;   
+        } else if (e.which) {//火狐   
+            keyc=e.which;   
+        }   
+        return keyc;   
+    }   
+       
+7.   为对象添加移除事件   
+var obj=document.getElementById("_tname');   
+添加事件:   
+if(obj.attachEvent) {   
+    obj.attachEvent("onchange",function() {   
+        otherfunction(params);//这里可以给其实方法传参，也可以直接调用其它方法   
+    });   
+} else if(obj.addEventListener) {   
+    obj.addEventListener("change",function() {   
+        otherfunction(params);   
+    },false);   
+}   
+移除事件：   
+obj.onclick=null;   
+or   
+if(obj.detachEvent) {   
+    obj.detachEvent("onchange",test);   
+} else if(obj.removeEventListener) {   
+    obj.removeEventListener("change",test,false);   
+}   
+
+8.   IE下event对象有srcElement属性,Firefox下,event对象有target属性   
+
+9.   获取网页可见区域大小：   
+FF(包含滚动条的宽度和高度):   
+window.innerWidth;   
+window.innerHeight;   
+IE&FF(不包含滚动条)：   
+document.body.clientWidth;   
+document.body.clientHeight;   
+
+</textarea>
+</body>
+</html>

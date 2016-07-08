@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../js/jquery.js" type="text/javascript"></script>
+<title>无标题文档</title>
+<style type="text/css">
+body {
+	padding: 40px 20% 20% 100px;
+	background: rgb(221, 221, 221);
+}
+dl>dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;/*text-indent: -47px;*/
+}
+/*编号*/
+body>dl>dt:before {
+	content: "第"counter(chapter)"章: "; /*/section为计数器取的名 可以为任意*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: black;
+	font-weight: bold;
+	font-size: larger;
+}
+body>dl {
+	counter-increment: chapter;  /*计数自增*/
+}
+/*编号*/
+
+
+
+body>dl>dd:before {
+	content: counter(section, upper-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd {
+	counter-increment: section;  /*计数自增*/
+}
+body>dl>dd>dl>dd:before {
+	content: counter(section2, lower-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd>dl>dd {
+	counter-increment: section2;
+}
+/*编号*/
+textarea {
+	background: rgb(228, 228, 228);
+}
+td {
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+<p>jQuery链式语法
+  $("input[type='button']").eq(0).click(fn).end().eq(1).click(fn).end().eq(2).click(fn);
+  //end()方法取消当前的jquery对象返回前面的jquery对象  特殊的.get()方法不能向eq()一样进行上面的链式操作</p>
+<dl>
+  <dt>选择器优化</dt>
+  <dd>多用ID选择器 id 类型选择器是根据getelementById和getelementByTagName 速度最快</dd>
+  <dd>少直接用Class选择器 class选择器是遍历整个HTML文档树 并在浏览器内核外递归 无法优化 速度最慢<br />
+    可以使用复合选择器 如：tag.class 先找到tag再遍历tag的结构树 减少遍历</dd>
+  <dd>多用父子 少用嵌套关系 如parent>child代替parent child 因为>是child选择器 只从子节点里匹配 <br />
+    而" "是后代选择器 递归匹配所有子节点及其子节点的子节点 ，即后代节点</dd>
+  <dd>缓存jquery对象 如:低效的用法
+    <textarea rows="10" cols="50">
+        for(i=0;i< 100;i ++)
+        {	var my=$("#mylist");
+        	my.apend(i)
+         }
+        高效的用法
+        var  my=$("#mylist"); 
+        for(i=0;i< 100;i ++)
+        {
+      		my.apend(i)
+         }
+         </textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>操作类数组</dt>
+  <dd>定位元素<br />
+    .get() 读取集合中的元素 获取jquery对象的第几个dom对象 无参数表示全部dom对象<br />
+    .eq(index)  克隆集合中的元素 不修改数组元素 获取jquery第几个dom对象 参数必须<br />
+    .index() 查找elem在jquery对象的下标位置(index)</dd>
+  <dd>复制元素 //模拟数组的slice()切割方法<br />
+    模拟数组的连接函数concat()定义了全局函数合并merge()</dd>
+  <dd>添加元素 add()</dd>
+  <dd>过滤元素<br />
+    filter()过滤与指定表达式匹配的元素集合<br />
+    not()根据selector过滤元素</dd>
+  <dd>映射元素<br />
+    each()和map()两个映射方法<br />
+    each()方法对集合中的每个元素都执行回调函数<br />
+    map()还能收集每个回调函数的返回结果组成一个新的集合 map()方法将一组元素转换为其他数组，然后根据这个数组构建新的jQuery对象</dd>
+</dl>
+<dl>
+  <dt>高效选择的技巧和原理</dt>
+  <dd>包裹元素<br />
+    wrap(),wrapAll(),wrapInner();<br />
+    示例：<br />
+    < p>111< /p>< p>222< /p><br />
+    $("p").wrap("< span>< /span>") //结果< span>< p>111< /p>< /span> < span>< p>222< /p>< /span><br />
+    $("p").wrapAll("< span>< /span>") //结果< span>< p>111< /p> < p>222< /p>< /span>
+    $("p").wrapInner("< span>< /span>") //结果< p>< span>111< /span>< /p> < p>< span>222< /span>< /p>< /dd>
+</dl>
+<dl>
+  <dt>自定义动画animate</dt>
+  <dd>命名方式 animate({})集合中每个属性都表示一个可变化的属性如top height opacity<br />
+    所有指定的属性必须<b>采用驼峰命名形式</b>如marginLeft 而不是margin-left</dd>
+  <dd>当属性值为hide show toggle等特地字符串类值，则为该属性调用默认的动画形式 </dd>
+  <dd>stop()方法停止动画 有两个参数 都为布尔值 <br />
+    第一个参数设为true时会清空队列，立即结束所有动画，设为false时 如果动画队列中有等待执行的动画，会立即执行队列后面的动画
+    第二个参数设为true时会让当前正在执行的动画立即完成 并重设show和hide的原始样式 调用回调函数等 </dd>
+  <dd>jQuery.fx.off=true; 把off属性设为true时，可以立即关闭比页面所有动画，所有效果会立即执行完毕 </dd>
+</dl>
+<dl>
+  <dt>javascript 和 jQuery AJAX </dt>
+  <dd>javascript实现
+    <textarea rows="80" cols="80">
+if(window.XMLHttpRequest){
+	var xmlhttprequest=new XMLHttpRequest(); //非ie
+    }
+else if(window.ActiveObject){
+	try{
+    	var xmlhttprequest=new ActiveXObject("Msxml2.XMLHTTP"); //ie老
+        }
+    catch(e){
+    	try{
+        	xmlhttprequest=new ActiveXObject("Micrisoft.XMLHTTP"); //ie新
+            }
+            catch(e){}
+     }
+}
+
+xmlhttprequest.open("GET","test.asp",false);//调用XMLHttpRequest对象的open()方法，打开与服务器之间的同步通信连接
+xmlhttprequest.send(null); //向服务器发送请求
+text=xmlhttprequest.responseText; //通过responseText获得服务器返回的信息
+
+xmlhttprequest.open("GET","test.asp?name=css8&pass=1234&age=1",false);//在open()方法的url参数末尾附加查询字符（可以带多个参数），向服务器端传送请求的数据
+open("GET","test.asp?name=css8&pass=1234&age=1",false); 方法为get时参数直接放在url后面 用 & 分隔 适合传递小的、不受保护的数据  
+open("POST","test.asp?name=css8&pass=1234&age=1",false); 方法为post时参数不会被附加到url末尾 而是用send()方法传递
+可以传递二进制、大容量、安全信息或XML格式数据
+如：send("name=css8&pass=1234&age=1");
+使用POST方法传递参数时 必须先指定请求的消息头
+xmlhttprequest.setRequestHeader("User-agent",XMLHTTP") 为了能让服务器辨别XMLHttpRequest异步请求和其他客户端请求
+														一般设置头部信息 为User-agent
+
+使用post方法是需设置另一个头部信息 
+	xmlhttprequest.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+    或者发送json或xml文件
+    设置头为  application/xml
+    		application/json
+POST方法 服务端获取参数 通过Request.Form()方式  var name=Request.Form("name");
+
+test.asp为
+< % @LANGUAGE="JAVASCRIPT" CODEPAGE="65001">
+< %
+	var name=Request.QueryString("name") //通过Request对象接收请求信息 name
+    if(name&&name=="css8"){               //如果存在该参数 并且等于 “css8”
+    	Response.Write(name+"是合法的");  //Response对象发送响应信息 通过Write()方法实现
+        }
+    else{
+    	Response.Write(name+"是不合法的");
+        }
+%>
+</textarea>
+    <table border="1">
+      <tr>
+        <th>属性</th>
+        <th>说明</th>
+      </tr>
+      <tr>
+        <td>onreadystatechange</td>
+        <td>指定当readyState属性改变时的事件处理句柄function</td>
+      </tr>
+      <tr>
+        <td>readyState</td>
+        <td>返回当前请求的状态</td>
+      </tr>
+      <tr>
+        <td>status</td>
+        <td>返回当前请求的HTTP状态码</td>
+      </tr>
+      <tr>
+        <td>statusText</td>
+        <td>返回当前请求的响应行状态</td>
+      </tr>
+      <tr>
+        <td>responseBody</td>
+        <td>返回正文信息</td>
+      </tr>
+      <tr>
+        <td>responseStream</td>
+        <td>以文本流的形式返回响应信息</td>
+      </tr>
+      <tr>
+        <td>responseText</td>
+        <td>以字符串的形式返回响应信息</td>
+      </tr>
+      <tr>
+        <td>responseXML</td>
+        <td>以XML数据返回响应信息</td>
+      </tr>
+      <tr>
+        <td>open()</td>
+        <td>创建一个新的HTTP请求，并指定方法、URL、以及验证信息(用户名 密码)</td>
+      </tr>
+      <tr>
+        <td>send()</td>
+        <td>发送请求到HTTP服务器并接收回应</td>
+      </tr>
+      <tr>
+        <td>getAllResponseHeaders() </td>
+        <td>获取响应的所有的HTTP头信息 </td>
+      </tr>
+      <tr>
+        <td>getResponseHeader() </td>
+        <td>从响应中获取指定的HTTP头信息 </td>
+      </tr>
+      <tr>
+        <td>setResponseHeader() </td>
+        <td>单独指定请求的每个HTTP头信息 </td>
+      </tr>
+      <tr>
+        <td>abort() </td>
+        <td>取消当前请求 </td>
+      </tr>
+    </table>
+  </dd>
+</dl>
+<dl>
+  <dt>jQuery 分析XMLHTTPRequest对象 </dt>
+  <dd>详见 jQuery AJAX </dd>
+  <dd>ajax的响应事件   $(select).ajaxStart().axaxSend().ajaxComplete().ajaxSuccess().ajaxStop().ajaxError() </dd>
+  <dd>预设AJAX选项 每次使用都要设置多个ajax选项 为了方便定义了ajaxSetup() 预设ajax通用选项
+    <textarea rows="10" cols="60">
+$.ajaxSetup({ //预设公共选项
+	url:"test.asp", //请求的url
+    global:"false",	//禁止触发全局ajax事件
+    type:"POST",	//请求方式
+    datatype:"text",	//响应数据的类型
+    success:function(data){	//响应成功的回调函数
+    	alert(data);
+        }
+})
+$("input").eq(1).click(function(){  //为按钮1绑定异步请求
+	$.ajax({
+    	data:"name=zhu" //发送请求的信息
+        })
+</textarea>
+  </dd>
+  <dd>预处理请求的字符串 不用手动加字符串中键的 & 字符<br />
+    转化为类似"user=zhu& sex=man& grade=2" 格式<br />
+    &nbsp;如：获取form表单name="user" vlue="zhu"的input和name="sex" value="man"的单选框 $("form").serialize(); 转化为"user=zhu & sex=man"<br />
+    转化为josn对象 var array=$("input").serializeArray(); json对象为[{name:user,value:zhu};{name:sex,value:man}]<br />
+    注：serializeArray()不能直接用form表单$("form").serializeArray();
+</dl>
+<dl>
+  <dt>创建jQuery插件</dt>
+  <dd>jQuery自定义了jQuery.extend()和jQuery.fn.extend()方法<br />
+    jQuery.extend()能创建全局函数或选择器 jQuery.fn.extend()能创建jQuery对象<br />
+    jQuery.extend()和jQuery.fn.extend()方法都包含了一个参数，参数仅接受 名/值对结构的对象 名表示函数或方法名 值为函数体 </dd>
+  <dd> 创建全局函数<br />
+    <textarea rows="8" cols="50">
+jQuery.extend({   //创建函数minvalue 和maxvalue  jQuery对象名可以简写为 $
+	minvaule:function(a,b){  //为避免函数重名  可以把自己的插件函数都封装在一个对象   
+    	return a< b?a:b;       //jQuery.css8={minvalue:function(){},maxvalue:function(){}}
+        }						//调用方法改变为调用对象css8的方法 
+   	maxvaule:function(a,b){		//var a=jQuery.css8.minvalue(3,4)
+    	return a< b?b:a;
+        }
+})
+var a=jQuery.minvalue(3,4); //调用函数
+</textarea>
+  </dd>
+  <dd>jQuery.extend()创建对象 合并对象等
+    <textarea rows="9" cols="50">
+  var a={ //对象
+  			name:"zhu",
+            pass:123
+         }
+  var b={
+  			name:"wang",
+            pass:456,
+            age:1
+         }
+  var c=jQuery.extend(a,b);//同名属性时　后面参数的对象的属性值会覆盖前面参数对象的属性值
+ 	//c={
+    		name:"wang",
+            pass:456,
+            age:1
+         } //用c[name] ,c[pass],c[age]访问属性值
+   //经典用法
+   var options=jQuery.extend(a,options); //自身合并其他对象
+         
+  </textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>使用jQuery.fn对象创建jQuery对象方法 </dt>
+  <dd>
+    <textarea rows="18" cols="70">
+jQuery.fn.test=function(){ //定义jQuery对象方法
+	this.each(function(){  //遍历jQuery对象
+    	alert(this.nodeName);	//提示当前元素的节点名称
+        });
+//调用
+$("input").click(function(){
+	$(this).test();  //当前元素调用对象方法test()
+    });
+//要实现类似 $(this).test().hide().height();的连写方式 应该在每个插件方法中返回一个jQuery对象 通常为this所引用的对象 用each()方法迭代返回this
+jQuery.fn.test=function(){ //定义jQuery对象方法
+	return this.each(function(){  //遍历返回jQuery对象
+    	alert(this.nodeName);	//提示当前元素的节点名称
+        });
+</textarea>
+  </dd>
+  <dd>使用extend()方法创建jQuery对象方法<br />
+    <textarea rows="17" cols="50">
+jQuery.fn.extend({
+	test:function(){ //定义jQuery对象方法
+				return this.each(function(){  //遍历jQuery对象
+    				alert(this.nodeName);	//提示当前元素的节点名称
+        		});
+              }
+})
+调用：$("input").click(function(){
+		$(this).test();  //当前元素调用对象方法test()
+  	  });
+</textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>jQuery检测浏览器 </dt>
+  <dd>jQuery封装了navigator.useragAgent方法var browser=navigator.userAgent;<br />
+    $.browser 对象包含5个属性$.browser.mise, $.browser.safari, $.browser["opera"], $.browser["mozilla"],$.browser.version,<br />
+    <textarea rows="10" cols="58">
+$(document).ready(function(e) {
+    var browser=$.browser;
+	for(var name in browser){  //遍历browser对象的属性
+		if(browser[name])
+        	{  var note=name+"="+browser[name];
+				var note1="";
+				note1+=note;
+			alert(note1);
+            }
+	}
+});
+</textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>浏览器特性综合测试 </dt>
+  <dd>
+    <table border="1">
+      <caption>
+      jQuery.support对象包含属性说明
+      </caption>
+      <tr>
+        <td>boxModel</td>
+        <td>$.support.boxModel如果支持w3c标准模型（宽度和高度不宝库内边距和边框宽度）返回true 如支持ie6或ie7的怪异模式（宽度和高度包含内边距和边框）返回false</td>
+      </tr>
+      <tr>
+        <td>cssFloat</td>
+        <td>如果浏览器用cssFloat访问CSS的float样式值 返回true  在IE中返回false ie用styleFloat访问</td>
+      </tr>
+      <tr>
+        <td>hrefNormalized</td>
+        <td>如果浏览器从getAttribute("href")返回的是原封不动的结果 返回true 在IE中返回false 因为他对返回的结果进行了格式处理</td>
+      </tr>
+      <tr>
+        <td>htmlSerialize</td>
+        <td>如果浏览器通过innerHtml插入a元素的时候，会自动化序列这些超链接 则返回ture 在ie中返回false</td>
+      </tr>
+      <tr>
+        <td>noCloneEvent</td>
+        <td>如果浏览器在克隆元素时不会和事件一起克隆 返回true 反之false</td>
+      </tr>
+      <tr>
+        <td>opacity</td>
+        <td>如果浏览器能解释透明度样式属性 返回true  ie用alpha滤镜实现 返回false</td>
+      </tr>
+      <tr>
+        <td>style</td>
+        <td>如果用getAttribute("style")返回元素的行内样式 则为true  IE用cssText返回元素的行内样式 故返回false</td>
+      </tr>
+    </table>
+  </dd>
+</dl>
+<dl>
+  <dt>字符串处理 </dt>
+  <dd>修剪字符串空格 var str="  去除字符串开始和结束的空格  "; jQuery.trim(str); 使用全局函数修剪trim() </dd>
+  <dd>序列化字符串 将表单数组或对象序列化 key/value格式jQuery.param(object); 使用参数函数param() 结果类似width=400&height=500 </dd>
+  <dd>jQuery.isArray(a), jQuery.isFunction(a), 判断a是否为数组 和 函数 </dd>
+  <dd>遍历数组或集合对象 jQuery.each(object,[callback]) 遍历对象object 调用回调函数 如想中途终止each()循环 在回调函数中 return false </dd>
+  <dd>转换为数组makeArray()<br />
+    var arr=jQuery.makeArray($("li")) //转化为数组 //$("li")时一个类数组对象 拥有length属性 和索引号 当对象不能调用数组方法 如reverse()
+    arr.reverse() //调用数组方法 </dd>
+  <dd>过滤数组jQuery.grep(array,callback,[invert])<br />
+    array是要过滤的数组 callback过滤函数 如过滤函数返回true则保留元素 反之删除 把第三个参数设为true时 过滤函数相反返回true则删除元素 返回false保留元素<br />
+    <textarea rows="8" cols="10">
+var arr=[1,2,3,4,5,6,7,8];
+arr=jQuery.grep(arr,function(value,index){  //过滤函数2个参数分别为 当前元素 和其索引值
+	return value>=5; //保留大于等于5的元素 返回新数组
+    }
+</textarea>
+  </dd>
+  <dd>映射数组 map()处理当前数组 映射为新的数组<br />
+    如：arr=jQuery.map(arr,function(ele){return ele*2>5? ele*2:null;}) 
+    //处理函数一个参数表示当前数组元素 对于ele*2>5的数组元素返回elel*2  其余的返回null 即表示删除当前数组元素<br />
+    当：return null;时则删除当前数组元素 实现类似gerp()过滤的效果 </dd>
+  <dd>合并数组merge() 只需向其传递2个数组参数即可<br />
+    arr1=[1,2,3[4,5,6],7]<br />
+    arr2=[a,b,["c","d"],1]<br />
+    arr3=jQuery.merge(arr1,arr2);  //arr3=[1,2,3[4,5,6],7,a,b,["c","d"],1] </dd>
+  <dd>删除数组中重复项arr4=jQuery.unique(arr3) //arr4=[2,3[4,5,6],7,a,b,["c","d"]]  a和b重复 a b都删除 </dd>
+</dl>
+<dl>
+  <dt>多库共存 </dt>
+  <dd>解决$名冲突  jQuery.noConflict(); 使用之后就可以调用自定义的$函数 如var $=function(){alert("1)} <br />
+    但之后使用jQuery访问jQuery对象 如$() 需变为jQuery()<br />
+  </dd>
+  <dd>解决jQuery名字冲突 var jQuerySelf=jQuery.noconflict(true); 用jQuerySelf暂存最初的jQuery库中的jQuery；避免和其他库中jQuery名字冲突 </dd>
+</dl>
+<dl>
+  <dt>数据缓存 </dt>
+  <dd>定义缓存数据 $("#menu ul li").data("type","menu") 为所有匹配的li定义数据data(name,value) value可以为任意格式 不仅为字符串</dd>
+  <dd>获取数据缓存 $("#menu ul li").data("type") 如果缓存数据不存在 返回undefined；如果jQuery对象指向多个元素 则只返回第一个元素对应的缓存数据</dd>
+  <dd>删除缓存数据 $("#menu ul li").removeData("type") 对元素执行remmove()或empty()操作 也可清除缓存数据 clone()方法不会复制缓存数据</dd>
+  <dd>缓存数据的访问 $.data(elem,name,data) 如果只有elem参数则返回它的缓存key,利用这个key可以得到整个缓存对象
+    <textarea rows="9" cols="10">
+  if(typeof($.data(currentElement))=="number"){ //$.data(currentElement)为当前元素缓存的key(即uuid)值 为数字
+  	var elemData=$.cache[$.data(currentElement)]; //访问特定key值得cache缓存
+    for(var k in elemData){			//取出缓存对象里面的数据
+    	dragingDiv.data(k,elemData[k]);
+        }
+   }
+  </textarea>
+  </dd>
+</dl>
+<dl>
+  <dt>数据队列 多元素函数队列</dt>
+  <dd>利用队列的先进先出 实现多元素依次执行函数</dd>
+  <dd>queue(name,callback) 第一个参数name表示队列名称，可以省略 默认为fx; 第二个为回调函数 在队列末尾执行该函数后 返回当前jQuery对象</dd>
+  <dd>queue()方法是在队列末尾添加一个函数,则在该行后面的动作都将被忽视
+    <textarea rows="10" cols="100">
+$("div").ainmate({left:"+=400"},200);
+$("div").queue(function(){ //在队列末尾添加一个函数 添加的animate不执行
+	$(this).addClass("bg");
+    });
+$("div").ainmate({left:"-=400"},200); //不在队列中 被忽视不执行 
+$("div").queue(function(){ //在队列末尾添加一个函数
+	$(this).removeClass("bg");
+    });
+</textarea>
+  </dd>
+  <dd><b>获取队列</b>queue(name)获取该队列的引用 为一个函数数组 name为队列名 默认为fx<br />
+    var x=$("div").queue() 如果匹配的元素不止一个，则返回指向的第一个匹配元素的队列 即第一个元素包含的函数数组</dd>
+  <dd><b>替换队列</b>queue(name,name） $("div").queque("fx",[]); 第二个参数为空数组，将会清除原来的动画序列
+    <textarea rows="14" cols="100">
+$div=$("div");
+$("input").click(function(){  //默认的第一个动画序列，慢速动画 默认为fx
+	$div.slideDown("slow");
+    $div.animate({left:"+=400"});
+    }
+$div.queue("fa",function(){	//自定义的动画序列fa 快速动画
+	$div.slideDown("fast");
+    $div.animate({left:"-=400"});//错误：animate未执行
+    })
+var fa=$div.queue("fa"); //获取fa序列的引用
+$("input.a").click({
+	$div.queue("fx",fa); //使用fa动画序列覆盖默认的fx动画序列
+    })
+</textarea>
+  </dd>
+  <dd>删除队列函数 dequeue()结束自定义队列函数，并使队列继续进行下去，这样是动画连续播放，直到最后一个函数被执行完毕 </dd>
+</dl>
+
+<dl>
+  <dt>each()遍历</dt>
+  <dd>each(callback) callback函数返回值设为false时 eack循环将停止 true时继续跳到下一个循环</dd>
+  <dd>$("li").each(function(index){this.innerHTML=index;) 获取每个li的当前index重写li的元素内容</dd>
+</dl>
+</dl>
+<dl>
+  <dt>get()方法将jQuery对象转换为js的dom元素集合 将jQuery对象转换为真正意义上的数组</dt>
+  <dd>var $li=$("li");//获取jQuery对象<br />
+var li=$li.get();//转换为dom集合数组<br />
+li.reverse(); //调用数组方法 ，颠倒数组元素顺序<br />
+$("ul").html(li); //重叠ul的选项列表结构 实现li元素的顺序颠倒<br />
+get()方法可以包含index $(this).get(3)与$(this)[3]完全相同 获取指定位置的对象 <br />
+$("li").get($("li.a"))获取class为a的li对象在对象li中的位置 返回索引值 如果找到匹配元素 从0开始返回，如果未找到匹配 则返回-1</dd>
+</dl>
+</dl>
+<dl>
+  <dt></dt>
+  <dd></dd>
+  <dd></dd>
+</dl>
+<input type="button" value="111"/>
+<input type="button" class="a" value="22"/>
+<script type="text/javascript">
+$(document).ready(function(e) {     
+	$("dd").hide();
+	$("dt").click(function(e){$(this).nextAll().slideToggle()});
+  // $("dl").toggle(function(e){$(this).siblings("dd").slideDown("slow")},function(e){$(this).siblings("dd").slideUp("slow")});
+})
+$(".a").click(function(e) {
+    $("input:not(.a)").toggle();
+});
+
+
+
+</script>
+</body>
+</html>

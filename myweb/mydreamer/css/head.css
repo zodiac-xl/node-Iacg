@@ -1,0 +1,46 @@
+/* CSS Document */
+body{
+background-repeat:repeat;}
+/*head*/
+.header{position: relative;
+height: 100px;
+box-shadow: 4px 8px 8px #807373;
+border-top: 11 solid rgb(139, 131, 131);}
+.header a.home{
+position: absolute;
+right: 25px;
+top: 32px;
+background: rgb(148, 121, 148);
+color: white;
+text-decoration: none;
+padding: 10px;}
+.logo a {
+position: absolute;
+left: 100px;
+bottom: 36px;
+text-decoration: none;
+font-family: "Comic Sans MS", cursive;
+color: rgb(83, 74, 74);
+font-size: 26px;}
+.bgchange{position: absolute;
+right: 140px;
+bottom: 32px;}
+
+.a{background-color: rgb(243, 243, 243);}
+.b{background-color: rgb(197, 190, 218);}
+.c{background-color: rgb(214, 201, 149);}
+.d{background-color: rgb(46, 46, 46);}
+
+.bgchange input,.bgchange label{position:relative;display:block;float:right; width:30px;height:30px;margin:2px;box-shadow: 2px 2px 3px rgb(41, 36, 36);}
+/*head*/
+/*nav1*/
+#nav1 {
+top: 183px;
+left: 139px;
+height: 46px;
+width: 359px;
+vertical-align: middle;
+text-align: center;
+z-index:99;
+}
+/*nav1*/

@@ -21,7 +21,6 @@ let externals = {
     "react-dom": "ReactDOM"
 };
 let needPackRegExp = [
-    'side-bar',
     'node_modules'
 ];
 let needWatch = true;
@@ -37,7 +36,7 @@ let options = {
     sourceMaps
 };
 
-gulp.task('b', function (cb) {
+gulp.task('cmd2amd', function (cb) {
     cmd2amd(options);
     cb();
 

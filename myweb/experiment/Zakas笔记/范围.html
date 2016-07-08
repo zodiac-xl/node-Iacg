@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../jquery.js"></script>
+    <title></title>
+    <style>
+        div {
+            margin: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+</div>
+<div class="p">HELLO world</div>
+<script>
+
+    //创建范围
+
+    function getRange( ele ) {
+        var range = document.createRange(),
+                eleIndex = -1,
+                i, len;
+        for ( i = 0, len = ele.parentNode.childNodes.length; i < len; i++ ) {
+            if ( ele.parentNode.childNodes[i] == ele ) {
+                eleIndex = i;
+                break;
+            }
+        }
+
+        //1设置选区
+        range.selectNode( ele );
+        range.selectNodeContents( ele );
+        //2复杂选区设置
+        range.setStart( ele.parentNode, eleIndex );
+        range.setEnd( ele.parentNode, eleIndex + 1 );
+        range.setStart( ele.firstChild, 2 );
+        range.setEnd( ele.firstChild, ele.firstChild.length );
+        var startEle, endEle;
+        range.setStartAfter( startEle );
+        range.setStartBefore( startEle );
+        range.setEndAfter( endEle );
+        range.setEndPoint( endEle );
+
+        //3操作选区
+        range.deleteContents();    //删除选区
+        range.extractContents();     //删除选区 返回删除的片段
+        range.cloneContents();  //返回选区副本
+        range.cloneRange();  //克隆
+        range.detach();  //从文档中分离
+        range = null; //解除引用
+
+        //4插入选区
+        var span = document.createElement( "span" );
+        span.appendChild( document.createTextNode( "inserted text" ) );
+        range.insertNode( span );
+
+        //环绕范围插入内容 可用于凸显效果
+        var color = document.createElement( "span" );
+        color.style.background = "yellow";
+        range.surroundContents( color );
+
+        //5折叠dom范围 适合文本框
+        range.collapse( true );  //true折叠到起点 false折叠到终点
+        alert( range.collapsed ); //返回是否折叠
+
+        //6比较dom范围
+        var rang1= document.createRange(), rang2= document.createRange();
+        range.compareBoundaryPoints( rang1, rang2 );
+
+    }
+
+    getRange( document.querySelector( ".p" ) );
+</script>
+
+</body>
+</html>

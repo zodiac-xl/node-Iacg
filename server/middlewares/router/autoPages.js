@@ -15,6 +15,8 @@ export default function (app, config) {
         if (pageName) {
             let viewPagePath = path.join(config.path.viewPages, pageName);
             let ftlPath = path.join(viewPagePath, "index.ftl");
+            let htmlPath = path.join(viewPagePath, "index.html");
+
             let jsPath = path.join(viewPagePath, "index.js");
             let reactJsPath = path.join(viewPagePath, "index_react.js");
 
@@ -22,7 +24,7 @@ export default function (app, config) {
             if (!config.debug && pageRouteMap[pageName] != undefined) {
                 isPageRoute = pageRouteMap[pageName];
             } else {
-                isPageRoute = pathExists.sync(ftlPath) || pathExists.sync(jsPath) || pathExists.sync(reactJsPath) || pathExists.sync(path.join(config.path.client, "static", "amd", "client", "pages", pageName, "index.js"));
+                isPageRoute = pathExists.sync(htmlPath) || pathExists.sync(ftlPath) || pathExists.sync(jsPath) || pathExists.sync(reactJsPath) || pathExists.sync(path.join(config.path.client, "static", "amd", "client", "pages", pageName, "index.js"));
             }
             pageRouteMap[pageName] = isPageRoute;
             if (isPageRoute) {

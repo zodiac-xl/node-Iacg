@@ -1,13 +1,93 @@
-@import "./variables";
 
-.navbar {
-  z-index: 2000;
-  padding: 0 0.02rem;
-  padding-left: 0.06rem;
-  background-color: rgba(255, 255, 255, .94);
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
-  height: @header-height;
-  line-height: @header-height;
+.header {
+  margin-bottom: 0.05rem;
+  .head {
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: '0.05rem 0';
+    border-bottom: #e7e7e7 1px solid;
+    .loginAout {
+      flex: 1;
+      text-align: right;
+
+      span {
+        margin: 0 0.1rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .nav {
+    border: #e7e7e7 1px solid;
+    border-bottom-width: 2px;
+    li {
+      display: inline-block;
+      margin: 0 0.02rem;
+      color: rgba(95, 95, 95, 0.9);
+      height: 0.34rem;
+      line-height: 0.34rem;
+      border-right: #e7e7e7 1px solid;
+      padding: 0 0.05rem;
+      &:hover {
+        color: #CD3333;
+        font-weight: bolder;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+      }
+    }
+
+    li:before {
+      display: inline-block;
+      position: relative;
+      top: 0.01rem;
+      content: "";
+      width: 0.12rem;
+      height: 0.12rem;
+      line-height: 0.4rem;
+      margin-right: 0.04rem;
+    }
+
+    li:nth-child(1):before {
+      background: url("/images/number/dh1.png");
+      background-size: 100% 100%;
+    }
+
+    li:nth-child(2):before {
+      background: url("/images/number/dh2.png");
+      background-size: 100% 100%;
+    }
+
+    li:nth-child(3):before {
+      background: url("/images/number/dh3.png");
+      background-size: 100% 100%;
+    }
+
+    li:nth-child(4):before {
+      background: url("/images/number/dh4.png");
+      background-size: 100% 100%;
+    }
+
+    li:nth-child(5):before {
+      background: url("/images/number/dh5.png");
+      background-size: 100% 100%;
+    }
+
+    li:nth-child(6):before {
+      background: url("/images/number/dh6.png");
+      background-size: 100% 100%;
+    }
+
+    li:nth-child(7):before {
+      background: url("/images/number/dh7.png");
+      background-size: 100% 100%;
+    }
+
+    li:nth-child(8):before {
+      background: url("/images/number/dh8.png");
+      background-size: 100% 100%;
+    }
+  }
+
 }
-
-

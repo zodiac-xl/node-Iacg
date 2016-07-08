@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>离线应用和客户端存储</title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+    <style>
+        body {
+            min-height: 400px;
+            min-width: 400px;
+            /*background: royalblue;*/
+        }
+
+        .aa {
+            height: 100px;
+            width: 100px;
+            background: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+
+    //region离线检测
+    //判断设备是否能上网 navigator.onLine  window事件online offline
+    //alert( navigator.onLine );
+
+    //监测网络变化
+    W.addHandler( window, "online", function () {
+        alert( "online" );
+    } );
+    W.addHandler( window, "offline", function () {
+        alert( "offline" );
+    } );
+    //endregion
+
+    //region应用缓存 描述文件 manifest file P627
+
+    //endregion
+
+    //region 数据存储
+
+    //HTTP cookie
+    //该标准要求服务器对任意HTTP请求发送Set-Cookie HTTP头作为相应的一部分，其中包括会话信息
+
+
+    //1.限制
+    //cookie在性质上是绑定在特定的域名下的。
+    // 当设定了一个cookie后，再给创建他的域名发送请求时，都会包含这个cookie。
+    // 这个限制确保了存储在cookie中的信息只能让批准的接受者访问，而无法被其他域访问
+    //cookie在客户端计算机大小和数量都有限制 根据浏览器不同单个域下最多20-50个 整个cookie长度限制在2095b
+
+
+    //2.cookie的构成  只有名值对儿才会被发送到服务器 其他参数都是服务器给浏览器的指示
+    // 名称name  需要经过URL编码
+    // 值value
+    // 域domain
+    // 路径path
+    // 失效时间expires
+    // 安全标志secure
+
+    //设置了secure标志的cookie只能通过SSL加密连接才能传输
+
+    //设置在HTTP头部分
+    // HTTP/1.1 200 OK
+    //Content-type:text/html
+    //Set-Cookie:name-value;expires=Mon,22-Jan-07 07:10:24 GMT;domain=.wrox.com;path=/;secure
+    //Other-header:other-header-value
+
+    //3.JavaScript中的cookie
+    var CookieUtil = {
+
+        get : function ( name ) {
+            var cookieName = encodeURIComponent( name ) + "=",
+                    cookieStart = document.cookie.indexOf( cookieName ),
+                    cookieValue = null;
+
+            if ( cookieStart > -1 ) {
+                var cookieEnd = document.cookie.indexOf( ";", cookieStart );
+
+                if ( cookieEnd == -1 ) {
+                    cookieEnd = document.cookie.length;
+                }
+
+                cookieValue = decodeURIComponent( document.cookie.substring( cookieStart + cookieName.length, cookieEnd ) );
+            }
+
+            return cookieValue;
+        },
+
+        set : function ( name, value, expires, path, domain, secure ) {
+            var cookieText = encodeURIComponent( name ) + "=" + encodeURIComponent( value );
+
+            if ( expires instanceof  Date ) {
+                cookieText += ";expires=" + expires.toGMTString();
+            }
+
+            if ( path ) {
+                cookieText += ";path=" + path;
+            }
+
+            if ( domain ) {
+                cookieText += ";domain=" + domain;
+            }
+
+            if ( secure ) {
+                cookieText += ";secure";
+            }
+
+            document.cookie = cookieText; //并不会覆盖原来的cookie 除非名称已经存在
+        },
+
+        unset : function ( name, path, domain, secure ) {
+            this.set( name, "", new Date( 0 ), path, domain, secure );
+        }
+    };
+
+    CookieUtil.set( "name", "zodiac", new Date( "January 1,2020" ) );
+
+    //CookieUtil.unset("name");
+    //alert( CookieUtil.get( "name" ) );
+
+
+    //4.子cookie 为了绕开浏览器对单域名下的cookie的限制，使用子cookie name=name1=value1=&name2=value2 自由操作 但是这样会增加cookie的长度
+
+    var SubCookieUtil = {
+
+        get : function ( name, subName ) {
+            var subCookies = this.getAll( name );
+            if ( subCookies ) {
+                return subCookies[subName];
+            }
+            else {
+                return null;
+            }
+        },
+
+        getAll : function ( name ) {
+            var cookieName = encodeURIComponent( name ) + "=",
+                    cookieStart = document.cookie.indexOf( cookieName ),
+                    cookieValue = null,
+                    cookieEnd,
+                    subCookies,
+                    i,
+                    parts,
+                    result = {};
+            if ( cookieStart > -1 ) {
+                cookieEnd = document.cookie.indexOf( ";", cookieStart );
+
+                if ( cookieEnd == -1 ) {
+                    cookieEnd = document.cookie.length;
+                }
+
+                cookieValue = document.cookie.substring( cookieStart + cookieName.length, cookieEnd );
+
+                if ( cookieValue.length > 0 ) {
+                    subCookies = cookieValue.split( "&" );
+
+                    for ( i = 0, len = subCookies.length; i < len; i++ ) {
+                        parts = subCookies[i].split( "=" );
+                        result[decodeURIComponent( parts[0] )] = decodeURIComponent( parts[1] );
+                    }
+
+                    return result;
+                }
+            }
+        },
+
+
+        set : function ( name, subName, value, expires, path, domain, secure ) {
+
+            var subCookies = this.getAll( name ) || {};
+            subCookies[subName] = value;
+            this.setAll( name, subCookies, expires, path, domain, secure );
+        },
+
+        setAll : function ( name, subCookies, expires, path, domain, secure ) {
+
+            var cookieText = encodeURIComponent( name ) + "=",
+                    subCookieParts = new Array(),
+                    subName;
+
+            for ( subName in subCookies ) {
+                if ( subName.length > 0 && subCookies.hasOwnProperty( subName ) ) {
+                    subCookieParts.push( encodeURIComponent( subName ) + "=" + encodeURIComponent( subCookies[subName] ) );
+                }
+            }
+
+            if ( subCookieParts.length > 0 ) {
+                cookieText += subCookieParts.join( "&" );
+
+                if ( expires instanceof  Date ) {
+                    cookieText += ";expires=" + expires.toGMTString();
+                }
+
+                if ( path ) {
+                    cookieText += ";path=" + path;
+                }
+
+                if ( domain ) {
+                    cookieText += ";domain=" + domain;
+                }
+
+                if ( secure ) {
+                    cookieText += ";secure";
+                }
+            }
+            else {
+                cookieText += ";expires=" + (new Date( 0 )).toGMTString();
+            }
+
+            document.cookie = cookieText;
+        },
+
+        unset : function ( name, subName, path, domain, secure ) {
+            var subCookies = this.getAll( name );
+
+            if ( subCookies ) {
+                delete subCookies[subName];
+                this.setAll( name, subCookies, null, path, domain, secure );
+            }
+        },
+
+        unsetAll : function ( name, path, domain, secure ) {
+            this.setAll( name, null, new Date( 0 ), path, domain, secure );
+        }
+
+    };
+
+
+    //endregion
+
+    //region Web存储机制
+
+    //Storage类型 HTML5 Storage类型都有公共方法setItem getItem removeItem key 大小限制根据浏览器2.5M--5M
+
+    //1.sessionStorage保持到会话结束，即保存到浏览器关闭 合适会话类的小段数据
+
+    sessionStorage.setItem( "name", "zodiac" );//使用方法存储数据
+    sessionStorage.age = "22";//使用属性存储数据
+    var name = sessionStorage.getItem( "name" );//使用方法获取数据
+    var age = sessionStorage.age;//使用属性获取数据
+    //sessionStorage.removeItem("name");
+    //delete sessionStorage.age     使用delete删除一个值 在Webkit中无效
+    // W.log( sessionStorage.key( 0 ) );//逆序获取指定位置上的名字
+
+
+    //2.localStorage HTML5标准 老版本使用globalStorage 跨会话第存储数据，但有特定的访问限制
+    // globalStorage需要指定那些域可以访问该数据
+    // 要访问localStorage页面必须来自同一域名(子域名无效),同一协议，同一端口上。相当于globalStorage[location.host]
+    //两者的数据都保存到通过JavaScript删除或者用户清除浏览器缓存为止
+
+    //兼容
+    function getLocalStorage() {
+        if ( typeof localStorage == "object" ) {
+            return localStorage;
+        }
+        else if ( typeof globalStorage == "object" ) {
+            return globalStorage[location.host];
+        }
+        else {
+            throw new Error( "Local Storage not available" );
+        }
+    }
+
+    var localStorage = getLocalStorage();
+
+    localStorage.setItem( "name", "zodiac" );
+    //Storage事件 ie8和FireFox只实现了domain属性 WebKit不支持此事件
+    // 为Storage对象进行任何修改，都会在文档上触发storage事件 set get remove delete等都会触发
+    W.addHandler( document, "storage", function ( event ) {
+        var domain = event.domain,
+                key = event.key,
+                newValue = event.newValue,
+                oldValue = event.oldValue;
+    } );
+
+
+    //endregion
+
+
+    //region IndexedDB
+
+    //IndexedDB思想是创建一套API，方便保存和读取JavaScript对象，同时还支持查询及搜索
+    //IndexedDB操作完全是异步的，大多数操作会以请求进行，但这些操作会在后期执行，如果成功则返回数据，失败则返回错误。
+    //差不多每次IndexedDB操作都需要注册onerror和onsuccess事件处理程序，以确保适当地处理结果
+
+
+    //1.数据库indexedDB本质是一个数据库 和传统数据库不同在于使用对象保存数据，而不是使用表来保存数据。
+    //一个indexedDB数据库，就是一组位于相同命名空间下的对象的集合
+
+    var indexedDB = window.indexedDB || window.msIndexedDB || window.mozIndexedDB || window.webkitIndexedDB;
+    function closeDB( db ) {
+        db.close();
+    }
+    function deleteDB( name ) {
+        debugger;
+        indexedDB.deleteDatabase( name );
+    }
+
+    function openDB( myDB, successHandler, upGradeHandler ) {
+        var version = myDB.version || 1,
+                request = indexedDB.open( myDB.name, version );
+
+        request.onerror = function ( e ) {
+            console.log( e.currentTarget.error.message );
+        };
+        request.onsuccess = function ( e ) {
+            myDB.db = e.target.result;
+            successHandler && successHandler();
+        };
+        request.onupgradeneeded = function ( e ) { //请求数据库版本变化句柄
+            console.log( 'DB version changed to ' + version );
+            myDB.db = e.target.result;
+            upGradeHandler && upGradeHandler();
+        };
+    }
+    function addData( db, storeName, addData ) {
+        var transaction = db.transaction( storeName, 'readwrite' ),//打开一个事务，参数一可以为字符串或者数组， 参数二为访问数据的方式readony readwrite
+                store = transaction.objectStore( storeName );
+
+        for ( var i = 0; i < addData.length; i++ ) {
+            store.add( addData[i] );
+        }
+    }
+    function getDataByKey( db, storeName, value ) {
+        var transaction = db.transaction( storeName, 'readwrite' );
+        var store = transaction.objectStore( storeName );
+        var request = store.get( value );
+        request.onsuccess = function ( e ) {
+            var student = e.target.result;
+            console.log( student.name );
+        };
+    }
+    function updateDataByKey( db, storeName, value ) {
+        var transaction = db.transaction( storeName, 'readwrite' );
+        var store = transaction.objectStore( storeName );
+        var request = store.get( value );
+        request.onsuccess = function ( e ) {
+            var student = e.target.result;
+            student.age = 35;
+            store.put( student );
+        };
+    }
+    function deleteDataByKey( db, storeName, value ) {
+        var transaction = db.transaction( storeName, 'readwrite' );
+        var store = transaction.objectStore( storeName );
+        store.delete( value );
+    }
+    function clearObjectStore( db, storeName ) {
+        var transaction = db.transaction( storeName, 'readwrite' );
+        var store = transaction.objectStore( storeName );
+        store.clear();
+    }
+    function deleteStore( db, storeName ) {
+        db.objectStoreNames.contains( storeName ) && db.deleteObjectStore( storeName );
+    }
+    //索引是唯一的没问题，如果索引不唯一也只会取到第一个匹配值，要想得到所有符合条件的值就需要使用游标了
+    function getDataByIndex( db, storeName, index ) {
+        var transaction = db.transaction( storeName );
+        var store = transaction.objectStore( storeName );
+        var index = store.index( "nameIndex" );
+        index.get( index ).onsuccess = function ( e ) {
+            var student = e.target.result;
+            console.log( student.id );
+        }
+    }
+
+    //游标 cursor有属性direction key value primaryKey 方法update() delete() continue() advance()
+    // cursor.continue(key)如果指定了key会移动打指定key值处 没有则会使游标下移直到没有数据返回undefined。cursor.advance(count)向前移动多少
+    function fetchStoreByCursor( db, storeName ) {
+        var transaction = db.transaction( storeName );
+        var store = transaction.objectStore( storeName );
+        var request = store.openCursor();
+        request.onsuccess = function ( e ) {
+            var cursor = e.target.result;
+            if ( cursor ) {
+                console.log( cursor.key );
+                var currentStudent = cursor.value;
+                console.log( currentStudent.name );
+                cursor.continue();
+            }
+        };
+    }
+    //游标+索引
+    function getMultipleData( db, storeName ) {
+        var transaction = db.transaction( storeName );
+        var store = transaction.objectStore( storeName );
+        var index = store.index( "ageIndex" );
+        var IDBKeyRange=window.IDBKeyRange||window.webkitIDBKeyRange;
+        var request = index.openCursor( IDBKeyRange.only( 26 ));
+//        index.openCursor()/index.openKeyCursor()方法在不传递参数的时候会获取object store所有记录，像上面例子一样我们可以对搜索进行筛选
+//        可以使用key range 限制游标中值的范围，把它作为第一个参数传给 openCursor() 或是 openKeyCursor()
+//         第二个可选参数表示游标方向默认是向后
+// 有：IDBCursor.NEXT向后 IDBCursor.NEXT_NO_DUPLICATE跳过重复向后 IDBCursor.PREV向前 IDBCursor.PREV_NO_DUPLICATE跳过重复向前
+//        IDBKeyRange.only(value):只获取指定数据
+//        IDBKeyRange.lowerBound(value,isOpen)：获取最小是value的数据，第二个参数用来指示是否排除value值本身，也就是数学中的是否是开区间
+//        IDBKeyRange.upperBound(value,isOpen)：和上面类似，用于获取最大值是value的数据
+//        IDBKeyRange.bound(value1,value2,isOpen1,isOpen2)：不用解释了吧
+        request.onsuccess = function ( e ) {
+            var cursor = e.target.result;
+            if ( cursor ) {
+                var student = cursor.value;
+                console.log( student.id );
+                cursor.continue();
+            }
+        }
+    }
+    function getMultipleData( db, storeName ) {
+        var transaction = db.transaction( storeName );
+        var store = transaction.objectStore( storeName );
+        var index = store.index( "nameIndex" );
+        var request = index.openCursor( IDBKeyRange.bound( 'B', 'F', false,
+                true
+        ) );
+        request.onsuccess = function ( e ) {
+            var cursor = e.target.result;
+            if ( cursor ) {
+                var student = cursor.value;
+                console.log( student.name );
+                cursor.continue();
+            }
+        }
+    }
+    var myDB = {
+        name : "zodiac",
+        version : 1,
+        db : null
+    };
+
+    function successHandler() {
+
+        //在对新数据库做任何事情之前，需要开始一个事务。事务中需要指定该事务跨越哪些object store。
+
+        var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction,
+
+                transaction = myDB.db.transaction( ['students', 'teacher'], "readonly" ),
+
+
+                objectStore = transaction.objectStore( 'students' ); //获取students object store  objectStore相当于表
+
+        //开启事务后插入数据
+        addData( myDB.db, 'students', students );
+        addData( myDB.db, 'teacher', teacher );
+    }
+
+    function upGradeHandler() {//跟新数据库 建表 必须在数据库版本变化后才能执行
+        if ( !myDB.db.objectStoreNames.contains( 'students' ) ) {
+            var store = myDB.db.createObjectStore( 'students', {keyPath : "id", autoIncrement : true} ); //keyPath主键 keyGenerator其他参数 autoIncrement默认为true
+            store.createIndex( 'ageIndex', 'age', {unique : false} ); //创建索引 索引名称 索引属性字段名 索引属性值是否唯一
+            store.createIndex( 'nameIndex', 'name', {unique : true} );
+        }
+        if ( !myDB.db.objectStoreNames.contains( 'teacher' ) ) {
+            myDB.db.createObjectStore( 'teacher', {keyPath : "id", autoIncrement : true} );
+        }
+    }
+
+    var students = [
+        {
+            id : 1001,
+            name : "Byron",
+            age : 24
+        },
+        {
+            id : 1002,
+            name : "Frank",
+            age : 30
+        },
+        {
+            id : 1003,
+            name : "Aaron",
+            age : 26
+        }
+    ];
+    var teacher = [
+        {
+            id : 1,
+            name : "aa",
+            age : 44
+        },
+        {
+            id : 2,
+            name : "bb",
+            age : 45
+        },
+        {
+            id : 3,
+            name : "cc",
+            age : 46
+        }
+    ];
+
+    openDB( myDB, null, upGradeHandler );
+    openDB( myDB, successHandler );
+
+    // deleteDB("zodiac");
+    //endregion
+
+
+</script>
+
+</body>
+</html>

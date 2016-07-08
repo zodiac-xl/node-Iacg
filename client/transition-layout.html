@@ -9,10 +9,32 @@
     <meta name="format-detection" content="address=no">
     <meta http-equiv="Cache-control" content="no-cache">
 
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <script type="text/javascript">
+        //根据屏幕大小及dpi调整缩放和大小
+        (function () {
+            var scale = 1.0;
+            var ratio = 1;
+            if (window.devicePixelRatio >= 2) {
+                scale *= 0.5;
+                ratio *= 2;
+            }
+            var text = '<meta name="viewport" content="initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', width=device-width, user-scalable=no" />';
+            document.write(text);
+            document.documentElement.style.fontSize = 100 * ratio + "px";
+        })();
+    </script>
+
+    <link rel="bookmark" href="/images/xr.png">
+    <link rel="shortcut icon" href="/images/xr.png">
 
     <!--base css-->
     <link rel="stylesheet" href="/base/dist/css/base.min.css">
+
+    <style>
+        body {
+            font-size: 0.14rem;
+        }
+    </style>
 
     <!--page css-->
     <% stylesheets.forEach(function(style){ %>
@@ -44,32 +66,9 @@
 <body>
 
 <div id="app">
-    <div id="container-header">
-
+    <div class="body-main screen">
+        <%= body %>
     </div>
-    <div class="my-page-content">
-
-        <div class="my-page-header">
-        </div>
-        <div class="my-page-top-bar">
-        </div>
-        <div class="my-page-main">
-            <%= body %>
-        </div>
-        <div class="my-page-bottom-bar">
-        </div>
-        <div class="my-page-footer">
-        </div>
-    </div>
-    <div id="container-sideBar">
-    </div>
-    <div id="container-footer">
-
-    </div>
-    <div id="container-debug">
-
-    </div>
-
 </div>
 </body>
 </html>

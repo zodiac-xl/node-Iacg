@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jqueryAJAX</title>
+<script src="js/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+body{padding: 30px 20%;background: rgb(221, 221, 221);}
+textarea{background: rgb(214, 213, 213);}
+</style>
+</head>
+
+<body>
+<a href="file:///E|/photoWeb/photo.html">ajax示例 photo图片墙</a><br />
+
+<dl>
+<dt>ajax</dt>
+<dd><textarea rows="80" cols="100">	var name=$(".name").val();  
+				var data="username="name;
+				$.ajax({type:"post",
+                		url:"welcome.php",
+                		data:"data",
+                        	success:function(html){alert(html);} //参数html为服务器url传回的值
+                     		 })
+//php方式
+                  < ?php
+                  $name=$_POST["username"]; //$_POST 或$_GET 数组存放传递过来的data
+                  echo "welcome".$name;   //echo 定义传回数据  .类似js的+
+                   ?>
+                   另一种方式 $.get(url,data,callback)
+                   $.get("welcome.php", data,function(){})
+//get post调用方法一样
+
+//数据库方式
+< ?php
+$name=$_POST["username"];
+$connect=mysql_connect("localhost","root","password") or die("please,check your server connection");
+mysql_select_db("autofill");
+$query="SELECT name FROME info WHERE name LIKE '$name%'";//query表示查询 $name% 以$name值开头的数据
+$ result=mysql_query($query) or die(mysql_error());
+if($result)
+{
+	while($row=mysql_fetch_array($result)) //fetch表示取来 取得 mysql_fetch_array($result)将$(result)数据存储在数组中
+    extract($row); //extract 提取
+    echo "li".$name."li";
+    }
+}
+?>
+//json方式
+$ajax 的callback回调函数为
+var d="< ul >";
+function(data){
+	$each(data,function(i,n)){   //data为json文件数据 i表示对象在data的索引值自动0到最大 n为对象有optiontext和optionvalue两个属性
+    	d+="< li>"+n["optiontext"]+"< li>";
+        }
+        };
+        $(".message").apend(d); //
+json文件：
+[
+{"optiontext":"Tea","optionvalue":"Tea"},
+{"optiontext":"Cea","optionvalue":"Cea"},
+]
+//另一种json方法
+$.getJSON(url,parameters,callbackfunction)
+//xml取得数据
+xml文件
+<  ?xml version="1.0" encoding="utf-8" ?>
+< school>
+	< student>
+    	< roll>101< /roll>
+        < name>
+        	< firstname>Al< /firstname>
+            < lastname>BL< /lastname>
+        < /name>
+     < /student>
+< /school>
+$.ajax({
+	type:"GET",
+    url:"student.xml",
+    dataType:"xml",
+    success:function(st){$(st).find("student").each(function(){
+                        	var name=$(this).find("firstname").text();
+                              })
+                         }
+            
+</textarea></dd>
+<dd></dd>
+</dl>
+<textarea rows="70" cols="100">
+        jQuery - AJAX load() 方法
+       
+        jQuery load() 方法是简单但强大的 AJAX 方法。
+        load() 方法从服务器加载数据，并把返回的数据放入被选元素中。
+       
+        $(selector).load(URL,data,callback);
+      
+        必需的 URL 参数规定您希望加载的 URL。
+        可选的 data 参数规定与请求一同发送的查询字符串键/值对集合。
+        可选的 callback 参数是 load() 方法完成后所执行的函数名称。
+        
+        $("#div1").load("demo_test.txt #p1");下面的例子把 "demo_test.txt" 文件中 id="p1" 的元素的内容，加载到指定的 < div > 元素中
+        可选的 callback 参数规定当 load() 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：
+        
+        	responseTxt - 包含调用成功时的结果内容
+       	`	statusTXT - 包含调用的状态
+        	xhr - 包含 XMLHttpRequest 对象
+            
+        	$("button").click(function(){
+        	  $("#div1").load("demo_test.txt",function(responseTxt,statusTxt,xhr){
+        	    if(statusTxt=="success")
+        	      alert("外部内容加载成功！");
+        	    if(statusTxt=="error")
+        	      alert("Error: "+xhr.status+": "+xhr.statusText);
+        	  });
+        	});
+            
+            
+        JQUERY - AJAX GET() 和 POST() 方法
+        
+        JQUERY $.GET() 方法
+        
+        $.get(URL,callback);
+        $("button").click(function(){
+          $.get("demo_test.asp",function(data,status){
+            alert("Data: " + data + "\nStatus: " + status);
+          });
+        });
+        
+        JQUERY $.POST() 方法
+        $("button").click(function(){
+          $.post("demo_test_post.asp",
+          {
+            name:"Donald Duck",
+            city:"Duckburg"
+          },
+          function(data,status){
+            alert("Data: " + data + "\nStatus: " + status);
+          });
+        });
+        
+
+        $.post() 的第一个参数是我们希望请求的 URL ("demo_test_post.asp")。
+        然后我们连同请求（name 和 city）一起发送数据。
+        "demo_test_post.asp" 中的 ASP 脚本读取这些参数，对它们进行处理，然后返回结果。
+        第三个参数是回调函数。第一个回调参数存有被请求页面的内容，
+        而第二个参数存有请求的状态。
+        提示：这个 ASP 文件 ("demo_test_post.asp") 类似这样：
+        < %
+        dim fname,city
+        fname=Request.Form("name")
+        city=Request.Form("city")
+        Response.Write("Dear " & fname & ". ")
+        Response.Write("Hope you live well in " & city & ".")
+        % >
+
+</textarea>
+
+<script>
+$("textarea").attr("readonly","true");
+</script>
+</body>
+</html>

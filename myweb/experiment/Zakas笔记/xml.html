@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>xml</title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+
+<script>
+
+    //跨浏览器处理xml
+    //创建空白文档
+    function createDocument() {
+        if ( typeof arguments.callee.activeXString != "string" ) {
+            var versions = ["MSXML2.DOMDocument.6.0", "MSXML2.DOMDocument.3.0", "MSXML2.DOMDocument"];
+
+            for ( var i = 0, len = versions.length; i < len; i++ ) {
+                try {
+                    new ActiveXObject( versions[i] );
+                    arguments.callee.activeXString = versions[i];
+                    break
+                }
+                catch ( ex ) {
+
+                }
+            }
+        }
+        return new ActiveXObject( arguments.callee.activeXString );
+    }
+    function parsXml( xml ) {
+        var xmlDom = null;
+
+        if ( typeof DOMParser != "undefined" ) {
+            var errors = null;
+
+            xmlDom = (new DOMParser()).parseFromString( xml, "text/xml" );
+            errors = xmlDom.getElementsByTagName( "parsererror" );
+            if ( errors.length ) {
+                throw new Error( "XML parsing error: " + errors[0].textContent );
+            }
+        }
+        else if ( typeof ActiveXObject != "undefined" ) {
+            xmlDom = createDocument();
+            xmlDom.loadXML( xml );
+            if ( xmlDom.parseError != 0 ) {
+                throw new Error( "XML parsing error: " + xmlDom.parseError.reason );
+            }
+        }
+        else {
+            throw new Error( "No XML parser available" );
+        }
+
+        return xmlDom;
+    }
+
+    function serializeXml(xmlDom){
+        if(typeof XMLSerializer!="undefined"){
+            return (new XMLSerializer()).serializeToString(xmlDom);
+        }else if(typeof xmlDom.xml!="undefined"){
+            return xmlDom.xml;
+        }else{
+            throw new Error( "Can not serialize XML DOM" );
+        }
+    }
+
+
+    //xPath 实现XML的DOM查找
+    var supportsXPath=document.implementation.hasFeature("XPath","3.0");
+
+
+
+
+</script>
+
+
+</body>
+</html>

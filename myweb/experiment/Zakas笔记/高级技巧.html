@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+    <style>
+        body {
+            min-height: 400px;
+            min-width: 400px;
+            background: royalblue;
+        }
+
+        .aa {
+            height: 100px;
+            width: 100px;
+            background: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="aa">
+    dsadddd
+</div>
+<script>
+    window.onload = function () {
+
+        //region安全的类型检测
+        //可靠的方法：在任何值上调用原生toString()方法，都会返回一个[object NativeConstructorName]格式的字符串。每个类内部都有一个[Class]属性 这个属性指定了对应的构造函数名
+        var va = [];
+        //alert( Object.prototype.toString.call( va ) );//[object Array]
+        //endregion
+
+
+        //region作用域安全的构造函数
+        function Person1( name, age ) {
+            this.name = name;
+            this.age = age;
+        }
+
+        var person1 = new Person1( "zodiac", 22 ); //每当使用new时 构造函数内的this对象会指向新创建的对象示例
+
+        //当没有使用new创建构造函数时出错 直接调用构造函数 this会映射到全局window对象
+        person1 = Person1( "zodiac", 22 );
+        //    alert(window.name);//"zodiac"
+
+        //解决方案：
+        function Person2( name, age ) {//instanceof用来在运行时指出对象是否是特定类的一个实例
+            if ( this instanceof Person2 ) { //先判断this是否是Person的实例 但是这样也锁定了调用构造函数的环境 在构造函数窃取模式的继承且不使用原型链时会无法继承
+                this.name = name;
+                this.age = age;
+            }
+            else {
+                return new Person2( name, age );
+            }
+        }
+
+        //继承
+        var pp = new Person2( "zodiac", 22 );
+        //    alert(pp.name);//undefined 出错无法继承
+        //正确方式 使用原型链
+        var ppp = function ( name, age ) {
+            Person2.call( this, name, age )
+        };
+        ppp.prototype = new Person2();
+        var re = new ppp( "zodiac", 22 );
+        W.log( re.name );
+
+
+        //endregion
+
+
+        //region惰性载入函数 提高性能方法  函数重新注册和自调用函数声明变量的方式定义函数2种方法
+
+        //多数javascript包含大量if语句每次调用都判断的话 浪费性能 可使用惰性载入提高性能
+
+        //方法一 根据if条件直接将函数重新注册 这样if语句就只会第一次调用时判断了
+        function createXHR() {
+            if ( window.XMLHttpRequest != "undefined" ) {
+                createXHR = function () {
+                    return new XMLHttpRequest();
+                };
+            }
+            else if ( window.ActiveXObject != "undefined" ) {
+                createXHR = function () {
+                    if ( typeof  arguments.callee.activeXString != "string" ) {
+                        var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp"],
+                                i, len;
+                        for ( i = 0, len = versions.length; i++; i < len ) {
+                            try {
+                                new ActiveXObject( versions[i] );
+                                arguments.callee.activeXString = versions[i];
+                                break;
+                            }
+                            catch ( ex ) {
+                                //跳过
+                            }
+                        }
+                    }
+                    return new ActiveXObject( (arguments.callee.activeXString) );
+                };
+
+            }
+            else {
+                createXHR = function () {
+                    throw new Error( "No XHR Object available" );
+                }
+            }
+        }
+
+        //方法2 自调用函数声明变量的方式定义函数 根据if条件return函数 因为变量会被保存在内纯中 所以也只会在代码呗加载的时候判断一次  之后都会使用return保存的变量
+        var createXHR = (function () {
+            if ( window.XMLHttpRequest != "undefined" ) {
+                return function () {
+                    return new XMLHttpRequest();
+                };
+            }
+            else if ( window.ActiveXObject != "undefined" ) {
+                return function () {
+                    if ( typeof  arguments.callee.activeXString != "string" ) {
+                        var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp"],
+                                i, len;
+                        for ( i = 0, len = versions.length; i++; i < len ) {
+                            try {
+                                new ActiveXObject( versions[i] );
+                                arguments.callee.activeXString = versions[i];
+                                break;
+                            }
+                            catch ( ex ) {
+                                //跳过
+                            }
+                        }
+                    }
+                    return new ActiveXObject( (arguments.callee.activeXString) );
+                };
+
+            }
+            else {
+                return function () {
+                    throw new Error( "No XHR Object available" );
+                }
+            }
+        })();
+
+
+        //endregion
+
+
+        //region函数绑定
+
+        //创建一个函数，可以在特定的this环境中以指定参数调用另一个函数。该技巧常常和回调事件与事件处理器一起使用，以便将函数作为变量传递的同时保留代码执行环境
+        var handler = {
+                    message : "Event handled",
+                    handleClick : function ( event ) {
+                        // alert( this.message );
+                    }
+                },
+                body = document.querySelector( "body" );
+        W.addHandler( body, "click", handler.handleClick ); //alert了一个undefined 原因在于handleClick的执行环境没有被保存 应该指向handler对象的this实例指向了window对象
+
+        //可使用闭包保存执行环境解决 （缺点：太多闭包难以管理）
+        W.addHandler( body, "click", function ( event ) {
+            handler.handleClick( event );  //alert了message
+        } );
+
+        //bind 在bind函数内部闭包保留环境然后返回     bind()函数接受一个函数和一个环境 用来返回一个在给定环境中调用给定函数的函数，并且将参数原封不动传递
+
+        function bind( fn, context ) {
+            return function () {
+                return fn.apply( context, arguments );
+            }
+        }
+
+        W.addHandler( body, "click", bind( handler.handleClick, handler ) );
+        //IE9+ chrome等开始支持原生bind 用法：handler.handleClick.bind(handler);
+
+        //endregion
+
+
+        //region 函数柯里化(function curry)
+
+        //函数柯里化基本方法和函数绑定一样：使用闭包返回一个函数。区别在于，在函数被调用时，返回的函数还需要设置一些传入的参数
+
+        //curry()函数主要工作是将被返回函数的参数进行排序。
+        // 先用调用slice方法传入参数1 表示被返回的数组包含从第二个参数开始的所有参数
+        //在内部函数(即外部函数的第一个参数函数)中再用innerArgs数组存放所有传入的参数 最后将外部函数和内部函数的参数合并为finalArgs 以达到保存环境的作用
+
+        function curry( fn ) {
+            var args = Array.prototype.slice.call( arguments, 1 );
+            return function () {
+                var innerArgs = Array.prototype.slice.call( arguments ),
+                        finalArgs = args.concat( innerArgs );
+                return fn.apply( null, finalArgs );
+            }
+        }
+
+        function add( num1, num2 ) {
+            return num1 + num2;
+        }
+
+        //参数可以多次传递 以为最终都会合并成一个数组嘛
+        var curriedAdd1 = curry( add, 5 );
+        // alert(curriedAdd1(3));  //8
+        var curriedAdd2 = curry( add, 5, 3 );
+        //alert(curriedAdd2());//8
+
+        //endregion
+
+
+        //region函数绑定和柯里化 一起使用
+        function bindCurry( fn, context ) {
+            var args = Array.prototype.slice.call( arguments, 2 );
+            return function () {
+                var innerArgs = Array.prototype.slice.call( arguments ),
+                        finalArgs = args.concat( innerArgs );
+                return fn.apply( context, finalArgs );
+            }
+        }
+
+        var handler1 = {
+            message : "Event handled",
+            handleClick : function ( name, event ) {
+                //alert( name + " : " + event.type );
+            }
+        };
+        W.addHandler( body, "click", bindCurry( handler1.handleClick, handler1, "my-click" ) );
+        //endregion
+
+        //region 防篡改对象
+
+
+        //防篡改级别一 不可扩展的对象 Object.preventExtensions()可以阻止向对象添加扩展  查看是否可扩展Object.isExtensible()
+
+        //默认情况下任何对象都是可自由扩展的 任何时候都可以向对象添加属性和方法
+        var ob1 = {name : "zodiac"};
+        ob1.age = 22;
+        //    alert(ob1.age);//22
+        Object.preventExtensions( ob1 );
+        ob1.carrer = "font-end";
+        //    alert(ob1.carrer);//undefined
+        //alert(Object.isExtensible(ob1));//false
+
+
+        //防篡改级别二 密封的对象Object.seal() 不仅不能扩展 已有成员的configurable（可配置的）也被设为false 不能删除已有的对象和方法 但可以修改属性值
+        //Object.isSealed查看是否被密封
+        var ob2 = {name : "zodiac"};
+        Object.seal( ob2 );
+        ob2.name = "xl";
+        delete ob2.name;
+        //    alert(ob1.name);//xl
+        //alert(Object.isExtensible(ob1));//false
+        //alert(Object.isSealed(ob2));//true
+
+
+        //防篡改最高级别三 冻结的对象 Object.freeze()  Object.isFrozen() 对Javascript库的作者而言 冻结对象可以保证库的和性对象不被修改
+        //即不可扩展 又是密封的 而且对象数据属性的[[Writable]]特性会被设置为false，如果定义了[[set]]函数，访问器的属性仍然可写
+        var ob3 = {name : "zodiac"};
+        Object.freeze( ob2 );
+        ob3.name = "xl";
+        delete ob2.name;
+        //    alert(ob1.name);//zodiac
+        //alert(Object.isExtensible(ob1));//false
+        //alert(Object.isSealed(ob2));//true
+        //alert(Object.isFrozen(ob2));//true
+
+
+        //endregion
+
+
+        //region高级计时器
+        //javascript是单线程的 计时器仅仅只是计划代码在未来每个时间进行。执行时机不能保证 实际上浏览器负责进行排序，指派某段代码在某个时间点运行的优先级
+        //定时器对队列的工作方式是：在特定的时间后将代码插入。但并不意味着插入的代码会立刻执行。只是会排入队列尽快执行。
+        //endregion
+
+
+        //region Yielding Processes生产过程
+        // 运行在浏览器的JavaScript被分瞥了一定数量的资源，被严格限制了内存大小和处理器时间 以防恶意web程序员搞挂计算机，如果代码运行时间超过特定时间或超过特定语句数量就会弹出错误
+        // 解决方法：使用定时器分割处理长时间的循环等造成脚本运行时间较长的代码段
+
+        //chunk分块
+        function chunk( array, process, context ) {  //array要处理的项目的数组 process处理项目的函数 context函数运行的环境当函数处于全局作用域时刻省略
+            setTimeout( function () {
+                var item = array.shift();
+                process.call( context, item );
+
+                if ( array.length > 0 ) {
+                    setTimeout( arguments.callee, 100 );
+                }
+            }, 100 )
+        }
+
+        var data = [21, 1213, 31, 31, 31];
+
+        function printValue( item ) {
+            document.querySelector( "body" ).innerHTML += item;
+        }
+
+        chunk( data, printValue ); //直接传递数组 数组中的条目也会被改变 如果向保持原数组不变，可以传递该数组的克隆个函数data.concat()
+
+        //endregion
+
+
+        //region函数节流 避免高频率触发 造成浏览器崩溃 只要代码是周期执行的都应该使用节流
+        //浏览器的某些计算和处理要比其他昂贵很多。
+        // 如：DOM操作比非DOM交互需要更多的CPU和内存。连续尝试过多的DOM操作可能使浏览器挂起或崩溃
+        //在IE中使用onresize处理事件时 当浏览器大小调整时会连续触发 可能导致浏览器崩溃 这类情况就可以使用定时器对该函数节流
+
+        function throttle( method, context ) {
+            clearTimeout( method.tId );
+            method.tId = setTimeout( function () {
+                method.call( context );
+            }, 100 )
+        }
+
+        function resize() {
+            document.querySelector( "body" ).innerHTML += "<br/>--------" + document.querySelector( "body" ).offsetWidth;
+        }
+
+        W.addHandler( window, "resize", function () {
+            throttle( resize );
+        } );
+
+
+        //endregion
+
+
+        //region自定义事件
+        function EventTarget() {
+            this.handlers = {};
+        }
+
+        EventTarget.prototype = {
+            constructor : EventTarget,
+            addHandler : function ( type, handler ) {
+                if ( typeof this.handlers[type] == "undefined" ) {
+                    this.handlers[type] = [];
+                }
+                this.handlers[type].push( handler );
+            },
+
+            fire : function ( event ) {
+                if ( !event.target ) {
+                    event.target = this;
+                }
+                if ( this.handlers[event.type] instanceof Array ) {
+                    var handlers = this.handlers[event.type];
+                    for ( var i = 0, len = handlers.length; i < len; i++ ) {
+                        handlers[i]( event );
+                    }
+                }
+            },
+
+            removeHandler : function ( type, handler ) {
+                if ( this.handlers[type] instanceof Array ) {
+                    var handlers = this.handlers[type];
+                    for ( var i = 0, len = handlers.length; i < len; i++ ) {
+                        if ( handlers[i] == handler ) {
+                            break;
+                        }
+                    }
+                    handlers.splice( i, 1 );
+                }
+            }
+        };
+        //示例
+        function handleMessage( event ) {
+            // alert( "........." + event.type );
+        }
+
+        function handleMessage1( event ) {
+            // alert( "........." + event.message );
+        }
+
+        var target = new EventTarget();
+
+        //添加一个message事件处理器
+        // target.addHandler("message",handleMessage);
+
+        //添加一个message事件处理器
+        // target.addHandler("message",handleMessage1);
+
+        //触发所有message事件处理器
+        //  target.fire({type:"message",message:"Hello World"});
+
+        //触发一个message事件处理器
+        // target.removeHandler("message",handleMessage);
+
+        //触发所有message事件处理器
+        //target.fire({type:"message",message:"Hello World1"});
+
+
+        //因为EventTarget是封装在自定义类型中的，故其他对象可以继承它
+        function Person3( name ) {
+            EventTarget.call( this );
+            this.name = name;
+        }
+
+        W.inheritPrototype( Person3, EventTarget );
+        var person3 = new Person3( "zodiac" );
+        person3.addHandler( "message", handleMessage1 );
+        person3.fire( {type : "message", message : "Hello World3"} );
+        //endregion
+
+
+        //region拖放
+        var DragDrop = function () {
+            var dragDrop = new EventTarget(),
+                    dragging = null,
+                    diffX = 0,
+                    diffY = 0;
+
+            function handleEvent( event ) {
+                //获取事件和对象
+                event = W.getEvent( event );
+                var target = W.getEventTarget( event );
+
+                //确定事件类型
+                W.log( event.type );
+                switch ( event.type ) {
+                    case "mousedown":
+                        if ( target.className.indexOf( "draggable" ) > -1 ) {
+                            dragging = target;
+                            diffX = event.clientX - target.offsetLeft;
+                            diffY = event.clientY - target.offsetTop;
+                            dragDrop.fire( {type : "dragstart", target : dragging, x : event.clientX, y : event.clientY} );
+                        }
+                        break;
+                    case "mousemove":
+                        if ( dragging != null ) {
+
+                            //指定位置
+                            dragging.style.left = (event.clientX - diffX) + "px";
+                            dragging.style.top = (event.clientY - diffY) + "px";
+
+                            dragDrop.fire( {type : "drag", target : dragging, x : event.clientX, y : event.clientY} );
+                        }
+                        break;
+                    case "mouseup":
+                        dragDrop.fire( {type : "dragend", target : dragging, x : event.clientX, y : event.clientY} );
+                        dragging = null;
+
+                        break;
+                    default :
+                        break;
+                }
+            }
+
+            //公共接口
+            dragDrop.enable = function () {
+                W.addHandler( document, "mousedown", handleEvent );
+                W.addHandler( document, "mousemove", handleEvent );
+                W.addHandler( document, "mouseup", handleEvent );
+            };
+            dragDrop.disable = function () {
+                W.removeHandler( document, "mousedown", handleEvent );
+                W.removeHandler( document, "mousemove", handleEvent );
+                W.removeHandler( document, "mouseup", handleEvent );
+            };
+            return dragDrop;
+        }();
+
+        DragDrop.addHandler( "dragstart", function ( e ) {
+            W.log( e.x );
+        } );
+        DragDrop.addHandler( "drag", function ( e ) {
+            W.log( e.x );
+        } );
+        DragDrop.addHandler( "dragend", function ( e ) {
+            W.log( e.x );
+        } );
+        document.querySelector( ".aa" ).classList.add( "draggable" );
+        DragDrop.enable();
+
+        W.addHandler( document, "mousemove", function(){
+            W.log(1);
+        } );
+
+
+        //endregion
+
+    }
+</script>
+
+
+</body>
+</html>

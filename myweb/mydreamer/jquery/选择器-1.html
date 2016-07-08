@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="js/jquery.js" type="text/javascript"></script>
+<title>jquery选择器</title>
+<style type="text/css">
+body {
+	padding: 30px 5%;
+	background: rgb(221, 221, 221);
+}
+</style>
+</head>
+
+<body>
+<div class="a">
+  <ul>
+    <li>1</li>
+    <li>2</li>
+  </ul>
+</div>
+<label>pre元素</label>
+<p>next元素</p>
+<p>next two</p>
+<table>
+  <caption>
+  基本选择器
+  </caption>
+  <tr>
+    <th>类选择器</th>
+    <th>id选择器</th>
+    <th>复合选择器</th>
+    <th>通配符</th>
+  </tr>
+  <tr>
+    <td>$('.class')</td>
+    <td>$('#id')</td>
+    <td>$('.class,#id,div')</td>
+    <td>$('*')</td>
+  </tr>
+</table>
+<table>
+  <caption>
+  层级选择器
+  </caption>
+  <tr>
+    <th>ancestor descent祖先 子孙选择器</th>
+    <th>parent>child选择器</th>
+    <th>pre+next选择器匹配相同级别的紧邻pre元素后的第一个next元素</th>
+    <th>pre~siblings选择器匹配相同级别的 pre元素后的所有元素</th>
+  </tr>
+  <tr>
+    <td>$('div ul li')</td>
+    <td>$('div>ul>li')</td>
+    <td>$('label+p')</td>
+    <td>$('label~p')</td>
+  </tr>
+</table>
+<table >
+  <caption>
+  属性选择器
+  </caption>
+  <tr>
+    <th>选择器</th>
+    <th>说明 </th>
+    <th>示例</th>
+  </tr>
+  <tr>
+    <td>[attribute]</td>
+    <td>匹配包含给定属性的元素</td>
+    <td>$("div[name]") //匹配含有name属性的div元素</td>
+  </tr>
+  <tr>
+    <td>[attribute=value]</td>
+    <td>匹配给定属性是某个特定值的元素</td>
+    <td>$("div[name='test']") //匹配含有name属性是test的div元素</td>
+  </tr>
+  <tr>
+    <td>[attribute!=value]</td>
+    <td>匹配给定属性不是某个特定值的元素</td>
+    <td>$("div[name='test']") //匹配含有name属性不是test的所有div元素</td>
+  </tr>
+  <tr>
+    <td>[attribute*=value]</td>
+    <td>匹配给定属性是包含某些值的元素</td>
+    <td>$("div[name*='test']") //匹配含有name属性含有test值的div元素</td>
+  </tr>
+  <tr>
+    <td>[attribute^=value]</td>
+    <td>匹配给定属性以某些值开头的元素</td>
+    <td>$("div[name^='test']") //匹配含有name属性以test开头的div元素</td>
+  </tr>
+  <tr>
+    <td>[attribute$=value]</td>
+    <td>匹配给定属性以某些值结尾的元素</td>
+    <td>$("div[name$='test']") //匹配含有name属性以test结尾的div元素</td>
+  </tr>
+  <tr>
+    <td>E[attr~=val] 选择所有attr属性包括多个空格分隔的值，其中一个值等于“val”的E元素</td>
+    <td>E[attr|=val] 选择所有attr属性包含多个连字符-分隔的值，其中一个值以“val”开头的E元素</td>
+  </tr>
+  <tr>
+    <td>[selector1][selector2][selectorN]</td>
+    <td>符合选择器，需同时满足多个条件时使用</td>
+    <td>$("div[id][name$='test']") //匹配具有id属性并且name属性以test结尾的div元素</td>
+  </tr>
+</table>
+<table  >
+  <caption>
+  子元素选择器
+  </caption>
+  <tr>
+    <th>选择器</th>
+    <th>说明 </th>
+    <th>示例</th>
+  </tr>
+  <tr>
+    <td>:first-child</td>
+    <td>匹配所有给定元素的第一个子元素</td>
+    <td>$("ul li:first-child") //匹配ul 元素的第一个子元素li</td>
+  </tr>
+  <tr>
+    <td>:last-child</td>
+    <td>匹配给定元素的最后一个子元素</td>
+    <td>$("ul li:last-child") //匹配ul 元素最后一个子元素li</td>
+  </tr>
+  <tr>
+    <td>:only-child</td>
+    <td>匹配元素中为唯一的子元素</td>
+    <td>$("ul li:only-child") //匹配只含一个li元素的ul元素的li元素</td>
+  </tr>
+  <tr>
+    <td>:nth-child(index/even/odd/equation)</td>
+    <td>匹配其父元素下的第N个子元素或奇偶元素，这里index从1开始，而不是从0开始</td>
+    <td> $("ul li:nth-child(even)") //匹配ul中索引值为偶数的li元素<br/>
+      $("ul li:nth-child(3)") //匹配ul中第3个li元素</td>
+  </tr>
+</table>
+<table>
+  <caption>
+  过滤选择器
+  </caption>
+  <tr>
+    <td><table  >
+        <caption>
+        简单过滤器
+        </caption>
+        <tr>
+          <th>过滤器</th>
+          <th>说明 </th>
+          <th>示例</th>
+        </tr>
+        <tr>
+          <td>:first</td>
+          <td>匹配找到的第一个元素,和选择器结合使用</td>
+          <td>$('tr:fist') //匹配表格的第一行</td>
+        </tr>
+        <tr>
+          <td>:last</td>
+          <td>匹配找到的最后一个元素，和选择器结合使用</td>
+          <td>$('tr:last') //匹配表格的最后一行</td>
+        </tr>
+        <tr>
+          <td>:even</td>
+          <td>匹配所有索引值为偶数的元素，索引值从0开始</td>
+          <td>$('tr:even') //匹配所有索引值为偶数的行</td>
+        </tr>
+        <tr>
+          <td>:odd</td>
+          <td>匹配所有索引值为奇数的元素，索引值从0开始</td>
+          <td>$('tr:odd') //匹配所有索引值为奇数的行</td>
+        </tr>
+        <tr>
+          <td>:eq(index)</td>
+          <td>匹配给定索引值的元素</td>
+          <td>$('tr:eq(1)') //匹配第二个行元素</td>
+        </tr>
+        <tr>
+          <td>:gt(index)</td>
+          <td></td>
+          <td>$('tr:gt(2)') //匹配第二个及以上的行元素</td>
+        </tr>
+        <tr>
+          <td>:lt(index)</td>
+          <td></td>
+          <td>$('tr:lt(2)') //匹配第二个及以下的行元素</td>
+        </tr>
+        <tr>
+          <td>:header</td>
+          <td>匹配如h1,h2,h3,h4...之类的元素</td>
+          <td>$(':header') //匹配所有标题元素</td>
+        </tr>
+        <tr>
+          <td>:not(selector)</td>
+          <td>去除所有与给定选择器匹配的元素</td>
+          <td>$('input:not(:checked)') //匹配没有被选中的input元素</td>
+        </tr>
+        <tr>
+          <td>:animated</td>
+          <td>匹配正在执行动画的元素</td>
+          <td>$(':animated') //匹配正在执行动画的元素</td>
+        </tr>
+      </table></td>
+    <td><table>
+        <caption>
+        可见性过滤器
+        </caption>
+        <tr>
+          <td>$("input:visible").val() //取得显示的input的值</td>
+          <td>$("input:hidden:eq(0)").val() //取得隐藏的索引值为0的input的值</td>
+        </tr>
+      </table>
+      <table>
+        <caption>
+        内容过滤器
+        </caption>
+        <tr>
+          <th>过滤器</th>
+          <th>说明 </th>
+          <th>示例</th>
+        </tr>
+        <tr>
+          <td>:contains(text)</td>
+          <td>匹配包含给定文本的元素</td>
+          <td>$("li:contains('DOM')") //匹配含有DOM文本的li元素</td>
+        </tr>
+        <tr>
+          <td>:empty</td>
+          <td>匹配所有不包含子元素和文本的元素</td>
+          <td>$("td:empty") //匹配所有空单元格</td>
+        </tr>
+        <tr>
+          <td>:has(selector)</td>
+          <td>匹配含有选择器所匹配元素的元素</td>
+          <td>$("td:has(p)") //匹配含有< p >元素的单元格</td>
+        </tr>
+        <tr>
+          <td>:parent</td>
+          <td>匹配含有子元素或文本的元素</td>
+          <td>$("td:parent") //匹配不为空的单元格，即在该单元格还包含子元素或文本</td>
+        </tr>
+      </table>
+      <table  >
+        <caption>
+        表单对象的属性过滤器
+        </caption>
+        <tr>
+          <th>过滤器</th>
+          <th>说明 </th>
+          <th>示例</th>
+        </tr>
+        <tr>
+          <td>:checked</td>
+          <td>匹配被选中的元素</td>
+          <td>$("input:checked") //匹配cheched属性为checked的input元素</td>
+        </tr>
+        <tr>
+          <td>:disabled</td>
+          <td>匹配所有不可用的元素</td>
+          <td>$("input:disabled") //匹配disabled属性为disabled的input元素</td>
+        </tr>
+        <tr>
+          <td>:enabled</td>
+          <td>匹配所有可用的元素</td>
+          <td>$("input:enabled") //匹配enabled属性为enabled的input元素</td>
+        </tr>
+        <tr>
+          <td>:selected</td>
+          <td>匹配所有选中的option元素</td>
+          <td>$("select option:selected") //匹配select被选中的option元素</td>
+        </tr>
+      </table></td>
+</table>
+<table>
+  <caption>
+  遍历
+  </caption>
+  <tr>
+    <td><table>
+        <caption>
+        jQuery 遍历 - 祖先
+        </caption>
+        <tr>
+          <td>$("span").parent();</td>
+          <td>返回每个 < span > 元素的的直接父元素</td>
+        </tr>
+        <tr>
+          <td>$("span").parents()</td>
+          <td>返回所有 < span > 元素的所有祖先</td>
+        </tr>
+        <tr>
+          <td>$("span").parents("ul")</td>
+          <td>返回所有 < span > 元素的所有祖先，并且它是 < ul > 元素：</td>
+        </tr>
+        <tr>
+          <td>$("span").parentsUntil("div");</td>
+          <td>返回介于 < span > 与  < div > 元素之间的所有祖先元素：</td>
+        </tr>
+      </table></td>
+    <td><table>
+        <caption>
+        jQuery 遍历 - 后代
+        </caption>
+        <tr>
+          <td>$("div").children()</td>
+          <td>返回每个
+            < div >
+            元素的所有直接子元素</td>
+        </tr>
+        <tr>
+          <td>$("div").children("p.1");</td>
+          <td>返回类名为 "1" 的所有 < p > 元素，并且它们是< div > 的直接子元素：</td>
+        </tr>
+        <tr>
+          <td>$("div").children().each(function(){})</td>
+          <td>each方法逐个访问div的子节点</td>
+        <tr>
+          <td>$("div").find("span")</td>
+          <td>返回属于
+            < div >
+            后代的所有 < span > 元素</td>
+        </tr>
+        <tr>
+          <td>$("div").find("*")</td>
+          <td>返回< div > 的所有后代</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table>
+        <caption>
+        jQuery 遍历 - 同胞
+        </caption>
+        <tr>
+          <td>$("h2").siblings();</td>
+          <td>返回
+            < h2 >
+            的所有同胞元素</td>
+        </tr>
+        <tr>
+          <td>$("h2").siblings("p")</td>
+          <td>返回属于
+            < h2 >
+            的同胞元素的所有
+            < p> 元素</td>
+        </tr>
+        <tr>
+          <td>$("h2").next()</td>
+          <td>返回
+            < h2 >
+            的下一个同胞元素</td>
+        </tr>
+        <tr>
+          <td>$("h2").nextAll()</td>
+          <td>返回
+            < h2 >
+            的所有跟随的同胞元素</td>
+        </tr>
+        <tr>
+          <td>$("h2").nextUntil("h6")</td>
+          <td>返回介于
+            < h2 >
+            与
+            < h6>
+            元素之间的所有同胞元素</td>
+        </tr>
+        <tr>
+          <td>prev(), prevAll() 以及 prevUntil() </td>
+          <td>与上面的方法类似，只不过方向相反而已：它们返回的是前面的同胞元素</td>
+        </tr>
+      </table></td>
+    <td><table>
+        <caption>
+        •	jQuery 遍历 - 过滤
+        </caption>
+        <tr>
+          <td>$("p").filter(".intro");</td>
+          <td>返回带有类名 "intro" 的所有
+            < p > 元素</td>
+        </tr>
+        <tr>
+          <td>$("p").not(".intro")</td>
+          <td>返回不带有类名 "intro" 的所有
+            < p > 元素：</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<table >
+  <caption>
+  表单选择器
+  </caption>
+  <tr>
+    <th>选择器</th>
+    <th>说明 </th>
+    <th>示例</th>
+  </tr>
+  <tr>
+    <td>:input</td>
+    <td>匹配所有input元素</td>
+    <td>$("form:input") //匹配< form >标机内的所有input 元素</td>
+  </tr>
+  <tr>
+    <td>:button</td>
+    <td>匹配所有type=button的input元素</td>
+    <td>$(":button") //匹配所有的普通按钮</td>
+  </tr>
+  <tr>
+    <td>:checkbox</td>
+    <td>匹配所复选框</td>
+    <td>$(":checkbox")</td>
+  </tr>
+  <tr>
+    <td>:radio</td>
+    <td>匹配所有单选框</td>
+    <td>$("：radio")</td>
+  </tr>
+  <tr>
+    <td>:file</td>
+    <td>匹配所有文件域</td>
+    <td>$("：file")</td>
+  </tr>
+  <tr>
+    <td>:image</td>
+    <td>匹配所有图像域</td>
+    <td>$(":image")</td>
+  </tr>
+  <tr>
+    <td>:hidden</td>
+    <td>匹配所有不可见元素 或者type=hidden的元素</td>
+    <td>$(":hidden"</td>
+  </tr>
+  <tr>
+    <td>:text</td>
+    <td>匹配所有单行文本域</td>
+    <td>$(":text")</td>
+  </tr>
+  <tr>
+    <td>:password</td>
+    <td>匹配所有密码域</td>
+    <td>$(":password"）</td>
+  </tr>
+  <tr>
+    <td>:reset</td>
+    <td>匹配所有type=reset的重置按钮</td>
+    <td>$(":reset"）</td>
+  </tr>
+  <tr>
+    <td>:submit</td>
+    <td>匹配所有type=submit的提交按钮</td>
+    <td>$(":submit"</td>
+  </tr>
+</table>
+<table>
+  <caption>
+  JQUERY - 尺寸
+  </caption>
+  <tr>
+    <td>$("#div1").width(500).height(500);</td>
+    <td>width()/height()/innerWidth()/innerHeight()/outerWidth()/outerHeight() </td>
+  </tr>
+</table>
+<script>
+	$(document).ready(function(e) {
+        $("table").attr('border','1');
+		$("table").css({'background':'rgb(214, 210, 210)',
+		'border-color': 'rgb(236, 221, 221)'});
+		$("caption").css({'color': 'rgb(32, 96, 211)','font-weight': '900','font-size': '22px'});
+    });
+</script>
+</body>
+</html>

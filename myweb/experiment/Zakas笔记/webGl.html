@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>webGL</title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+<canvas id="drawing"></canvas>
+
+<!--定义定点着色器 用于将3D定点转化为需要渲染的2D点-->
+<script type="x-webgl/x-vertex-shader" id="vertexShader">
+    attribute vec2 aVertexPosition;
+
+    void main(){
+        gl_Position=vec4(aVertexPosition,0.0,1.0);
+    }
+
+
+
+</script>
+
+<!--定义片段着色器 用于准确计算要绘制的每个像素的颜色-->
+<script type="x-webgl/x-fragment-shader" id="fragmentShader">
+    uniform vec4 uColor;
+
+    void main(){
+        gl_FragColor=uColor;
+    }
+
+
+
+</script>
+
+<script>
+    var drawing = document.querySelector( "#drawing" ),
+            gl;
+
+    //getContext无法创建webGl时 有的浏览器不抛异常 手动catch
+    try {
+        gl = drawing.getContext( "experimental-webgl" );
+    }
+    catch ( ex ) {
+        console.log( "WebGL error" );
+    }
+    if ( !gl ) {
+        console.log( "WebGL context not supported" );
+    }
+    else {
+
+        //gl属性初始
+
+        //准备绘图 实色清除
+        gl.clearColor( 0, 0, 0, 1 );//black
+        gl.clear( gl.COLOR_BUFFER_BIT );
+
+
+        //设置视口
+        gl.viewport( 0, 0, drawing.width, drawing.height );
+        //原点和以往不同 是在canvas元素的左下角  视口内部坐标系也不同 坐标原点在视口的中心，因此视口左下角坐标为(-1,-1),而右上角坐标为(1,1)
+
+
+        //缓冲区
+        var buffer = gl.createBuffer();
+        gl.bindBuffer( gl.ARRAY_BUFFER, buffer );
+        gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [0, 0.5, 1] ), gl.STATIC_DRAW );
+
+
+        //WebGL不会主动抛出异常 故手动获取
+        var errorCode = gl.getError();
+        while ( errorCode ) {
+            console.log( "Error occurred: " + errorCode );
+            errorCode = gl.getError();
+        }
+
+        //着色器shader 浏览器不能理解GLSL程序，因此必须准备好字符串形式的GLSL程序，以便编译并连接到着色器程序。
+        // 为便于使用通常放在页面的<script>标签被，并为标签设置一个浏览器无法识别的type属性，这样浏览器就不会解析它了。当我们可以读取里面的代码
+        var vertexGlsl = document.querySelector( "#vertexShader" ).text,
+                fragmentGlsl = document.querySelector( "#fragmentShader" ).text;
+
+        //创建着色器对象
+        var vertexShader = gl.createShader( gl.VERTEX_SHADER );
+        gl.shaderSource( vertexShader, vertexGlsl );
+        gl.compileShader( vertexShader );
+
+        var fragmentShader = gl.createShader( gl.FRAGMENT_SHADER );
+        gl.shaderSource( fragmentShader, fragmentGlsl );
+        gl.compileShader( fragmentShader );
+
+
+        //将着色器对象链接到着色程序
+        debugger;
+        var program = gl.createProgram();
+        gl.attachShader( program, vertexShader );
+        gl.attachShader( program, fragmentShader );
+        gl.linkProgram( program );
+
+        //通知webGl使用着色程序
+        gl.useProgram(program);
+
+
+        //为着色器传入值
+        var itemSize=1;
+        var uColor=gl.getUniformLocation(program,"uColor");
+        gl.uniform4fv(uColor,[0,0,0,1]);
+
+        var aVertexPosition=gl.getAttribLocation(program,"aVertexPosition");
+        gl.enableVertexAttribArray(aVertexPosition);
+        gl.vertexAttribPointer(aVertexPosition,itemSize,gl.FLOAT,false,0,0);
+
+
+        //调试着色器和程序
+        if(!gl.getShaderParameter(vertexShader,gl.COMPILE_STATUS)){
+            alert(gl.getShaderInfoLog(vertexShader));
+        }
+
+
+        //
+
+
+
+
+
+    }
+</script>
+
+
+</body>
+</html>

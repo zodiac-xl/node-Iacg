@@ -11,7 +11,6 @@ export default {
             __s('react-dom.js'),
             __s('jquery-2.1.4.js'),
             __s('color-console.js'),
-            __s('ajax.js'),
 
 
             //plugin
@@ -27,13 +26,16 @@ export default {
         ],
         css: [
 
-            //plugin
+
+            __s('reset.css'),
+            __s('app.css'),
 
             //toastr
             __p('toastr/toastr.css'),
 
 
-        ]
+        ],
+
     },
 
 

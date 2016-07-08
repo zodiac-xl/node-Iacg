@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>html</title>
+<script src="../js/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+	padding: 40px 20% 20% 100px;
+	background: rgb(221, 221, 221);
+}
+dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;
+	text-indent: -47px;
+}
+/*编号*/
+body>dl>dt:before {
+	content: "第"counter(chapter)"章: "; /*/section为计数器取的名 可以为任意*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: black;
+	font-weight: bold;
+	font-size: larger;
+}
+body>dl {
+	counter-increment: chapter;  /*计数自增*/
+}
+/*编号*/
+
+
+
+body>dl>dd:before {
+	content: counter(section, upper-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd {
+	counter-increment: section;  /*计数自增*/
+}
+body>dl>dd>dl>dd:before {
+	content: counter(section2, lower-alpha)".  "; /*/section为计数器取的名 可以为任意 upper-alpha是用list-style-type属性值为编号指定样式*/
+	/*/可以如 "第"counter(mycounter)"章。" 来扩展*/
+	color: rgb(32, 49, 252);
+}
+body>dl>dd>dl>dd {
+	counter-increment: section2;
+}
+ /*编号*/
+</style>
+</head>
+
+<body>
+<dl> 
+<dt>HTML DOM对象</dt>
+<dd>方法：<br />
+var a=document.getElementById("a") 返回指定id元素<br />
+a.getElementsByTagName("p") a里面的p元素<br />
+a.getElementSByClassName()<br />
+appendChild()<br />
+removeChild() 如a.parentNode.removeChild(a) 删除a元素的父元素的子元素a<br />
+replaceChild()<br />
+insertBefore() 在指定子节点前面插入新的子节点  a.insertBefore(para,b) 为a插入一个新节点para 且在b前面<br />
+a.createAttribute("class") 为a节点创建属性class<br />
+document.createElement() 创建元素节点<br />
+document.createTextNode() 创建文本节点<br />
+a.getAttribute("class")<br />
+setAttrbute("class","a")<br />
+</dd>
+<dd>属性<br />
+innerHTML<br />
+parentNode<br />
+childNodes<br />
+attributes</dd>
+</dl>
+<dl>
+<dt>HTML DOM属性</dt>
+<dd>innerHTML 元素内容<br />
+nodeValue 元素节点的nodeValue为null或undefined 文本节点的nodeValue为文本本身 属性节点的nodeValue为属性值<br />
+nodeType 返回节点类型  1为元素  2为属性  3为文本 8为注释 9为文档</dd>
+</dl>
+
+<script type="text/javascript">
+$(document).ready(function(e) {     
+	$("dd").hide();
+	$("dt").click(function(e){$(this).nextAll().slideToggle()});
+  // $("dl").toggle(function(e){$(this).siblings("dd").slideDown("slow")},function(e){$(this).siblings("dd").slideUp("slow")});
+})
+
+</script>
+</body>
+</html>

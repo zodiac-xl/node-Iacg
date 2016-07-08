@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="../js/jquery.js" type="text/javascript"></script>
+</head>
+<style type="text/css">
+body {
+	padding: 30px 20%;
+	background: rgb(221, 221, 221);
+}
+dd {
+	position: relative;
+	line-height: 27px;
+	margin-left: 100px;
+	text-indent: -47px;
+}
+dd:before{content:"--"}
+</style>
+
+<body>
+<dl>
+  <dt>HTML5新增的全局属性</dt>
+  <dd>contentEditable="true/false" 布尔值是否可编辑 未指定true/false时继承父元素 <br />
+    还有一个属性isContentEditable可编辑时 属性为true，反之为false</dd>
+  <dd>designMode //document.designMode="on/off" 指定整个页面是否可编辑，只能在js中修改属性</dd>
+  <dd>hidden //通知浏览器是否渲染 hidden="true/false" 可以有js修改 改变显影</dd>
+  <dd>spellcheck //HTML5中针对input元素和textarea两个文本输入框提供的对用户输入进行拼写和语法检查<br />
+    spellcheck="true/false"</dd>
+  <dd>tabindex //默认情况下 只有链接元素和表单元素可以通过按键获得焦点<br />
+    现在当对其他元素使用tabindex后，也能让该元素获得焦点可以执行focus()函数<br />
+    弊端是使用tab键也会让其获得焦点 打乱tab使用 我们可以叫tabindex="-1" 这样tab就不会获得其焦点了</dd>
+</dl>
+<dl>
+  <dt>HTML5结构</dt>
+  <dd>新增header hgroup nav article section aside footer address h1--h6等结构标签</dd>
+  <dd>网页结构用更加语义化的标签表示 而div在html5中仅被当作一个容器 方便css的使用</dd>
+  <dd>header元素是具有引导和导航作用的结构元素，常防止整个页面和页面内的一块内容的标题<br />
+    header中通常包括heading标签(h1-h6标签)也可以包括table和form等<br />
+  </dd>
+  <dd>nav作为导航链接组</dd>
+  <dd>article标签代表文档 页面中独立的完整的可被外界引用的内容</dd>
+  <dd>section是用于对页面内容进行分段 一个section通常由标题和内容组成 section和article可以互相嵌套</dd>
+  <dd>aside元素用来表示当前页面或文章的附属信息 可以包含内容的相关应用 侧边栏 广告 导航条等<br />
+    aside两种用法：1.包含在article中作为主要内容的附属信息部分 可以是参考资料 名词解释等<br />
+    2.在article外使用作为页面或站点全聚德附属信息部分 典型的有 侧边栏 分享菜单等</dd>
+  <dd>footer作为整个页面或者有一块页面内容的脚注 如：作者 相关链接 版权 可以有adress time等信息</dd>
+  <dd>address文档中呈现联系方式</dd>
+  <dd>time元素和微格式 微格式 是用html的class属性对网页添加信息的方法<br />
+    附加信息包括且不限于新闻事件的发生日期和时间，个人好吗，企业邮箱等<br />
+    HTML5中的time元素可以对机器的日期和时间无歧义地 准确地编码和呈现<br />
+    < time datetime="2010-11-13T20:00+09:00>< /time><br />
+    < time datetime="2010-11-13T20:00Z>< /time><br />
+    < time datetime="2010-11-13T20:00+09:00 puddate>< /time><br />
+    其中用T分隔日期和时间 当然也可以不标注时间 <br />
+    Z表示机器编码使用UTC标准时间,+09:00表示时差 让机器编码另一个地区的时间<br />
+    puddate是可选的 boolean值 放在time里面 表示文章或者页面的发布日期</dd>
+  <dd>HTML5的隐式编排内容区块<br />
+    指不明确用section等元素 而是根据页面中各级表头(h1-h6 hgroup )等把内容区块自动创建出来<br />
+    HTML只要看到某个级别的标题，就会判断存在的相对应的内容区块</dd>
+  <dd>标题分级 h1级别最高 h6最低 隐式编排时规则如下：<br />
+    1.新的标题比上一个标题低，则生成下级内容区块<br />
+    2.新的标题和上一个标题高或同级，则生成新的内容区块<br />
+    隐式区块是自动生成的容易让程序员混乱 尽量使用section等显示区块<br />
+    注意：不同的内容区块可使用相同级别的标题 不影响</dd>
+  <dd>对新的结构元素使用样式<br />
+    因为很多浏览器不兼容HTML5 可以追加css声明：<br />
+    article,aside,dialog,figuer,footer,header,legend,nav,section{display:block}<br />
+    nav{float:left;width:20%}<br />
+    article{float:right;width:79%}<br />
+    添加结构元素article,aside,dialog,figuer,footer,header,legend,nav,section等<br />
+    类似document.creatElement("header")</dd>
+</dl>
+<dl>
+  <dt>HTML5表单新增</dt>
+  <dd>form formaction formmethod placeholder="表单的模糊提示语" autofocus list表单的option提示</dd>
+  <dd>新增大量input类型date datetime email tel等等</dd>
+  <dd>input新增required pattern自动正则匹配 min max step chechValidity() <br />
+    取消验证的novalidate formnovalidate 自定义错误setCustomValidity()</dd>
+  <dd>figure(独立部分) details(缩放) mark(高亮) progress(进度) meter(范围)<br />
+    ol的strat  dl的dfn定义术语 cite作品引用</dd>
+</dl>
+<dl>
+  <dt>文件API</dt>
+  <dd>Filelist对象和file对象 accept属性</dd>
+  <dd>Blod对象 访问文件的size和type</dd>
+  <dd>FileReader接口 读取文件信息</dd>
+</dl>
+<dl>
+  <dt>拖放API</dt>
+  <dd>Date Transfer</dd>
+  <dd>拖放视觉效果 自定义拖放图标</dd>
+</dl>
+<dl>
+  <dt>绘制图形canvas</dt>
+  <dd>2d</dd>
+  <dd>动画</dd>
+</dl>
+<dl>
+  <dt>video audio</dt>
+  <dd>播放</dd>
+  <dd>播放事件</dd>
+</dl>
+<dl>
+  <dt>WEBStorage</dt>
+  <dd>sessionStorage 数据保存在session中 关闭网站则删除</dd>
+  <dd>localStorage保存在本地磁盘 永久保存</dd>
+</dl>
+<dl>
+  <dt>本地数据库</dt>
+  <dd>SQLLite数据库</dd>
+</dl>
+<dl>
+  <dt>离线web应用</dt>
+  <dd>本地缓存和网页缓存的区别 本地缓存为整个web应用服务 网页缓存只服务于单个页面<br />
+    本地缓存只存储指定缓存的网页和网页中的指定文件 网页缓存不定向</dd>
+  <dd>用manifest文件管理本地缓存 列举需要缓存的文件和不需要缓存的文件</dd>
+</dl>
+<dl>
+  <dt>通信API</dt>
+  <dd>
+    <dl>
+      <dt>跨文档消息传输</dt>
+      <dd>对窗口对象的message事件进行监视 window.addEventListener("message",function(ev){},false)<br />
+        使用window对象的postmessage方法向其他窗口发送信息 otherwindow.postMessage(message,targetOrigin)<br />
+        该方法第一个参数是发送的message 第二个参数为接受消息对象的url 注：url只能包含域和端口号 可以使用通配符*<br />
+        otherwindow为发送窗口的引用 可以用window.open("XX.html")返回对象<br />
+        也可以用window.iframes数组或名字的方式返回单个frame所属的窗口对象<br />
+        可以用消息事件的属性ev.origin 和ev.date获取消息的信息源和消息内容<br />
+        ev.source获得ev事件的窗口对象 //注：消息不仅可以是文本 可以是js对象 如json对象等</dd>
+    </dl>
+  </dd>
+  <dd>
+    <dl>
+      <dt>Web Sockets通信(socket:插孔 接口) </dt>
+      <dd>web sockets是HTML5提供的web应用程序中客户端和服务端之间进行的非HTTP通信机制，<br />
+        实现了HTTP不容易实现的从服务器端的数据推送等智能通信技术 </dd>
+      <dd>
+        <dl>
+          <dt>Web Sockets通信基础知识</dt>
+          <dd>Web Sockets API可以在服务器和客户端之间建立一个非HTTP的双向链接<br />
+            连接是实事的 也是永久的 除非显示关闭 当服务器想向客户端发送数据时，可以立即将数据推送到客户端的浏览器，<br />
+            无需重新建立连接.只要客户端有一个被打开的socket() 服务器就可以把数据推送到这个socket上，服务器不需再轮询客户端的请求,从被动转为主动<br />
+            //注：套接字socket注释： 应用层通过传输层进行数据通信时,TCP和UDP会遇到同时为多个应用程序提供并发服务的问题<br />
+            多个TCP连接或多个应用程序可能需要同一个TCP协议端口传输数据。为了区别不同应用的进程和连接 应用程序在和TCP/IP协议交互式提供了套接字(socket)<br />
+            区分包不同的应用程序进程间的网络通信和连接，主要有3个参数：通信的目的IP地址 使用的传输协议(TCP/UDP)和使用的端口号<br />
+            将3个参数与“插座”socket绑定，应用层和传输层就可以通过套接字接口区分来自不同应用程序进程和网络通连接的通信，实现并发通信 </dd>
+        </dl>
+        <dl>
+          <dt>使用Web Sockets API</dt>
+          <dd>Web Sockets API本身很简单 将url作为参数，调用WebSockets对象构造器建立通信连接<br />
+            如：var webSocket= new WebSockets("ws://localhost:8005/socket") URl字符串必须以"ws"或"wss(加密通信)"文字开头<br />
+            URL 设定好后 js可以通过访问WebSockets的url属性访问WebSockets.url<br />
+            用 WebSockets的send()方法发送数据到服务器 只能发送文本数据，但可以使用JSON对象把任何js对象转化问文本发送<br />
+            send方法：<br />
+            webSocket.send("date")<br />
+            用onmessage事件句柄来接收服务器发来的数据：<br />
+            webSocket.onmessage=function(event){var data=event.data}<br />
+            类似的通过onopen事件句柄来监听socket的打开事件(开始通信时的处理)<br />
+            通过onclose事件句柄来监听socket的关闭事件(通信结束时的处理)<br />
+            通过close方法关闭socket 切断通信 webSocket.close()<br />
+            另外用readyState属性 webSocket.readyState获取webSocket对象的状态值<br />
+            0(CONNECTING)连接   1(OPEN)已经建立连接  2(CLOSING)正在关闭连接  2(CLOSED)已经关闭连接</dd>
+        </dl>
+        <dl>
+          <dt>通过JSON发送对象</dt>
+          <dd>JSON.stringify()将对象转化为文本  JSON.parse()将文本数据转回js对象 </dd>
+          <dd>webSocket.send(JSON.stringify({result:successFlag,time:currentTime}));<br />
+            var data=JSON.parse(event.data); </dd>
+        </dl>
+      </dd>
+    </dl>
+  </dd>
+</dl>
+<dl>
+  <dt>使用Web Workers处理线程</dt>
+  <dd>Web Worker在Web网站或应用程序中创建一个后台线程 用js实现前台页面和后台线程的数据交互</dd>
+  <dd>创建后台线程 将需要在后台执行的脚本文件的URL地址作为参数<br />
+    var worker=new Worker("work.js"); 注：后台线程js中不能访问页面和窗口对象 如果在后台脚本文件中使用window或document对象，会引起错误</dd>
+  <dd>接收后台数据  work.onmessage=function(event){event.data;}<br />
+    使用postMessage方法对后台线程发送消息； work.postMessage(message); 同样在后台脚本js内通过onmessage和postMessage进行消息的接受和发送 </dd>
+  <dd>
+    <dl>
+      <dt>线程中可用的变量  函数 和 类</dt>
+      <dd>self 表示本线程范围内的作用域<br />
+        postMessage() 向创建线程的源窗口发送信息<br />
+        onmessage 获取接收消息的事件句柄<br />
+        importScript(urls) 导入其他脚本文件 可以一次多个<br />
+        navigator 与window.navigator对象类似 有appName  platform userAgent appVersion这些属性<br />
+        sessionStorage/localStorage 可以在线程中使用Web Storage<br />
+        XMLHTTPRequest 在线程中处理AJAX请求<br />
+        Web Workers 在线程中嵌套线程<br />
+        setTimeout()/setInterval() 线程中定时处理<br />
+        close 结束线程<br />
+        eval()(计算每个字符串 并执行其中的js代码) isNaN() escape()(对字符串进行编码)等 js核心函数 <br />
+        oboject 创建和使用本地对象<br />
+        Web Sockets 使用WebSockets API向服务器发送和接收消息</dd>
+    </dl>
+  </dd>
+</dl>
+<dl>
+  <dt>Geolocation API</dt>
+  <dd>在HTML5中 为window.navigator对象新增了一个geolocation属性，可以用Geolocation API进行访问</dd>
+  <dd>
+    <dl>
+      <dt>取得当前地理位置 </dt>
+      <dd>方法：void getCurrentPosition(onSuccess,onError,option);<br />
+        第一个参数时获取成功时执行的回调函数，第二个为失败时的回调函数，第三个为可选属性列表  第二和第三均为可选<br />
+        navigator.geolocation.getCurrentposition(<br />
+        function(position){<br />
+        //获取地理位置信息成功时所作处理<br />
+        },<br />
+        function(error){<br />
+        //获取失败时所作处理<br />
+        var err=error.code  code值有1 2 3 分别表示用户拒绝了位置服务 获取不到位置信息 获取信息超时<br />
+        },<br />
+        //以下可选属性<br />
+        {<br />
+        //要求高精度的地理位置<br />
+        enableHightAccuracy：true,<br />
+        //设置缓存有效时间为2分钟<br />
+        maximumAge:60*1000*2,<br />
+        //在5秒内未获得地理位置则返回错误<br />
+        timeout:5000<br />
+        }<br />
+        ） </dd>
+    </dl>
+    <dl>
+      <dt>持续监视当前地理位置的信息 </dt>
+      <dd>int watchCurrentPositon(onSuccess,onError,options);和getCurrentposition类似 不过返回一个数字<br />
+        这个数字可以被clearWatch方法使用来停止监视 void clearWatch(watchid); </dd>
+    </dl>
+    <dl>
+      <dt>position对象 </dt>
+      <dd>如果获取地理位置成功 用position对象的属性获取地理位置信息<br />
+        latitude(维度) 当前位置的维度 position.coords.latitude //coords(坐标)<br />
+        longitude(经度) 当前位置的经度 position.coords.longitude<br />
+        altitude(海拔) 当前位置的海拔高度 不能获取时返回null, position.altitude<br />
+        accuracy 获取纬度或经度的精度 (以米为单位)<br />
+        altitudeAccuracy 获取海拔高度的精度 (以米为单位)<br />
+        heading 设备的前进方向 用面朝正北方向的顺时针旋转角度来表示 (不能获取时为null)<br />
+        speed 设备前进速度(不能获取时为NULL)<br />
+        timestamp 获取地理位置信息时的时间 </dd>
+    </dl>
+    <dl>
+      <dt>在页面上使用google地图 </dt>
+      <dd><a href="google地图.html">google map示例</a> </dd>
+    </dl>
+    <dl>
+      <dt> </dt>
+      <dd> </dd>
+    </dl>
+  </dd>
+</dl>
+<ul>
+  <li>ds</li>
+</ul>
+<script type="text/javascript">
+$(document).ready(function(e) {     
+	$("dd").hide();
+	$("dt").click(function(e){$(this).nextAll().slideToggle()});
+  // $("dl").toggle(function(e){$(this).siblings("dd").slideDown("slow")},function(e){$(this).siblings("dd").slideUp("slow")});
+})
+
+</script>
+</body>
+</html>

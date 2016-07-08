@@ -11,7 +11,6 @@ let readFile = function (src) {
 function render(viewPagePath, pageName, locals = {}) {
 
     let data = config;
-    data.debug = config.debug;
     data.imgPath = config.path.imgPath;
     data.pageName = pageName;
     data.pageId = locals.$id || pageName;
@@ -52,7 +51,11 @@ function render(viewPagePath, pageName, locals = {}) {
 
     data.requirejavascipts = [];
     if (config.cmd2amd) {
-        data.requirejavascipts.push(path.join('/amd/client/pages/', pageName, 'index.js'));
+        let entryJs = path.join('/amd/client/pages/', pageName, 'index.js');
+        let entryJsPath = path.join(config.path.client, 'static', entryJs);
+        if (pathExists.sync(entryJsPath)) {
+            data.requirejavascipts.push(entryJs);
+        }
     } else {
         if (pathExists.sync(path.join(config.path.viewPages, reactJsPath))) {
             reactJsPath = (!config.debug && md5Map[reactJsPath]) ? (reactJsPath + '?' + md5Map[reactJsPath]) : reactJsPath;

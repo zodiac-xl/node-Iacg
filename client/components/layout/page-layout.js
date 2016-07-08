@@ -17,16 +17,21 @@ export default class PageLayout extends BasePage {
             console.log('✓', 'Ready');
             let container = document.getElementById('app');
             ReactDOM.render(<Page/>, container);
+
+
+            let $screens = $('.screen');
+
+            function setContainerWidth() {
+                if (document.body.clientWidth >= 1400) {
+                    $screens.addClass('widescreen');
+                } else {
+                    $screens.removeClass('widescreen');
+                }
+            }
+
+            setContainerWidth();
+            window.onresize = setContainerWidth;
         });
-
-
-    }
-
-    renderDebug() {
-    }
-
-
-    renderHeader() {
     }
 
     render() {
@@ -36,28 +41,8 @@ export default class PageLayout extends BasePage {
             <div>
                 <Header />
 
-                <div className="my-page-content">
-                    <div className="my-page-header">
-                        { /* header */}
-                        {this.renderHeader()}
-                    </div>
-                    <div className="my-page-top-bar">
-                        { /* toolbar */}
-                        {this.renderTopBar()}
-                    </div>
-                    <div className="my-page-main">
-                        { /* main content */}
-                        {this.renderMain()}
-                        {this.renderMainExtra()}
-                    </div>
-                    <div className="my-page-bottom-bar">
-                        { /* bottom-toolbar */}
-                        {this.renderBottomBar()}
-                    </div>
-                    <div className="my-page-footer">
-                        { /* footer */}
-                        {this.renderFooter()}
-                    </div>
+                <div className="body-main screen">
+                    {this.renderMain()}
                 </div>
                 <Footer />
             </div>

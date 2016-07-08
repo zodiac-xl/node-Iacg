@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    //region AJAX
+    function Ajax( arg ) {
+        arg = W.defaultArg( arg, {
+            requestHeader : {},
+            type : "get",
+            url : url,
+            asyn : true,
+            data : null,
+            onLoad : null,
+            onLoadStart : null,
+            onLoadEnd : null,
+            onError : null,
+            onProgress : null,
+            timeout : null,
+            onTimeout : null,
+            upload : null,
+            withCredentials : false, //携带证书
+            isJson : false,
+            xml : false,
+            overrideMimeType : null  //如“text/xml”
+
+        } );
+
+        var xhr = W.createXHR();
+
+        xhr.onreadystatechange = function () { //onreadystatechange必须在open前
+            if ( xhr.readyState == 4 ) {
+                if ( (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 ) { //304表示请求的资源未被修改 可以使用缓存的版本
+                    var responseData = xhr.responseText;
+                    if ( arg.isJson ) {
+                        responseData = JSON.parse( responseData );
+                    }
+                    arg.onLoad && arg.onLoad( responseData ); //response responseText responseType responseURL responseXML
+                }
+                else {
+                    arg.onError && arg.onError( xhr.onerror );
+                    console.error( "Request was unsuccessful: " + xhr.onerror );
+                }
+            }
+        };
+
+        xhr.open( arg.type, arg.url, arg.asyn );
+
+        W.loopObj( arg.requestHeader, function ( key, value ) {  //setRequestHeader必须在open后 send前
+            xhr.setRequestHeader( key, value );  //xhr.setRequestHeader(key) xhr.setAllRequestHeaders()
+        } );
+
+        if ( arg.overrideMimeType && typeof xhr.overrideMimeType != "undefined" ) {//overrideMimeType必须在open后 send前
+            xhr.overrideMimeType( arg.overrideMimeType ); //强迫XHR对象将响应当作overrideMimeType 如xml而非纯文本处理
+        }
+
+        xhr.send( arg.data );
+
+        return xhr;
+    }
+
+    //跨域请求 客户端设置Origin:http://www.zodiac.com
+    // 服务端设置Access-Control-Allow-Origin:http://www.zodiac.com或者Access-Control-Allow-Origin:*
+    function createCORSRequest( type, url, onLoad ) {
+        var xhr = new XMLHttpRequest();
+        if ( "withCredentials" in xhr ) {
+            xhr.open( type, url );
+        }
+        else if ( typeof XDomainRequest != "undefined" ) {
+            xhr = new XDomainRequest();
+            xhr.open( type, url );
+        }
+        else {
+            xhr = null;
+        }
+        onLoad && xhr.onload( onLoad );
+        xhr.send();
+        return xhr;
+    }
+
+    //endregion
+
+
+    //region其他跨域技术 不需要修改服务端
+
+    //图像Ping 使用<image>标签
+
+    var url = "http://www.dell.com/?name=zodiac";
+    function imgPing( url, callBack ) {
+        var img = new Image();
+        img.onload = img.onerror = callBack;
+        //do something  通常用来跟踪用户点击页面或者广告的曝光次数
+        //优点：不修改服务器代码  简单 单向
+        //不足：1只能发送GET请求 2无法访问服务器的响应脚本 只是浏览器与服务器间的单向通行
+        img.src = url;
+    }
+    imgPing( url, function () {
+            //   alert(1);
+    } );
+
+
+    //JSONP
+    //优点：<script>标签和<image>标枪类似的拥有不受限制地从其他域加载资源 与图像PING相比优点在于可以直接访问响应文本，支持浏览器和服务器间的双向通信
+    //不足：1.JSONP从其他域加载javascript 不能保证其安全性 可能含有恶意代码 2.无法确定JSONP是否请求失败 不得不使用计时器看是否接收了响应
+    function handleResponse( response ) {
+        W.log( response );
+        response && alert( "IP address: " + response.ip
+                + "<br/>city: " + response.city
+                + "<br/>region_name: " + response.region_name );
+    }
+
+    var src = "http://www.dell.com/";
+    function JSONP( src, callBack ) {
+        var script = document.createElement( "script" );
+        script.src = src + "?" + "callback=" + callBack;
+        document.body.insertBefore( script, document.body.firstChild );
+    }
+    JSONP( src, handleResponse,function(){
+       // alert(2);
+    });
+
+    //endregion
+
+
+    //region Comet 服务器推送
+
+    // P588 javascript高级程序设计 分长轮询和HTTP流2种 待完善
+
+    //为Comet创建的2个新接口 SSE API和Web Sockets
+
+    //SSE API  Server-Sent Events  ie不支持
+
+    var source = new EventSource( "myEvent.php" );
+    //事件有open message error
+    source.onmessage = function ( event ) {
+        var data = event.data;
+    };
+    //默认情况下 EventSource对象会保持和服务器的活动连接。如果连接断开，还会重新连接。意味着SSE适合长轮询和HTTP流 也使用close断开
+    source.close();
+
+
+    //Web Sockets 全双工 双向的通信 使用自定义协议ws 而不是使用http协议 ie不支持
+
+    var socket = new WebSocket( "ws://www.zodiac.com" ); //同源策略对socket不适用 因此可以通过socket打开任何站点链接
+
+    socket.send( "Hello World" );
+    //只能发送纯文本 可以使用JSON.stringify 字符串花
+
+    socket.onmessage = function ( event ) {
+        var data = event.data;
+    };
+    socket.onclose = function ( event ) {
+        W.log( event.wasClean + "  " + event.code + "   " + event.reason );
+    };
+
+
+    //状态值 WebSocket.OPENING(0) WebSocket.OPEN(1) WebSocket.CLOSING(2) WebSocket.CLOSE(3)
+    socket.close();
+
+
+    //endregion
+
+</script>
+
+
+</body>
+</html>

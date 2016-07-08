@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+
+<script>
+
+    var book = {
+                title : "JavaScript",
+                authors : ["Nickolas . Zakas"],
+                edition : 3,
+                year : 2011
+            },
+            jsonText;
+
+    //JSON序列化
+
+    //简单序列化  SON.stringify接受3个参数 第一个需要序列化的对象  第二个参数是一个过滤器 可以是数组也可以是一个函数
+    jsonText = JSON.stringify( book );
+
+    //过滤  结果只包含过滤器中的字段
+
+    jsonText = JSON.stringify( book, ["title", "edition"] );//数组
+    jsonText = JSON.stringify( book, function ( key, value ) {
+        switch ( key ) {
+            case "authors":
+                return value.join( "." );  //将authors的值 数组连接为一个字符串
+            case "year":
+                return 5000;
+            case "edition":
+                return undefined; //将edition的值设为undefined 在JSON中值为undefined的属性会被删除
+            default :
+                return value; //提供default 以便其他值能正常出现在结果中
+        }
+    } );
+
+    //缩进
+    jsonText = JSON.stringify( book, null, 4 ); //每个级别缩进4个字符 P568 只要设置了缩进 结果就会自动换行 易读
+    jsonText = JSON.stringify( book, null, "--" ); //设置缩进字符为"--"
+
+
+    //toJSON方法 添加toJson方法返回自身
+    book = {
+        title : "JavaScript",
+        authors : ["Nickolas . Zakas"],
+        edition : 3,
+        year : 2011,
+        toJSON : function () {
+            return this.title;
+        }
+    };
+
+
+    //解析JSON   JSON.parse()
+    book = {
+        title : "JavaScript",
+        authors : ["Nickolas . Zakas"],
+        edition : 3,
+        year : 2011,
+        releaseDate:new Date(2014,12,12)
+    };
+    jsonText=JSON.stringify(book);
+    var bookCopy=JSON.parse(jsonText,function(key,value){
+        if(key=="releaseDate"){
+            return new Date(value);
+        }else{
+            return value;
+        }
+    })
+
+
+
+</script>
+
+
+</body>
+</html>

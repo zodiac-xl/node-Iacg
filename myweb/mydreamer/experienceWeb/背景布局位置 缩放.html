@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>背景位置 缩放等</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<style type="text/css">
+body{
+background-image:url(../img/overscreen.jpg);
+
+background-position:center center;
+background-size:50% 50%;
+background-repeat:no-repeat;
+}
+#div1{
+	width:100%;
+	height:1000px;
+}
+#a{position: relative;
+color: red;
+position:absolute;
+left:50%;
+top:50%}
+</style>
+</head>
+<body>
+<div id="a">
+图片尺寸大于屏幕 background-position 非ie用background-siz  ie：下可以吧背景换为< image>吧它的层叠等级这位最低z-index:-1 
+</div>
+<div id="div1">
+测试专用内容：
+</div >
+
+								<!-- 
+							background-repeat:repeat-x/repeat-y/no-repeat
+							background-attachment:scroll/fixed
+					background-position 起始置 percent,length,center,right,lefth,middle,top,bottom;50%;
+
+								background-position:50% 50%
+								或background-position:center center背景不居中,
+								
+								背景图缩放 非ie用background-size
+								ie：下可以吧背景换为<image>吧它的层叠等级这位最低z-index:-1 
+								z-index层的优先级 默认值为0-->
+
+</body>
+<head>
+</html>

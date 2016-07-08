@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../css/reset.css" rel="stylesheet" type="text/css"/>
+<title>初识PHP5</title>
+<script src="../js/jquery.js" type="text/javascript"></script>
+<style type="text/css">
+body {
+	padding:100px 50px;
+	background: rgb(221, 221, 221);
+	font-size: 17px;
+	
+}
+strong {
+	display: block;
+	margin-top: 20px;
+	color: rgb(34, 34, 34);
+	font-size: 20px;
+}
+pre {
+	color: rgb(44, 44, 44);
+	
+}
+ .show{position:absolute;padding:50px;top:5%}
+ strong{background: rgb(179, 169, 169);
+line-height: 60px;
+font-family: "Comic Sans MS", cursive;
+color: rgb(73, 73, 73);
+font-size: 22px;
+position: relative;
+float: left;
+margin: 20px;
+width: 250px;
+height: 54px;
+text-align: center;
+vertical-align: middle;
+box-shadow: 7px 7px 5px rgb(114, 114, 114);
+border-radius: 32px 32px 10px 10px;}
+input[type="button"]{position: fixed;
+right: 10%;
+top: 50%;
+width: 50px;
+height: 34px;
+font-size: 22px;
+font-family: "Comic Sans MS", cursive;
+color: rgb(73, 73, 73);
+background: rgb(228, 217, 92);
+text-align: center;
+vertical-align: middle;
+box-shadow: -1px -1px 5px rgb(114, 114, 114);
+border-radius: 4px;opacity:0.5
+}
+input[type="button"]:hover{opacity:1;}
+</style>
+</head>
+
+<body>
+<strong>select的聚集函数</strong>
+<pre>
+  count(),count(*)计算表中记录的总数返回结果 这里由指定的若干列或所有列(*)确定
+  max,min 返回最大值或最小值 字符串转化为ASCLL码进行计算 select max(userName) from name
+  sum 返回某个数值列的数据总和select sum(id) from name
+  avg 返回某个数值的数据平均select avg(id) from name
+  group分组 select * from name group by userName 
+  having过滤为指定匹配项和where类似 select * from name group by userName having id like '%2%';过滤为id为2的项
+</pre>
+<strong>结果集排序</strong>
+<pre>
+ asc升序排序 desc降序排序
+ select * from name,hello order by job desc,introduce asc;
+</pre>
+<strong>关联查询</strong>
+<pre>
+  select * from name,hello;
+  同时检索2个表 结果是如果name有x行 hello有y行 产生记录为x*y行
+  
+   <font color="blue">1.内连接</font>
+    使用where子句及外键进行内连接查询
+    
+    select * from name where id="2" 使用where
+    select a.id,a.userName,b.introduce from name as a,hello as b where a.id=b.b_id; 使用as
+    
+   <font color="blue">2.外连接</font>
+    
+    select a.user_name,b.group_name from 
+    users as a,groups as b,users_groups as c where a.user_id=c.user_id and b.group_id=c.group_id
+  
+   <font color="blue">3.左右外连接</font>
+     lefe on
+      select a.user_id,a.user_name,b.group_id,b.group_name from
+      users as a left join groups as b on
+      a.user_id=b.group_id where b.group_id is null 找到users和groups2表中id相等的行
+      使用做外连接lefe on时 从查询的from部分指定的主表取得所有行，也包括连接表的所有行
+      附表不匹配条件的行中列值为null 使用is null轻松找出不和条件的值为null的行
+     当参加连接的表字段存在且所有参加连接的表中具有相同的字段名称 则可以用using来简化on语句 如using(user_id);代替on a.user_id=b.user_id;
+     
+    右外连接和左外连接执行相反操作 right join 附表取得所有行 主表不匹配的列值为null
+    
+   <font color="blue">主键</font>
+     主键是唯一非空的整数 确定主键时一般吧表的一列设为int整型 并规定为自增auto_increment MYSQL会自动识别主键 然后自动增加
+     
+   <font color="blue">子查询使用where 和having </font>
+       优先级 
+         包含在括号中的子查询 优先级高于比较和布尔、in和exists
+     子查询效率不高 一般用其他查询方式
+     
+    <font color="blue">联合查询</font>
+      union 和union all
+      select * from users union select *from groups;
+      
+      union是结合2个表中的结果 去除重复项得到结果表
+      union all是不去除重复 collate
+     
+         
+</pre>
+<strong></strong>
+<pre>
+
+</pre> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="button" value="返回"/>
+
+
+
+
+
+<script type="text/livescript">
+$(document).ready(function(e) {
+ 	$("pre").hide();
+	$("strong").click(function(e) {
+    $(this).next().show();
+	$(this).next().addClass("show");
+	$(document).scrollTop(0);
+	$("strong").hide();
+	});
+	$('input[value="返回"]').click(function(e){
+		$("strong").show();
+		$(document).scrollTop(0);
+		$(".show").removeClass("show");
+		$("pre").hide();
+	})
+})
+</script>
+</body>
+</html>

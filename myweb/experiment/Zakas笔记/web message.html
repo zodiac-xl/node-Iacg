@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>跨文档消息传递web message</title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+<canvas id="drawing"></canvas>
+<iframe src="webGl.html">
+</iframe>
+<script>
+
+
+    //发送信息
+    var iframeWindow = document.querySelector( "iframe" ).contentWindow;
+    iframeWindow.postMessage( "a message", "http://www.webMessagePost.com" ); //向iframeWindow发送的信息和表明自己身份
+
+
+    //监控信息
+    W.addHandler( window, "message", function ( event ) {
+        if ( event.origin == "http://www.webMessagePost.com" ) { //验证发送消息的域是已知的域
+
+            var data = event.data; //do something
+
+            //可选:向来源窗口发送回执
+            event.source.postMessage( "I received your present", "http://www.hello.com" );
+        }
+    } )
+
+
+</script>
+
+
+</body>
+</html>

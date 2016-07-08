@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>hasHChange监控url变化 历史状态管理</title>
+    <script src="../jquery.js"></script>
+    <script src="../xPc.js"></script>
+</head>
+<body>
+<div class="go">go</div>
+<div class="back">back</div>
+<script>
+    var go = document.querySelector( ".go" ),
+            back = document.querySelector( ".back" ),
+            url=window.location.href;
+
+
+    W.addHandler( go, "click", function () {
+        history.go(1);
+    } );
+
+    W.addHandler( back, "click", function () {
+        history.go(-1);
+    } );
+
+
+
+    W.addHandler( window, "hashchange", function () {
+
+        W.log( window.location.href );
+        //pushState在前端创造假的url和后台真url对应
+        history.pushState({name:url.hash},"new page");
+        //第一个参数 状态信息 用于初始化页面
+        // 第二个参数 新状态的标题（没有浏览器实现 可设为kong）
+        //第三个参数 可选的相对url 对应服务器的真实url
+    } );
+
+
+    //利用hashchange可以在页面未打开一个全新页面的情况下把改变写入history 使后退前进依然有效
+
+   //状态变化时触发 包括前进后退 在这里可以操作页面 载入服务器真实url的内容
+    W.addHandler(window,"popstate",function(event){
+
+        var state=event.state;
+        alert(state.name);
+        if(state){ //第一个页面加载时state为空
+            //do something
+        }
+    });
+
+    //replaceState不会再历史状态栈，只会重写当前的状态 改变popstate拿到的state
+       history.replaceState({name:"replace"},"haha");
+
+    window.location.href = url+ "#dsd";
+</script>
+
+
+</body>
+</html>

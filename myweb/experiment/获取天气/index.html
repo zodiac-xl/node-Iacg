@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>MJBlog天气预报-jQuery版</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="weather_mj.js" language="javascript"charset="UTF-8"></script>
+    <script type="text/javascript">
+        //创建天气预报核心对象
+        var weather_=new weather();
+        var city = "";
+        $(document).ready(function(){
+            $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',function(){
+                city=remote_ip_info.city;
+                jintian();
+                $(".city").html(remote_ip_info.city);
+            })
+        });
+    </script>
+    <style type="text/css">
+        .weather{ float:left; color:#333333; padding:10px;}
+        .weather a{ color:#333333;}
+        .wt{line-height:17px; font-size:12px; float:left; padding:3px 5px; text-align:center;}
+        .wtimg{ vertical-align:middle;padding:0px 1px; margin:0PX auto;}
+    </style>
+</head>
+<body>
+<div>当前城市：<span class="city"></span></div>
+<div class="weather">
+    <div class="wtimg" id="T_weather_img"></div>
+    <div class="wt">今 天<br /><span id="T_weather"></span><br /><span id="T_temperature"></span><br/><span id="T_direction"></span><br/><span id="T_wind"></span></div>
+</div>
+<div class="weather">
+    <div class="wtimg" id="M_weather_img"></div>
+    <div class="wt">明 天<br /><span id="M_weather"></span><br /><span id="M_temperature"></span><br/><span id="M_direction"></span><br/><span id="M_wind"></span></div>
+</div>
+<div class="weather">
+    <div class="wtimg" id="L_weather_img"></div>
+    <div class="wt">后 天<br /><span id="L_weather"></span><br /><span id="L_temperature"></span><br/><span id="L_direction"></span><br/><span id="L_wind"></span></div>
+</div>
+</div>
+</body>
+</html>

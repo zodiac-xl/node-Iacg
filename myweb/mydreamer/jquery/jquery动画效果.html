@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery动画效果</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<style type="text/css">
+body{padding: 30px 20%;background: rgb(221, 221, 221);}
+</style>
+</head>
+<dl>
+<dt>基本动画效果</dt>
+<dd>$("img").show(300,[callback])</dd>
+<dd>$("img").hide(300,[callback]) </dd>
+<dd>$("img").toggle()</dd>
+<dt>淡入淡出</dt>
+<dd>fadeIn(speed,[callback])</dd>
+<dd>fadeOut(speed,[callback])</dd>
+<dd>fadeTo(speed,opacity,[callback])</dd>
+<dt>滑动效果</dt>
+<dd>滑动显示slideDown(speed,[callback])</dd>
+<dd>滑动隐藏slideUp(speed,[callback])</dd>
+<dt>自定义动画</dt>
+<dd>animate(params,speed,callback)</dd>
+<dd>动画排队 $(".a").animate({left:300,top:100},1000).animate({top:200},100)</dd>
+<dd>stop动画 $(".a").stop("true","true") 第一个参数表示是否清空尚未执行的动画队列；第二个参数表示是否让正在执行的动画直接到达执行完成的状态
+</dl>
+
+<body>
+<script>
+	$(document).ready(function(e) {
+        $("table").attr('border','1');
+		$("table").css({'background':'rgb(214, 210, 210)',
+		'border-color': 'rgb(236, 221, 221)'});
+		$("caption").css({'color': 'rgb(32, 96, 211)','font-weight': '900','font-size': '22px'});
+    });
+</script>
+</body>
+</html>

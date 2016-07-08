@@ -1,10 +1,9 @@
 import React, { Component }         from 'react';
 
-import Navbar                       from 'react';
+import injectTapEventPlugin         from 'react-tap-event-plugin';
 
+injectTapEventPlugin();
 
-
-import  '../include/less/app.less';
 
 
 export default class Page extends Component {
@@ -20,23 +19,12 @@ export default class Page extends Component {
     renderHeader() {
     }
 
-    renderTopBar() {
-    }
 
     renderMain() {
     }
 
-    renderMainExtra() {
-    }
-
-    renderBottomBar() {
-    }
 
     renderFooter() {
-    }
-
-    renderDebug() {
-
     }
 
     render() {
@@ -44,17 +32,9 @@ export default class Page extends Component {
             <div>
                 <h1>I'm an base page!</h1>
                 {this.renderHeader()}
-                {this.renderTopBar()}
                 {this.renderMain()}
-                {this.renderMainExtra()}
-                {this.renderBottomBar()}
                 {this.renderFooter()}
-                {this.renderDebug()}
             </div>
         );
     }
-
-    componentDidMount() {
-    }
-
 };
